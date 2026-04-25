@@ -52,16 +52,25 @@
 })();
 
 (function () {
-  const form = document.getElementById('contact-form');
-  const status = document.getElementById('contact-status');
-  if (!form || !status) return;
+  function initContactForm() {
+    console.log('Contact form script loaded');
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('contact-status');
+    console.log('Form element:', form);
+    console.log('Status element:', status);
+    if (!form || !status) {
+      console.error('Contact form or status element not found');
+      return;
+    }
 
-  form.addEventListener('submit', event => {
-    event.preventDefault();
+    form.addEventListener('submit', event => {
+      console.log('Form submitted!');
+      event.preventDefault();
 
     const name = form.querySelector('[name="name"]').value.trim();
     const email = form.querySelector('[name="email"]').value.trim();
     const message = form.querySelector('[name="message"]').value.trim();
+    console.log('Form data:', { name, email, message });
 
     if (!name || !email || !message) {
       status.textContent = 'Please fill in your name, email, and message before sending.';
@@ -134,6 +143,14 @@
       status.className = 'contact-status error';
     });
   });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactForm);
+  } else {
+    initContactForm();
+  }
 })();
 
 /* ── SMOOTH SECTION COUNT (grants number decoration) */

@@ -82,6 +82,14 @@ console.log('🚀 team.js loaded');
         return;
       }
 
+      const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value;
+      
+      if (!turnstileToken) {
+        status.textContent = 'Please complete the security check.';
+        status.className = 'contact-status error';
+        return;
+      }
+
       const submissionId = crypto.randomUUID();
 
       function formatCST(date = new Date()) {
@@ -105,7 +113,7 @@ console.log('🚀 team.js loaded');
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, message, submissionId, timestamp, page: window.location.href })
+        body: JSON.stringify({ name, email, message, submissionId, timestamp, page: window.location.href, turnstileToken })
       })
       .then(response => {
         console.log('Worker response status:', response.status);

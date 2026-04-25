@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/team.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -386,6 +388,9 @@
           <input type="text" name="name" placeholder="Your name">
           <input type="email" name="email" placeholder="Your email">
         </div>
+
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADDQ1jvzwLXC57To" data-theme="dark"></div>
+
         <textarea name="message" rows="5" placeholder="Your message"></textarea>
         <button type="submit" class="btn btn-primary">Send Message</button>
         <p class="contact-status" id="contact-status" aria-live="polite"></p>

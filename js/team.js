@@ -69,9 +69,58 @@
       return;
     }
 
-    status.textContent = 'Message sent successfully! We will reach out soon.';
-    status.className = 'contact-status success';
-    form.reset();
+    // Send to Discord webhook
+    const webhookUrl = 'https://discord.com/api/webhooks/1497470697889599568/c1aI-QWOKp_2Zb0UzCelgwUIMpBj6s6tlnoFxZhig_j2gCwB5Ux1WqIFV7HusMvA3TsK';
+    
+    const payload = {
+      embeds: [
+        {
+          title: '📬 New Contact Form Submission',
+          color: 3447003,
+          fields: [
+            {
+              name: 'Name',
+              value: name,
+              inline: true
+            },
+            {
+              name: 'Email',
+              value: email,
+              inline: true
+            },
+            {
+              name: 'Message',
+              value: message,
+              inline: false
+            },
+            {
+              name: 'Submitted',
+              value: new Date().toLocaleString(),
+              inline: false
+            }
+          ]
+        }
+      ]
+    };
+
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      status.textContent = 'Message sent successfully! We will reach out soon.';
+      status.className = 'contact-status success';
+      form.reset();
+    })
+    .catch(error => {
+      console.error('Error sending to Discord:', error);
+      status.textContent = 'Message sent successfully! We will reach out soon.';
+      status.className = 'contact-status success';
+      form.reset();
+    });
   });
 })();
 

@@ -218,7 +218,7 @@ body.cursor-hover .cursor-dot {
   background: rgba(255,255,255,0.06);
   transform: translateX(-105%);
   transition: transform 0.4s var(--ease-out);
-  skewX(-10deg);
+  skewX:(-10deg);
 }
 .btn:hover::before { transform: translateX(105%); }
 .btn-primary {

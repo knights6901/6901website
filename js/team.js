@@ -60,6 +60,7 @@ console.log('🚀 team.js loaded');
     const status = document.getElementById('contact-status');
     console.log('Form element:', form);
     console.log('Status element:', status);
+
     if (!form || !status) {
       console.error('Contact form or status element not found');
       return;
@@ -69,85 +70,107 @@ console.log('🚀 team.js loaded');
       console.log('Form submitted!');
       event.preventDefault();
 
-    const name = form.querySelector('[name="name"]').value.trim();
-    const email = form.querySelector('[name="email"]').value.trim();
-    const message = form.querySelector('[name="message"]').value.trim();
-    console.log('Form data:', { name, email, message });
+      const name = form.querySelector('[name="name"]').value.trim();
+      const email = form.querySelector('[name="email"]').value.trim();
+      const message = form.querySelector('[name="message"]').value.trim();
 
-    if (!name || !email || !message) {
-      status.textContent = 'Please fill in your name, email, and message before sending.';
-      status.className = 'contact-status error';
-      return;
-    }
+      console.log('Form data:', { name, email, message });
 
-    // Send to Discord webhook
-    const webhookUrl = 'https://discord.com/api/webhooks/1497470697889599568/c1aI-QWOKp_2Zb0UzCelgwUIMpBj6s6tlnoFxZhig_j2gCwB5Ux1WqIFV7HusMvA3TsK';
-    
-    const payload = {
-      embeds: [
-        {
-          title: '📬 New Contact Form Submission',
-          color: 3447003,
-          fields: [
-            {
-              name: 'Name',
-              value: name,
-              inline: true
-            },
-            {
-              name: 'Email',
-              value: email,
-              inline: true
-            },
-            {
-              name: 'Message',
-              value: message,
-              inline: false
-            },
-            {
-              name: 'Submitted',
-              value: new Date().toLocaleString(),
-              inline: false
-            }
-          ]
-        }
-      ]
-    };
-
-    console.log('Sending to webhook:', webhookUrl);
-    console.log('Payload:', payload);
-
-    fetch(webhookUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    })
-    .then(response => {
-      console.log('Discord response status:', response.status);
-      if (!response.ok) {
-        return response.text().then(text => {
-          throw new Error(`Discord API error: ${response.status} - ${text}`);
-        });
+      if (!name || !email || !message) {
+        status.textContent = 'Please fill in your name, email, and message before sending.';
+        status.className = 'contact-status error';
+        return;
       }
-      return response;
-    })
-    .then(() => {
-      console.log('Successfully sent to Discord');
-      status.textContent = 'Message sent successfully! We will reach out soon.';
-      status.className = 'contact-status success';
-      form.reset();
-    })
-    .catch(error => {
-      console.error('Error sending to Discord:', error);
-      status.textContent = 'Error: ' + error.message;
-      status.className = 'contact-status error';
+
+      // 🆔 Submission ID (NEW)
+      const submissionId = crypto.randomUUID();
+
+      // Send to Discord webhook
+      const webhookUrl = 'https://discord.com/api/webhooks/1497470697889599568/c1aI-QWOKp_2Zb0UzCelgwUIMpBj6s6tlnoFxZhig_j2gCwB5Ux1WqIFV7HusMvA3TsK';
+
+const timestamp = new Date().toISOString();
+
+const payload = {
+  embeds: [
+    {
+      title: "📬 Knights Robotics — New Contact Submission",
+      color: 0x5d3194, // your purple theme
+      description: "A new message has been submitted through the website contact form.",
+      
+      fields: [
+        {
+          name: "👤 Name",
+          value: name,
+          inline: true
+        },
+        {
+          name: "📧 Email",
+          value: email,
+          inline: true
+        },
+        {
+          name: "🧾 Submission ID",
+          value: `\`${submissionId}\``,
+          inline: false
+        },
+        {
+          name: "💬 Message",
+          value: message,
+          inline: false
+        },
+        {
+          name: "⏱ Timestamp",
+          value: timestamp,
+          inline: true
+        },
+        {
+          name: "🌐 Page",
+          value: window.location.href,
+          inline: true
+        }
+      ],
+
+      footer: {
+        text: "Knights Robotics FRC 6901"
+      },
+
+      timestamp: timestamp
+    }
+  ]
+};
+      console.log('Sending to webhook:', webhookUrl);
+      console.log('Payload:', payload);
+
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        console.log('Discord response status:', response.status);
+        if (!response.ok) {
+          return response.text().then(text => {
+            throw new Error(`Discord API error: ${response.status} - ${text}`);
+          });
+        }
+        return response;
+      })
+      .then(() => {
+        console.log('Successfully sent to Discord');
+        status.textContent = 'Message sent successfully! We will reach out soon.';
+        status.className = 'contact-status success';
+        form.reset();
+      })
+      .catch(error => {
+        console.error('Error sending to Discord:', error);
+        status.textContent = 'Error: ' + error.message;
+        status.className = 'contact-status error';
+      });
     });
-  });
   }
 
-  // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initContactForm);
   } else {

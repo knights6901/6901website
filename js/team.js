@@ -2,6 +2,8 @@
    TEAM PAGE JS
    ============================================= */
 
+console.log('🚀 team.js loaded');
+
 /* ── TIMELINE STAGGER ──────────────────────── */
 (function () {
   const items = document.querySelectorAll('.t-item');

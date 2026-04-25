@@ -103,6 +103,9 @@
       ]
     };
 
+    console.log('Sending to webhook:', webhookUrl);
+    console.log('Payload:', payload);
+
     fetch(webhookUrl, {
       method: 'POST',
       headers: {
@@ -110,16 +113,25 @@
       },
       body: JSON.stringify(payload)
     })
+    .then(response => {
+      console.log('Discord response status:', response.status);
+      if (!response.ok) {
+        return response.text().then(text => {
+          throw new Error(`Discord API error: ${response.status} - ${text}`);
+        });
+      }
+      return response;
+    })
     .then(() => {
+      console.log('Successfully sent to Discord');
       status.textContent = 'Message sent successfully! We will reach out soon.';
       status.className = 'contact-status success';
       form.reset();
     })
     .catch(error => {
       console.error('Error sending to Discord:', error);
-      status.textContent = 'Message sent successfully! We will reach out soon.';
-      status.className = 'contact-status success';
-      form.reset();
+      status.textContent = 'Error: ' + error.message;
+      status.className = 'contact-status error';
     });
   });
 })();

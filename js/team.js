@@ -88,7 +88,19 @@ console.log('🚀 team.js loaded');
       // Send to Discord webhook
       const webhookUrl = 'https://discord.com/api/webhooks/1497470697889599568/c1aI-QWOKp_2Zb0UzCelgwUIMpBj6s6tlnoFxZhig_j2gCwB5Ux1WqIFV7HusMvA3TsK';
 
-const timestamp = new Date().toISOString();
+function formatCST(date = new Date()) {
+  return date.toLocaleString("en-US", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  }) + " CT";
+}
+
+      const timestamp = formatCST(new Date());
 
 const payload = {
   embeds: [

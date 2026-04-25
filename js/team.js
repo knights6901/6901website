@@ -82,101 +82,48 @@ console.log('🚀 team.js loaded');
         return;
       }
 
-      // 🆔 Submission ID (NEW)
       const submissionId = crypto.randomUUID();
 
-      // Send to Discord webhook
-      const webhookUrl = 'https://discord.com/api/webhooks/1497470697889599568/c1aI-QWOKp_2Zb0UzCelgwUIMpBj6s6tlnoFxZhig_j2gCwB5Ux1WqIFV7HusMvA3TsK';
-
-function formatCST(date = new Date()) {
-  return date.toLocaleString("en-US", {
-    timeZone: "America/Chicago",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  }) + " CT";
-}
+      function formatCST(date = new Date()) {
+        return date.toLocaleString("en-US", {
+          timeZone: "America/Chicago",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        }) + " CT";
+      }
 
       const timestamp = formatCST(new Date());
 
-const payload = {
-  embeds: [
-    {
-      title: "📬 Knights Robotics — New Contact Submission",
-      color: 0x5d3194, // your purple theme
-      description: "A new message has been submitted through the website contact form.",
-      
-      fields: [
-        {
-          name: "👤 Name",
-          value: name,
-          inline: true
-        },
-        {
-          name: "📧 Email",
-          value: email,
-          inline: true
-        },
-        {
-          name: "🧾 Submission ID",
-          value: `\`${submissionId}\``,
-          inline: false
-        },
-        {
-          name: "💬 Message",
-          value: message,
-          inline: false
-        },
-        {
-          name: "⏱ Timestamp",
-          value: timestamp,
-          inline: true
-        },
-        {
-          name: "🌐 Page",
-          value: window.location.href,
-          inline: true
-        }
-      ],
+      console.log('Sending to Cloudflare Worker...');
 
-      footer: {
-        text: "Knights Robotics FRC 6901"
-      },
-
-      timestamp: timestamp
-    }
-  ]
-};
-      console.log('Sending to webhook:', webhookUrl);
-      console.log('Payload:', payload);
-
-      fetch(webhookUrl, {
+      fetch('https://website-discord-webhook.team-67a.workers.dev', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ name, email, message, submissionId, timestamp, page: window.location.href })
       })
       .then(response => {
-        console.log('Discord response status:', response.status);
+        console.log('Worker response status:', response.status);
         if (!response.ok) {
           return response.text().then(text => {
-            throw new Error(`Discord API error: ${response.status} - ${text}`);
+            throw new Error(`Worker error: ${response.status} - ${text}`);
           });
         }
         return response;
       })
       .then(() => {
-        console.log('Successfully sent to Discord');
+        console.log('Successfully sent via Worker');
         status.textContent = 'Message sent successfully! We will reach out soon.';
         status.className = 'contact-status success';
         form.reset();
       })
       .catch(error => {
-        console.error('Error sending to Discord:', error);
+        console.error('Error sending via Worker:', error);
         status.textContent = 'Error: ' + error.message;
         status.className = 'contact-status error';
       });

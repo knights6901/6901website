@@ -7,19 +7,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   keywords="FRC, 6901 Knights, Robots, Robotics, STEM"
   currentPage="home"
 >
-  <link slot="head" rel="stylesheet" href="/css/team.css">
+  <link slot="head" rel="stylesheet" href="/css/index.css">
 
-  <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <img class="page-hero-photo" src="/images/teampic.avif" alt="">
-    <div class="page-hero-inner">
-      <div class="page-eyebrow">FRC Team 6901 &mdash; Frisco, TX</div>
-      <h1 class="page-title">Knights<br><em>Robotics</em></h1>
-      <p class="page-desc">
+  <div class="hero">
+    <div class="hero-noise"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-number">6901</div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">FRC Team 6901 &mdash; Frisco, TX</div>
+      <h1 class="hero-title">Knights<br><em>Robotics</em></h1>
+      <p class="hero-sub">
         Enriching students through competitive robotics — building creative thinkers,
         problem-solvers, and future leaders through STEM.
       </p>
-      <div class="hero-cta" style="display:flex; gap:1rem; margin-top:2rem; flex-wrap:wrap;">
+      <div class="hero-cta">
         <a href="/team" class="btn btn-primary">
           <i class="fa-solid fa-arrow-right"></i> Explore the Team
         </a>
@@ -27,6 +28,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <i class="fab fa-instagram"></i> Instagram
         </a>
       </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-hint-line"></div>
+      Scroll
     </div>
   </div>
 </BaseLayout>

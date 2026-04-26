@@ -129,6 +129,14 @@ console.log('🚀 team.js loaded');
         status.textContent = 'Message sent successfully! We will reach out soon.';
         status.className = 'contact-status success';
         form.reset();
+        
+        // Reset Turnstile widget to prevent token reuse
+        if (window.turnstile) {
+          const turnstileContainer = form.querySelector('.cf-turnstile');
+          if (turnstileContainer) {
+            window.turnstile.reset(turnstileContainer);
+          }
+        }
       })
       .catch(error => {
         console.error('Error sending via Worker:', error);

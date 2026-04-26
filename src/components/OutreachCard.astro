@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  delay?: 'delay-1' | 'delay-2' | 'delay-3';
+}
+const { title, description, image, imageAlt, delay } = Astro.props;
+---
+<div class={`o-card reveal${delay ? ` ${delay}` : ''}`}>
+  <div class="o-card-bar"></div>
+  <div style="overflow:hidden;">
+    <img class="o-card-img" src={image} alt={imageAlt}>
+  </div>
+  <div class="o-card-body">
+    <div class="o-card-title">{title}</div>
+    <p class="o-card-desc">{description}</p>
+  </div>
+</div>

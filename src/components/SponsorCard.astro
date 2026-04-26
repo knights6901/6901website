@@ -1,0 +1,16 @@
+---
+interface Props {
+  name: string;
+  logo: string;
+  description: string;
+  url: string;
+  delay?: 'delay-1' | 'delay-2' | 'delay-3';
+}
+const { name, logo, description, url, delay } = Astro.props;
+---
+<div class={`sp-card reveal${delay ? ` ${delay}` : ''}`}>
+  <img src={logo} alt={name}>
+  <div class="sp-card-name">{name}</div>
+  <p class="sp-card-desc">{description}</p>
+  <a href={url} target="_blank" rel="noopener" class="sp-card-link">Visit {name}</a>
+</div>

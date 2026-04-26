@@ -54,8 +54,8 @@ button { font-family: var(--font-body); cursor: pointer; }
   position: fixed; top: 0; left: 0;
   pointer-events: none;
   z-index: 10000;
-  transform: translate(-50%, -50%);
-  transition: transform 0.08s, width 0.2s, height 0.2s, background 0.2s;
+  will-change: transform;
+  transition: width 0.2s, height 0.2s, background 0.2s;
 }
 .cursor-ring {
   width: 32px; height: 32px;
@@ -64,8 +64,9 @@ button { font-family: var(--font-body); cursor: pointer; }
   position: fixed; top: 0; left: 0;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.18s var(--ease-out), width 0.3s, height 0.3s, border-color 0.2s;
+  will-change: transform;
+  /* transition on transform = compositor-thread lag effect, replaces JS rAF lerp */
+  transition: transform 0.22s var(--ease-out), width 0.3s, height 0.3s, border-color 0.2s;
 }
 body.cursor-hover .cursor-ring {
   width: 52px; height: 52px;

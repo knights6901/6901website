@@ -1,0 +1,92 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  keywords?: string;
+  currentPage?: 'home' | 'team' | 'pictures';
+}
+
+const {
+  title,
+  description = '',
+  keywords = 'FRC, 6901 Knights, Robots, Robotics, STEM',
+  currentPage = 'home',
+} = Astro.props;
+
+const isTeam = currentPage === 'team';
+const isPictures = currentPage === 'pictures';
+// On the team page, nav anchor links are relative (#about) so the page
+// transition JS (which skips href="#...") leaves them as smooth scrolls.
+// From other pages they become absolute cross-page links (/team#about).
+const teamBase = isTeam ? '' : '/team';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>{title}</title>
+  {description && <meta name="description" content={description}>}
+  <meta name="keywords" content={keywords}>
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <slot name="head" />
+</head>
+<body>
+
+  <header class={`site-header${isPictures ? ' scrolled' : ''}`} id="hdr">
+    <a href="/" class="header-logo">
+      <img src="/images/Robotics Logo.png" alt="Knights Robotics Logo">
+      Knights <span>Robotics</span>
+    </a>
+    <nav class="header-nav">
+      <a href={`${teamBase}#about`}>About</a>
+      <a href={`${teamBase}#frc`}>FRC</a>
+      <a href={`${teamBase}#seasons`}>Seasons</a>
+      <a href={`${teamBase}#outreach`}>Outreach</a>
+      <a href={`${teamBase}#sponsors`}>Sponsors</a>
+      <a href="/pictures">Photos</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href={`${teamBase}#about`}>About</a>
+    <a href={`${teamBase}#frc`}>FRC</a>
+    <a href={`${teamBase}#seasons`}>Seasons</a>
+    <a href={`${teamBase}#outreach`}>Outreach</a>
+    <a href={`${teamBase}#sponsors`}>Sponsors</a>
+    <a href="/pictures">Photos</a>
+  </nav>
+
+  <slot />
+
+  <footer class="site-footer">
+    <div class="footer-brand">Knights <span>Robotics</span> &middot; FRC 6901</div>
+    <nav class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/team">Team Info</a>
+      <a href="/pictures">Photos</a>
+      <a href="/team#sponsors">Sponsors</a>
+      <a href="/team#packages">Partner With Us</a>
+      <a href="/team#contact">Contact Us</a>
+    </nav>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+    <div class="footer-copy">
+      &copy; Knights Robotics FRC 6901 &mdash; Frisco, TX
+    </div>
+  </footer>
+
+  <script is:inline src="/js/main.js"></script>
+  <slot name="scripts" />
+
+</body>
+</html>

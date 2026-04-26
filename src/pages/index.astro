@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="FRC 6901 — Knights Robotics"
+  description="Team 6901 strives to enrich students and nurture their creative thinking, problem-solving, and leadership skills while allowing for a STEM-based competitive robotics opportunity."
+  keywords="FRC, 6901 Knights, Robots, Robotics, STEM"
+  currentPage="home"
+>
+  <link slot="head" rel="stylesheet" href="/css/team.css">
+
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <img class="page-hero-photo" src="/images/teampic.avif" alt="">
+    <div class="page-hero-inner">
+      <div class="page-eyebrow">FRC Team 6901 &mdash; Frisco, TX</div>
+      <h1 class="page-title">Knights<br><em>Robotics</em></h1>
+      <p class="page-desc">
+        Enriching students through competitive robotics — building creative thinkers,
+        problem-solvers, and future leaders through STEM.
+      </p>
+      <div class="hero-cta" style="display:flex; gap:1rem; margin-top:2rem; flex-wrap:wrap;">
+        <a href="/team" class="btn btn-primary">
+          <i class="fa-solid fa-arrow-right"></i> Explore the Team
+        </a>
+        <a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" class="btn btn-ghost">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

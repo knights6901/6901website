@@ -11,25 +11,14 @@
   document.body.appendChild(dot);
   document.body.appendChild(ring);
 
-  let mx = -100, my = -100;
-  let rx = -100, ry = -100;
-  let raf;
-
+  // Use transform instead of left/top — avoids layout reflow and lets the
+  // ring's CSS transition run on the compositor thread (smooth even when the
+  // main thread is busy, e.g. canvas animation on the home page).
   document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
+    const t = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    dot.style.transform  = t;
+    ring.style.transform = t;
   });
-
-  function animRing() {
-    rx += (mx - rx) * 0.22;
-    ry += (my - ry) * 0.22;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    raf = requestAnimationFrame(animRing);
-  }
-  animRing();
 
   document.querySelectorAll('a, button, .g-item, .sp-card, .stat, .pkg').forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));

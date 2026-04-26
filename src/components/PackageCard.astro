@@ -1,0 +1,17 @@
+---
+interface Props {
+  tier: string;
+  amount: string;
+  benefits: string[];
+  delay?: 'delay-1' | 'delay-2' | 'delay-3';
+}
+const { tier, amount, benefits, delay } = Astro.props;
+---
+<div class={`pkg reveal${delay ? ` ${delay}` : ''}`}>
+  <div class="pkg-highlight"></div>
+  <div class="pkg-tier">{tier}</div>
+  <div class="pkg-amount">{amount}</div>
+  <ul class="pkg-list">
+    {benefits.map(b => <li set:html={b} />)}
+  </ul>
+</div>

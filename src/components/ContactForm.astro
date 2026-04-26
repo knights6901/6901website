@@ -1,0 +1,28 @@
+---
+// No props — self-contained contact form with Cloudflare Turnstile
+---
+<section class="contact-panel reveal" id="contact">
+  <div class="contact-panel-inner">
+    <div class="section-label">Contact</div>
+    <h2 class="section-heading">Contact<br><em>Us</em></h2>
+    <p class="contact-copy">
+      Have a question about outreach, sponsorship, or joining the team? Send us a message below
+      or email <a href="mailto:outreach@knights6901.org">outreach@knights6901.org</a>.
+    </p>
+    <form class="contact-form" id="contact-form">
+      <div class="contact-row">
+        <input type="text" name="name" placeholder="Your name">
+        <input type="email" name="email" placeholder="Your email">
+      </div>
+      <textarea name="message" rows="5" placeholder="Your message"></textarea>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAADDQ1jvzwLXC57To" data-theme="dark"></div>
+      <button type="submit" class="btn btn-primary">Send Message</button>
+      <p class="contact-status" id="contact-status" aria-live="polite"></p>
+      <p class="contact-note">
+        Or send an email to <a href="mailto:outreach@knights6901.org">outreach@knights6901.org</a>.
+      </p>
+    </form>
+  </div>
+</section>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>

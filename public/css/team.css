@@ -178,7 +178,7 @@ section.alt { background: rgba(123,31,162,0.1); border-top: 1px solid var(--bord
   opacity: 0.8;
   color: var(--purple-light);
   stroke: var(--purple-light);
-  stroke-width: 1.25px;
+  stroke-width: 1px !important;
 }
 
 /* ── OUTREACH GRID ─────────────────────────── */

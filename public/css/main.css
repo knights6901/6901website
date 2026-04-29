@@ -217,11 +217,10 @@ body.cursor-hover .cursor-dot {
   content: '';
   position: absolute; inset: 0;
   background: rgba(255,255,255,0.06);
-  transform: translateX(-105%);
+  transform: translateX(-105%) skewX(-10deg);
   transition: transform 0.4s var(--ease-out);
-  skewX:(-10deg);
 }
-.btn:hover::before { transform: translateX(105%); }
+.btn:hover::before { transform: translateX(105%) skewX(-10deg); }
 .btn-primary {
   background: var(--purple);
   color: #fff;
@@ -316,4 +315,12 @@ body.cursor-hover .cursor-dot {
   .header-nav  { display: none; }
   .hamburger   { display: flex; }
   .site-footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+}
+
+/* ── ICONS ─────────────────── */
+.icon {
+  width: 24px;
+  height: 24px;
+  color: var(--purple-light);
+  transition: color 0.3s;
 }

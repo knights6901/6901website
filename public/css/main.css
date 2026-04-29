@@ -316,11 +316,3 @@ body.cursor-hover .cursor-dot {
   .hamburger   { display: flex; }
   .site-footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
 }
-
-/* ── ICONS ─────────────────── */
-.icon, .icon svg {
-  width: 40px !important;
-  height: 40px !important;
-  color: var(--purple-light);
-  transition: color 0.3s;
-}

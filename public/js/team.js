@@ -153,7 +153,7 @@ console.log('🚀 team.js loaded');
   }
 })();
 
-/* ── SMOOTH SECTION COUNT (grants number decoration) */
+/* ── SECTION ACTIVE NAV LINK ────────────────────────────────── */
 (function () {
   // Highlight active nav link based on scroll position
   const sections = document.querySelectorAll('section[id]');

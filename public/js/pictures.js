@@ -18,7 +18,7 @@ const PHOTOS = [
   { src: '/images/photo_gallery/2019 DEEP SPACE.avif',         alt: '2019 Team Picture',        label: '2019 — Deep Space',      year: 'history' },
   { src: '/images/photo_gallery/2020 INFINITE RECHARGE.webp',  alt: '2020 Field',               label: '2020 — Infinite Recharge', year: 'history' },
   { src: '/images/photo_gallery/2021 VIRTUAL CHALLENGE.webp',  alt: 'Virtual Challenge',        label: '2021 — Virtual Challenge', year: 'history' },
-  { src: '/images/photo_gallery/IMG_2295.JPG',  alt: '2026 Pit crew front view',        label: '2026 — Pit Crew', year: '2026' },
+  { src: '/images/photo_gallery/IMG_2295.JPG',                alt: '2026 Pit crew front view',  label: '2026 — Pit Crew ',          year: '2026' },
 ];
 
 /* ── BUILD GALLERY ─────────────────────────── */

@@ -11,14 +11,16 @@ const PHOTOS = [
   { src: '/images/photo_gallery/IMG_3670.avif',   alt: '2023 Seniors getting ready',            label: '2023 — Seniors',         year: '2023' },
   { src: '/images/photo_gallery/IMG_3681.avif',   alt: '2023 Inside of pit crew angle',         label: '2023 — Pit View',        year: '2023' },
   { src: '/images/photo_gallery/IMG_3685.avif',   alt: '2023 Pit crew top view',                label: '2023 — Top View',        year: '2023' },
-  { src: '/images/photo_gallery/senoirs2023.webp', alt: '2023 Senior picture with awards',      label: '2023 — Senior Awards',   year: '2023' },
+  { src: '/images/photo_gallery/senoirs2023.webp',alt: '2023 Senior picture with awards',       label: '2023 — Senior Awards',   year: '2023' },
   { src: '/images/photo_gallery/IMG_4566.avif',   alt: '2023 Scouts planning strategy',         label: '2023 — Scouting',        year: '2023' },
   { src: '/images/photo_gallery/IMG_4571.avif',   alt: '2023 Scouts talking strategy',          label: '2023 — Strategy',        year: '2023' },
   { src: '/images/photo_gallery/2018 POWER UP.avif',           alt: '2018 Power Up Robot',      label: '2018 — Power Up',        year: 'history' },
   { src: '/images/photo_gallery/2019 DEEP SPACE.avif',         alt: '2019 Team Picture',        label: '2019 — Deep Space',      year: 'history' },
   { src: '/images/photo_gallery/2020 INFINITE RECHARGE.webp',  alt: '2020 Field',               label: '2020 — Infinite Recharge', year: 'history' },
   { src: '/images/photo_gallery/2021 VIRTUAL CHALLENGE.webp',  alt: 'Virtual Challenge',        label: '2021 — Virtual Challenge', year: 'history' },
-  { src: '/images/photo_gallery/IMG_2295.avif',                 alt: '2026 Pit Crew front view', label: '2026 — Pit Crew',          year: '2026' },
+  { src: '/images/photo_gallery/IMG_2295.avif',                alt: '2026 Pit Crew front view', label: '2026 — Pit Crew',          year: '2026' },
+  { src: '/images/photo_gallery/IMG_2293.avif',   alt: '2026 Competition field side view',      label: '2026 — Competition Field', year: '2026' },
+  { src: '/images/photo_gallery/IMG_2358.avif',   alt: '2026 Robot shooting in field',          label: '2026 — Match Day',          year: '2026' },
 ];
 
 /* ── BUILD GALLERY ─────────────────────────── */

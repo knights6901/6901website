@@ -23,11 +23,19 @@ const PHOTOS = [
   { src: '/images/photo_gallery/IMG_2358.avif',   alt: '2026 Robot shooting in field',          label: '2026 — Match Day',          year: '2026' },
   { src: '/images/photo_gallery/match.avif',      alt: '2026 Team announced during match',      label: '2026 — Match Day',          year: '2026' },
   { src: '/images/photo_gallery/match2.avif',                  alt: '2026 Drive team',          label: '2026 — Match Day',          year: '2026' },
-  { src: '/images/photo_gallery/pitcrew.avif',   alt: 'Pit crew wokring hard',                  label: '2026 — Pit Crew',           year: '2026' },
-  { src: '/images/photo_gallery/programming.avif', alt: '2026 Programming team in pit',         label: '2026 — Pit crew',          year: '2026' },
-  { src: '/images/photo_gallery/robot.avif',   alt: '2026 Robot shooting in field 2',           label: '2026 — Match Day',          year: '2026' },
-  { src: '/images/photo_gallery/robotfield.avif',   alt: '2026 Robot shooting in field 3',      label: '2026 — Match Day',          year: '2026' },
+  { src: '/images/photo_gallery/pitcrew.avif',    alt: 'Pit crew wokring hard',                 label: '2026 — Pit Crew',           year: '2026' },
+  { src: '/images/photo_gallery/programming.avif',alt: '2026 Programming team in pit',          label: '2026 — Pit crew',           year: '2026' },
+  { src: '/images/photo_gallery/robot.avif',      alt: '2026 Robot shooting in field 2',        label: '2026 — Match Day',          year: '2026' },
+  { src: '/images/photo_gallery/robotfield.avif', alt: '2026 Robot shooting in field 3',        label: '2026 — Match Day',          year: '2026' },
   { src: '/images/photo_gallery/robotled.avif',   alt: '2026 Robot with leds',                  label: '2026 — Match Day',          year: '2026' },
+  { src: '/images/photo_gallery/award.webp',      alt: '2025 Rising allstar award',             label: '2025 — Team Award',         year: '2025' },
+  { src: '/images/photo_gallery/compfield.webp',  alt: '2025 Competition field side view',      label: '2025 — Competition Field',  year: '2025' },
+  { src: '/images/photo_gallery/robot.webp',      alt: '2025 Robot on match field',             label: '2025 — Match Day',          year: '2025' },
+  { src: '/images/photo_gallery/robot2.webp',     alt: '2025 Robot before match',               label: '2025 — Match Day',          year: '2025' },
+  { src: '/images/photo_gallery/robot3.webp',     alt: '2025 Robot before match 2',             label: '2025 — Match Day',          year: '2025' },
+  { src: '/images/photo_gallery/robot4.webp',     alt: '2025 Robot on match field',             label: '2025 — Match Day',          year: '2025' },
+  { src: '/images/photo_gallery/team.webp',       alt: '2025 Team with robot',                  label: '2025 — Team',               year: '2025' },
+  { src: '/images/photo_gallery/team2.webp',      alt: '2025 Team picture',                     label: '2025 — Team',               year: '2025' },
 ];
 
 /* ── BUILD GALLERY ─────────────────────────── */

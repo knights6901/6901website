@@ -36,6 +36,15 @@ const PHOTOS = [
   { src: '/images/photo_gallery/robot4.webp',     alt: '2025 Robot on match field',             label: '2025 — Match Day',          year: '2025' },
   { src: '/images/photo_gallery/team.webp',       alt: '2025 Team with robot',                  label: '2025 — Team',               year: '2025' },
   { src: '/images/photo_gallery/team2.webp',      alt: '2025 Team picture',                     label: '2025 — Team',               year: '2025' },
+  { src: '/images/photo_gallery/cheering2024.avif',           alt: '2024 Team cheering',        label: '2024 — Team Spirit',        year: '2024' },
+  { src: '/images/photo_gallery/driveteam(2)2024.avif',       alt: '2024 Drive Team',           label: '2024 — Match Day',          year: '2024' },
+  { src: '/images/photo_gallery/pitcrew2024.avif',            alt: '2024 Pit crew side view',   label: '2024 — Pit Crew',           year: '2024' },
+  { src: '/images/photo_gallery/robot(2)2024.avif',           alt: '2024 Robot in field',       label: '2024 — Match Day',          year: '2024' },
+  { src: '/images/photo_gallery/robot(3)2024.avif',           alt: '2024 Robot in field 2',     label: '2024 — Match Day',          year: '2024' },
+  { src: '/images/photo_gallery/robot(4)2024.avif',           alt: '2024 Robot in field 3',     label: '2024 — Match Day',          year: '2024' },
+  { src: '/images/photo_gallery/driveteam2024.avif',          alt: '2024 Drive Team 2',         label: '2024 — Match Day',          year: '2024' },
+  { src: '/images/photo_gallery/teampic(2)2024.avif',         alt: '2024 Team picture',         label: '2024 — Team',               year: '2024' },
+  { src: '/images/photo_gallery/teampics2024.avif',           alt: '2024 Team picture',         label: '2024 — Team',               year: '2024' },
 ];
 
 /* ── BUILD GALLERY ─────────────────────────── */

@@ -43,7 +43,6 @@ const PHOTOS = [
   { src: '/images/photo_gallery/robot_3_3024.avif',           alt: '2024 Robot in field 2',     label: '2024 — Match Day',          year: '2024' },
   { src: '/images/photo_gallery/robot_4_2024.avif',           alt: '2024 Robot in field 3',     label: '2024 — Match Day',          year: '2024' },
   { src: '/images/photo_gallery/driveteam_2_2024.avif',          alt: '2024 Drive Team 2',         label: '2024 — Match Day',          year: '2024' },
-  { src: '/images/photo_gallery/teampic_2_2024.avif',         alt: '2024 Team picture',         label: '2024 — Team',               year: '2024' },
   { src: '/images/photo_gallery/teampic2024.avif',            alt: '2024 Team picture',         label: '2024 — Team',               year: '2024' },
 ];
 

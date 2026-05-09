@@ -8,9 +8,22 @@ interface Props {
 }
 const { name, logo, description, url, delay } = Astro.props;
 ---
-<div class={`sp-card reveal${delay ? ` ${delay}` : ''}`}>
-  <img src={logo} alt={name}>
-  <div class="sp-card-name">{name}</div>
-  <p class="sp-card-desc">{description}</p>
-  <a href={url} target="_blank" rel="noopener" class="sp-card-link">Visit {name}</a>
-</div>
+<a href={url} target="_blank" rel="noopener" class={`sp-card-link-wrapper`}>
+  <div class={`sp-card reveal${delay ? ` ${delay}` : ''}`}>
+    <img src={logo} alt={name}>
+    <div class="sp-card-name">{name}</div>
+    <p class="sp-card-desc">{description}</p>
+  </div>
+</a>
+
+<style>
+  .sp-card-link-wrapper {
+    display: block;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .sp-card-link-wrapper:hover {
+    transform: translateY(-4px);
+  }
+</style>

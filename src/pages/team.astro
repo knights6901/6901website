@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import OutreachCard from '../components/OutreachCard.astro';
-import SponsorCard from '../components/SponsorCard.astro';
 import PackageCard from '../components/PackageCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 
@@ -32,20 +31,29 @@ const sponsors = [
     logo: '/images/partner_logos/boeing.png',
     description: 'With generous support, Boeing provided critical funding that helped our team grow and compete at higher levels, empowering our students to reach new heights in STEM education.',
     url: 'https://www.boeing.com/',
+    tier: 'Prince / Princess',
   },
   {
     name: 'Leidos',
     logo: '/images/partner_logos/leidos.png',
     description: 'Leidos\' sponsorship enabled us to access advanced technology and resources, enhancing our team\'s capabilities and providing invaluable opportunities for our students — a key partner in our journey.',
     url: 'https://www.leidos.com/',
+    tier: 'Prince / Princess',
   },
   {
     name: 'Raising Cane\'s',
     logo: '/images/partner_logos/raisingcanes.png',
     description: 'Raising Cane\'s support fueled our team\'s growth and success, providing essential resources that allowed us to compete and thrive in the FIRST Robotics Competition.',
     url: 'https://raisingcanes.com/home/?utm_source=cpc&utm_medium=googleads&utm_term=na&utm_campaign=nmf&gad_source=1&gad_campaignid=19414481723&gbraid=0AAAAApKLZqendOQekNVzHfjMF0kjuIhE0&gclid=CjwKCAjwtcHPBhADEiwAWo3sJqYC7iZ04ZWcPO43wGX9MGYwhuK5anU3RysotlEtaP-ksagJ9Wc9UxoCig0QAvD_BwE',
+    tier: 'Squire',
   },
 ];
+
+const groupedSponsors = sponsors.reduce((acc, sponsor) => {
+  if (!acc[sponsor.tier]) acc[sponsor.tier] = [];
+  acc[sponsor.tier].push(sponsor);
+  return acc;
+}, {} as Record<string, typeof sponsors>);
 
 const packages = [
   {
@@ -251,17 +259,30 @@ const packages = [
     <p class="section-intro reveal delay-2" style="text-align:center;">
       We're grateful to the organizations that have provided financial contributions and equipment to make our team's work possible.
     </p>
-    <div class="sponsors-grid">
-      {sponsors.map((s, i) => (
-        <SponsorCard
-          name={s.name}
-          logo={s.logo}
-          description={s.description}
-          url={s.url}
-          delay={i > 0 ? `delay-${Math.min(i, 3)}` as any : undefined}
-        />
-      ))}
-    </div>
+    {
+      Object.entries(groupedSponsors).map(([tier, tierSponsors], tierIndex) => (
+        <div class="tier-section">
+          <h3 class={`tier-heading reveal ${tierIndex > 0 ? 'tier-heading-margin' : ''}`} style="text-align: center; margin: 2rem 0 1rem;">{tier}</h3>
+          <ul class="sponsors-list">
+            {tierSponsors.map((s, i) => (
+              <li class={`sponsor-item reveal ${i > 0 ? `delay-${Math.min(i, 3)}` : ''}`}>
+                <div class="sponsor-content">
+                  <a href={s.url} target="_blank" rel="noopener" class="sponsor-logo-link">
+                    <img src={s.logo} alt={s.name} class="sponsor-logo">
+                  </a>
+                  <div class="sponsor-details">
+                    <a href={s.url} target="_blank" rel="noopener" class="sponsor-name">
+                      {s.name}
+                    </a>
+                    <p class="sponsor-description">{s.description}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
   </section>
 
   <!-- SPONSORSHIP PACKAGES -->

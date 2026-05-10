@@ -159,7 +159,9 @@ const packages = [
   <section id="frc" class="default">
     <div class="two-col">
       <div class="photo-frame reveal-left">
-        <img src="/images/partner_logos/FRCLogo.svg" alt="FRC Competition">
+        <a href="https://www.firstinspires.org/programs/frc/" target="_blank" rel="noopener noreferrer">
+          <img src="/images/partner_logos/FRCLogo.svg" alt="FRC Competition">
+        </a>
       </div>
       <div>
         <div class="section-label reveal">About FRC</div>
@@ -241,16 +243,156 @@ const packages = [
     </p>
     <div class="outreach-grid">
       {outreachItems.map((item, i) => (
-        <OutreachCard
-          title={item.title}
-          description={item.description}
-          image={item.image}
-          imageAlt={item.imageAlt}
-          delay={i > 0 ? `delay-${i}` as any : undefined}
-        />
+        <button
+          class={`outreach-card-button reveal${i > 0 ? ` delay-${i}` : ''}`}
+          type="button"
+          data-title={item.title}
+          data-description={item.description}
+          data-image={item.image}
+          data-alt={item.imageAlt}
+        >
+          <OutreachCard
+            title={item.title}
+            description={item.description}
+            image={item.image}
+            imageAlt={item.imageAlt}
+          />
+        </button>
       ))}
     </div>
+
+    <div id="outreach-modal" class="outreach-modal" hidden aria-hidden="true">
+      <div class="outreach-modal-backdrop" data-close></div>
+      <div class="outreach-modal-panel">
+        <button type="button" class="outreach-modal-close" data-close aria-label="Close">×</button>
+        <img id="outreach-modal-image" src="" alt="">
+        <div class="outreach-modal-copy">
+          <h3 id="outreach-modal-title"></h3>
+          <p id="outreach-modal-description"></p>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <style>
+    .outreach-card-button {
+      all: unset;
+      display: block;
+      width: 100%;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .outreach-modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 1000;
+    }
+
+    .outreach-modal[hidden] {
+      display: none;
+    }
+
+    .outreach-modal-panel {
+      position: relative;
+      width: min(940px, 100%);
+      max-height: min(90vh, 100%);
+      background: #111;
+      border-radius: 1.25rem;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .outreach-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: none;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .outreach-modal img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      max-height: 70vh;
+      margin: 0 auto;
+      background: #000;
+    }
+
+    .outreach-modal-copy {
+      padding: 1.5rem;
+      color: #f4f4f4;
+      background: #0f0f0f;
+      line-height: 1.6;
+    }
+
+    .outreach-modal-copy h3 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(1.4rem, 2vw, 2rem);
+    }
+
+    .outreach-modal-copy p {
+      margin: 0;
+      color: #d1d1d1;
+    }
+  </style>
+
+  <script>
+    const modal = document.getElementById('outreach-modal') as HTMLDivElement | null;
+    const modalImage = document.getElementById('outreach-modal-image') as HTMLImageElement | null;
+    const modalTitle = document.getElementById('outreach-modal-title') as HTMLElement | null;
+    const modalDescription = document.getElementById('outreach-modal-description') as HTMLElement | null;
+
+    if (modal && modalImage && modalTitle && modalDescription) {
+      const openOutreachModal = (button: HTMLButtonElement) => {
+        modalImage.src = button.dataset.image || '';
+        modalImage.alt = button.dataset.alt || button.dataset.title || 'Outreach image';
+        modalTitle.textContent = button.dataset.title || '';
+        modalDescription.textContent = button.dataset.description || '';
+        modal.hidden = false;
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeOutreachModal = () => {
+        modal.hidden = true;
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        modalImage.src = '';
+      };
+
+      document.querySelectorAll<HTMLButtonElement>('.outreach-card-button').forEach((button) => {
+        button.addEventListener('click', () => openOutreachModal(button));
+      });
+
+      modal.querySelectorAll<HTMLElement>('[data-close]').forEach((button) => {
+        button.addEventListener('click', closeOutreachModal);
+      });
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !modal.hidden) {
+          closeOutreachModal();
+        }
+      });
+    }
+  </script>
 
   <!-- CURRENT SPONSORS -->
   <section id="sponsors" class="alt">

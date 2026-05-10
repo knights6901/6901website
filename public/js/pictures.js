@@ -71,7 +71,7 @@ const PHOTOS = [
   { src: '/images/photo_gallery/2024pitcrew3.avif',           alt: '2024 Pit crew side view 4', label: '2024 — Pit Crew',           year: '2024' },
   { src: '/images/photo_gallery/2024pitcrew4.avif',           alt: '2024 Pit crew side view 5', label: '2024 — Pit Crew',           year: '2024' },
   { src: '/images/photo_gallery/2024robot.avif',              alt: '2024 Robot in field',       label: '2024 — Match Day',          year: '2024' },
-  { src: '/images/photo_gallery/2024spirit.avif',             alt: '2024 Team cheering',        label: '2024 — Team Spirit',        year: '2024' },
+  { src: '/images/photo_gallery/2024spirit.avif',             alt: '2024 Team cheering 2',        label: '2024 — Team Spirit',        year: '2024' },
   { src: '/images/photo_gallery/2024pitcrew5.avif',           alt: '2024 Pit crew up close',    label: '2024 — Pit Crew',           year: '2024' },
   { src: '/images/photo_gallery/2024team.avif',               alt: '2024 Team picture 2',       label: '2024 — Team',               year: '2024' },
 

@@ -63,6 +63,18 @@ const PHOTOS = [
   { src: '/images/photo_gallery/robot_4_2024.avif',           alt: '2024 Robot in field 3',     label: '2024 — Match Day',          year: '2024' },
   { src: '/images/photo_gallery/driveteam_2_2024.avif',       alt: '2024 Drive Team 2',         label: '2024 — Match Day',          year: '2024' },
   { src: '/images/photo_gallery/teampic2024.avif',            alt: '2024 Team picture',         label: '2024 — Team',               year: '2024' },
+  { src: '/images/photo_gallery/2024driveteam.avif',          alt: '2024 Drive Team',           label: '2024 — Match Day',          year: '2024' },
+  { src: '/images/photo_gallery/2024driveteam2.avif',         alt: '2024 Drive Team 3',         label: '2024 — Match Day',          year: '2024' },
+  { src: '/images/photo_gallery/2024driveteam3.avif',         alt: '2024 Drive Team 4',         label: '2024 — Match Day',          year: '2024' },
+  { src: '/images/photo_gallery/2024pitcrew.avif',            alt: '2024 Pit crew side view 2', label: '2024 — Pit Crew',           year: '2024' },
+  { src: '/images/photo_gallery/2024pitcrew2.avif',           alt: '2024 Pit crew side view 3', label: '2024 — Pit Crew',           year: '2024' },
+  { src: '/images/photo_gallery/2024pitcrew3.avif',           alt: '2024 Pit crew side view 4', label: '2024 — Pit Crew',           year: '2024' },
+  { src: '/images/photo_gallery/2024pitcrew4.avif',           alt: '2024 Pit crew side view 5', label: '2024 — Pit Crew',           year: '2024' },
+  { src: '/images/photo_gallery/2024robot.avif',              alt: '2024 Robot in field',       label: '2024 — Match Day',          year: '2024' },
+  { src: '/images/photo_gallery/2024spirit.avif',             alt: '2024 Team cheering',        label: '2024 — Team Spirit',        year: '2024' },
+  { src: '/images/photo_gallery/2024pitcrew5.avif',           alt: '2024 Pit crew up close',    label: '2024 — Pit Crew',           year: '2024' },
+  { src: '/images/photo_gallery/2024team.avif',               alt: '2024 Team picture 2',       label: '2024 — Team',               year: '2024' },
+
 ];
 
 /* ── BUILD GALLERY ─────────────────────────── */

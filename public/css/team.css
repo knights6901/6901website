@@ -448,6 +448,7 @@ section.alt { background: rgba(123,31,162,0.1) !important; border-top: 1px solid
   color: var(--white);
   padding: 1rem 1.1rem;
   font-size: 14px;
+  font-family: inherit;
 }
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {

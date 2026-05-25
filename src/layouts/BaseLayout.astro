@@ -9,7 +9,7 @@ interface Props {
 const {
   title,
   description = '',
-  keywords = 'FRC, 6901 Knights, Robots, Robotics, STEM',
+  keywords = 'FRC, 6901 KnightFall, Robots, Robotics, STEM',
   currentPage = 'home',
 } = Astro.props;
 
@@ -39,8 +39,8 @@ const teamBase = isTeam ? '' : '/team';
 
   <header class={`site-header${isPictures ? ' scrolled' : ''}`} id="hdr">
     <a href="/" class="header-logo">
-      <img src="/images/6901_logos/SwordLogo.png" alt="Knights Robotics Logo">
-      Knights <span>Robotics</span>
+      <img src="/images/6901_logos/SwordLogo.png" alt="KnightFall Logo">
+      KnightFall
     </a>
     <nav class="header-nav">
       <a href={`${teamBase}#about`}>About</a>
@@ -68,7 +68,7 @@ const teamBase = isTeam ? '' : '/team';
   <slot />
 
   <footer class="site-footer">
-    <div class="footer-brand">Knights <span>Robotics</span> &middot; FRC 6901</div>
+    <div class="footer-brand">Knight<span>Fall</span> &middot; FRC 6901</div>
     <nav class="footer-nav">
       <a href="/">Home</a>
       <a href="/team">Team Info</a>
@@ -83,7 +83,7 @@ const teamBase = isTeam ? '' : '/team';
       </a>
     </div>
     <div class="footer-copy">
-      &copy; Knights Robotics FRC 6901 &mdash; Frisco, TX
+      &copy; KnightFall FRC 6901 &mdash; Frisco, TX
     </div>
   </footer>
 

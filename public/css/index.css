@@ -82,7 +82,8 @@
 .hero-title em { font-style: normal; color: var(--purple-light); }
 .hero-sub {
   font-size: clamp(15px, 1.7vw, 18px);
-  color: var(--gray);
+  /*color: var(--gray);*/
+  color: rgba(179, 100, 220, 1);
   max-width: 560px; line-height: 1.8;
   margin: 0 auto 2.75rem;
   font-weight: 300;

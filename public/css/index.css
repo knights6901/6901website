@@ -58,7 +58,6 @@
 .hero-eyebrow {
   font-size: 10px; font-weight: 600;
   letter-spacing: 0.28em; text-transform: uppercase;
-  /* color: var(--purple-light); */
   color: rgba(210, 160, 240, 1);
   margin-bottom: 1.5rem;
   display: flex; align-items: center; justify-content: center; gap: 14px;
@@ -67,7 +66,6 @@
 }
 .hero-eyebrow::before, .hero-eyebrow::after {
   content: ''; width: 36px; height: 1px;
-  /*background: var(--purple-light); */
   background: rgba(210, 160, 240, 1);
 
 }
@@ -83,7 +81,6 @@
 .hero-title em { font-style: normal; color: var(--purple-light); }
 .hero-sub {
   font-size: clamp(15px, 1.7vw, 18px);
-  /*color: var(--gray);*/
   color: rgba(210, 160, 240, 1);
   max-width: 560px; line-height: 1.8;
   margin: 0 auto 2.75rem;

@@ -32,7 +32,7 @@
   font-family: var(--font-display);
   font-size: clamp(220px, 35vw, 520px);
   color: rgba(123,31,162,0.06);
-  -webkit-text-stroke: 1.8px rgba(149,56,195,0.75);
+  -webkit-text-stroke: 1.8px rgba(160, 20, 230, 0.75);
   letter-spacing: -0.02em; line-height: 1;
   user-select: none; pointer-events: none;
   top: 50%; left: 50%;
@@ -58,7 +58,8 @@
 .hero-eyebrow {
   font-size: 10px; font-weight: 600;
   letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--purple-light);
+  /* color: var(--purple-light); */
+  color: rgba(179, 100, 220, 1);
   margin-bottom: 1.5rem;
   display: flex; align-items: center; justify-content: center; gap: 14px;
   opacity: 0; transform: translateY(20px);
@@ -66,7 +67,8 @@
 }
 .hero-eyebrow::before, .hero-eyebrow::after {
   content: ''; width: 36px; height: 1px;
-  background: var(--purple-light);
+  /*background: var(--purple-light); */
+  background: rgba(179, 100, 220, 1);
 }
 .hero-title {
   font-family: var(--font-display);

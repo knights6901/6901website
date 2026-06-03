@@ -259,7 +259,7 @@ section.alt { background: rgba(123,31,162,0.1) !important; border-top: 1px solid
 
 .sponsor-content {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
 }
 

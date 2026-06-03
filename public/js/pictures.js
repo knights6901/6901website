@@ -48,6 +48,7 @@ const PHOTOS = [
   { src: '/images/photo_gallery/2026match4.avif', alt: '2026 Robot in field 2',                 label: '2026 — Match Day',          year: '2026' },
   { src: '/images/photo_gallery/2026pitcrew.avif',alt: '2026 pit crew working hard 2',          label: '2026 — Pit Crew',           year: '2026' },
   { src: '/images/photo_gallery/2026semispirit.avif',         alt: '2026 Waving team flag',     label: '2026 — Team Spirit',        year: '2026' },
+  { src: '/images/photo_gallery/2026teampic.avif',            alt: '2026 Team Picture',         label: '2026 — Rebuilt',            year: '2026' },
   { src: '/images/photo_gallery/award.webp',      alt: '2025 Rising allstar award',             label: '2025 — Team Award',         year: '2025' },
   { src: '/images/photo_gallery/compfield.webp',  alt: '2025 Competition field side view',      label: '2025 — Competition Field',  year: '2025' },
   { src: '/images/photo_gallery/robot.webp',      alt: '2025 Robot on match field',             label: '2025 — Match Day',          year: '2025' },

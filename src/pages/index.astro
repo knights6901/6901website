@@ -15,7 +15,7 @@ const sponsors = [
   keywords="FRC, 6901 KnightFall, robotics, STEM, Frisco Texas, student robotics"
   currentPage="home"
 >
-  <link slot="head" rel="stylesheet" href="/css/index.css?v=12">
+  <link slot="head" rel="stylesheet" href="/css/index.css?v=14">
   <link slot="head" rel="preload" as="image" href="/images/photo_gallery/robotled.avif">
   <script is:inline slot="head">
     self.ModelViewerElement = self.ModelViewerElement || {};
@@ -72,7 +72,11 @@ const sponsors = [
         </div>
 
         <aside class="robot-callouts" aria-hidden="true">
-          <article class="robot-callout is-active" data-robot-callout data-robot-group="Intake">
+          <article class="robot-callout is-active" data-robot-callout data-robot-group="Full">
+            <p class="robot-callout-label"><span>00</span> Full assembly / 360 inspection</p>
+            <p>Lancelot stays fully assembled for one complete orbit before the subsystem inspection begins.</p>
+          </article>
+          <article class="robot-callout" data-robot-callout data-robot-group="Intake">
             <p class="robot-callout-label"><span>01</span> CAD assembly / Intake</p>
             <p>Paired rollers, pulleys, and belt runs form the assembly at the robot's entry.</p>
           </article>
@@ -152,5 +156,5 @@ const sponsors = [
   <script>
     import '@google/model-viewer';
   </script>
-  <script is:inline slot="scripts" src="/js/index.js?v=20"></script>
+  <script is:inline slot="scripts" src="/js/index.js?v=27"></script>
 </BaseLayout>

@@ -9,6 +9,7 @@
   const progressBar = document.getElementById('robot-progress-bar');
   const status = document.getElementById('model-status');
   const callouts = [...document.querySelectorAll('[data-robot-callout]')];
+  const componentCallouts = callouts.filter((callout) => callout.dataset.robotGroup !== 'Full');
   const closing = document.querySelector('.closing-photo');
   const closingImage = document.getElementById('closing-image');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -23,6 +24,12 @@
   let focusMaterials = [];
   let reducedStateApplied = false;
   const focusBaseline = new Map();
+  const intakeMechanismNames = new Set([
+    'focus.Intake.m01',
+    'focus.Intake.m02',
+    'focus.Intake.m04',
+    'focus.Intake.m05',
+  ]);
 
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const easeOut = (value) => 1 - Math.pow(1 - value, 3);
@@ -35,10 +42,16 @@
     focusMaterials.forEach((material) => {
       focusBaseline.set(material, {
         rgba: [...material.pbrMetallicRoughness.baseColorFactor],
+        metallic: material.pbrMetallicRoughness.metallicFactor,
+        roughness: material.pbrMetallicRoughness.roughnessFactor,
         emissive: [...material.emissiveFactor],
         mode: material.getAlphaMode(),
         currentMode: material.getAlphaMode(),
+        currentVisualLevel: Number.NaN,
+        currentInspection: Number.NaN,
         group: material.name.match(/^focus\.([^.]+)\./)?.[1],
+        isIntakeMechanism: intakeMechanismNames.has(material.name),
+        isIntakePulleySet: material.name === 'focus.Intake.m01',
       });
     });
   }
@@ -49,7 +62,11 @@
       if (!saved) return;
       material.setAlphaMode(saved.mode);
       saved.currentMode = saved.mode;
+      saved.currentVisualLevel = Number.NaN;
+      saved.currentInspection = Number.NaN;
       material.pbrMetallicRoughness.setBaseColorFactor(saved.rgba);
+      material.pbrMetallicRoughness.setMetallicFactor(saved.metallic);
+      material.pbrMetallicRoughness.setRoughnessFactor(saved.roughness);
       material.setEmissiveFactor(saved.emissive);
     });
   }
@@ -59,37 +76,64 @@
     focusMaterials.forEach((material) => {
       const saved = focusBaseline.get(material);
       if (!saved) return;
-      const ghostAlpha = Math.min(saved.rgba[3], 0.34);
       const level = clamp(levels[saved.group] || 0);
+      const intakeClearance = saved.group === 'Intake' ? 0 : clamp(levels.Intake || 0);
+      const intakeGhost = saved.group === 'Chassis' ? 0.24 : 0.16;
+      const ghostCeiling = 0.34 + (intakeGhost - 0.34) * intakeClearance;
+      const ghostAlpha = Math.min(saved.rgba[3], ghostCeiling);
       const alpha = ghostAlpha + (saved.rgba[3] - ghostAlpha) * level;
+      const visualLevel = level;
+      const intakeInspection = saved.isIntakeMechanism ? clamp(levels.IntakeInspection || 0) : 0;
       const currentAlpha = material.pbrMetallicRoughness.baseColorFactor[3];
-      if (!force && Math.abs(currentAlpha - alpha) < 0.003) return;
+      if (!force
+        && Math.abs(currentAlpha - alpha) < 0.003
+        && Math.abs(saved.currentVisualLevel - visualLevel) < 0.003
+        && Math.abs(saved.currentInspection - intakeInspection) < 0.003) return;
+      saved.currentVisualLevel = visualLevel;
+      saved.currentInspection = intakeInspection;
 
-      const targetMode = alpha >= saved.rgba[3] - 0.003 ? saved.mode : 'BLEND';
+      const targetMode = saved.isIntakePulleySet && intakeInspection > 0
+        ? 'OPAQUE'
+        : alpha >= saved.rgba[3] - 0.003 ? saved.mode : 'BLEND';
       if (saved.currentMode !== targetMode) {
         material.setAlphaMode(targetMode);
         saved.currentMode = targetMode;
       }
+      const luminance = saved.rgba[0] * 0.2126 + saved.rgba[1] * 0.7152 + saved.rgba[2] * 0.0722;
+      const shell = Math.max(0.045, luminance * 0.58);
+      const inspectionLift = (saved.isIntakePulleySet ? 0 : 0.16) * intakeInspection;
+      const baseColor = [
+        shell * (1 - visualLevel) + saved.rgba[0] * visualLevel,
+        shell * 1.03 * (1 - visualLevel) + saved.rgba[1] * visualLevel,
+        shell * 1.1 * (1 - visualLevel) + saved.rgba[2] * visualLevel,
+      ];
+      const pulleyColor = [0.4, 0.42, 0.46];
+      const pulleyMix = saved.isIntakePulleySet ? intakeInspection : 0;
       material.pbrMetallicRoughness.setBaseColorFactor([
-        saved.rgba[0], saved.rgba[1], saved.rgba[2],
+        (baseColor[0] + (1 - baseColor[0]) * inspectionLift) * (1 - pulleyMix) + pulleyColor[0] * pulleyMix,
+        (baseColor[1] + (1 - baseColor[1]) * inspectionLift) * (1 - pulleyMix) + pulleyColor[1] * pulleyMix,
+        (baseColor[2] + (1 - baseColor[2]) * inspectionLift) * (1 - pulleyMix) + pulleyColor[2] * pulleyMix,
         alpha,
       ]);
+      material.pbrMetallicRoughness.setMetallicFactor(saved.metallic + (0.62 - saved.metallic) * pulleyMix);
+      material.pbrMetallicRoughness.setRoughnessFactor(saved.roughness + (0.34 - saved.roughness) * pulleyMix);
+      const pulleyEmissive = [0.018, 0.02, 0.026];
       material.setEmissiveFactor([
-        Math.max(saved.emissive[0], 0.028) * (1 - level) + saved.emissive[0] * level,
-        Math.max(saved.emissive[1], 0.008) * (1 - level) + saved.emissive[1] * level,
-        Math.max(saved.emissive[2], 0.05) * (1 - level) + saved.emissive[2] * level,
+        (Math.max(saved.emissive[0], 0.016 + 0.018 * intakeInspection) * (1 - visualLevel) + Math.max(saved.emissive[0], 0.028 * intakeInspection) * visualLevel) * (1 - pulleyMix) + pulleyEmissive[0] * pulleyMix,
+        (Math.max(saved.emissive[1], 0.018 + 0.02 * intakeInspection) * (1 - visualLevel) + Math.max(saved.emissive[1], 0.032 * intakeInspection) * visualLevel) * (1 - pulleyMix) + pulleyEmissive[1] * pulleyMix,
+        (Math.max(saved.emissive[2], 0.024 + 0.022 * intakeInspection) * (1 - visualLevel) + Math.max(saved.emissive[2], 0.04 * intakeInspection) * visualLevel) * (1 - pulleyMix) + pulleyEmissive[2] * pulleyMix,
       ]);
     });
   }
 
   function setModelFocus(group) {
     const levels = { Chassis: 0, Intake: 0, Shooter: 0, Indexer: 0, Other: 0 };
-    if (group) levels[group] = 1;
+    if (group && group !== 'Full') levels[group] = 1;
     else Object.keys(levels).forEach((key) => { levels[key] = 1; });
     applyFocusLevels(levels, true);
   }
 
-  function scrubModelFocus(breakdownProgress) {
+  function scrubModelFocus(breakdownProgress, intakeInspectionReveal = 1) {
     if (!focusMaterials.length) return;
     const groups = ['Intake', 'Indexer', 'Shooter', 'Chassis'];
     const levels = { Chassis: 0, Intake: 0, Shooter: 0, Indexer: 0, Other: 0 };
@@ -99,6 +143,7 @@
       const mix = rawMix * rawMix * (3 - 2 * rawMix);
       Object.keys(levels).forEach((group) => { levels[group] = 1 - mix; });
       levels.Intake = 1;
+      levels.IntakeInspection = intakeInspectionReveal;
       applyFocusLevels(levels);
       return;
     }
@@ -111,6 +156,7 @@
       groups.forEach((group) => { levels[group] = fullMix; });
       levels.Chassis = 1;
       levels.Other = fullMix;
+      levels.IntakeInspection = 0;
     } else {
       const scaled = (orbit / 0.86) * groups.length;
       const index = Math.min(groups.length - 1, Math.floor(scaled));
@@ -123,6 +169,7 @@
         levels[groups[index]] = 1 - mix;
         levels[groups[index + 1]] = mix;
       }
+      levels.IntakeInspection = levels.Intake;
     }
     applyFocusLevels(levels);
   }
@@ -207,12 +254,14 @@
           lastOrbit = orbitAngle;
         }
         if (sequence < 0.5) {
-          showCallout(-1);
-          scrubModelFocus(0);
+          const inspectionReveal = clamp((sequence - 0.4) / 0.1);
+          const smoothInspectionReveal = inspectionReveal * inspectionReveal * (3 - 2 * inspectionReveal);
+          showCallout(0);
+          scrubModelFocus(0, smoothInspectionReveal);
         } else {
-          showCallout(breakdown < 0.12 || focusOrbit >= 0.86
+          showCallout(focusOrbit >= 0.86
             ? -1
-            : Math.min(callouts.length - 1, Math.floor((focusOrbit / 0.86) * callouts.length)));
+            : 1 + Math.min(componentCallouts.length - 1, Math.floor((focusOrbit / 0.86) * componentCallouts.length)));
           scrubModelFocus(breakdown);
         }
         stage.dataset.phase = reveal > 0.5 ? 'robot' : 'hero';

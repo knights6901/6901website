@@ -14,14 +14,14 @@ const seasons = [
     name: 'Reefscape',
     title: 'Game Changer',
     description: 'This year, KnightFall participated in two events: FIT Belton and FIT Fort Worth. In Belton, we ranked 15 out of 41, winning 6 games, losing 5 games, and getting a tie for 1 game, however we did not get picked during alliance selections. In Fort Worth, we performed much better. We were 10th out of 35 people, getting 7 wins and 5 losses. During the qualification matches, we beat the record for the most amount of points scored, with a score of 189. We were also the alliance captain for alliance 8. Additionally, we were the recipient of the Rising All-Star Award. Our performance at the FIT Fort Worth District event was unparalleled, but unfortunately, we were unable to move onto the next level. Despite this, we learned more than we ever had, and we were ready to make next year the best one yet.',
-    icon: 'fluent-emoji-high-contrast:coral',
+    icon: 'solar:cup-star-linear',
   },
   {
     year: 2024,
     name: 'Crescendo',
     title: 'Resilience in Competition',
     description: 'This year, we competed in two events: FIRST In Texas Plano Event, and FIRST In Texas Dallas Event. With only freshmen and sophomores, this season proved to be challenging for us because of our lack of knowledge. In the Plano event, we placed 20 out of 29, winning 4 games and losing 8 games. Despite this, we fortunately got chosen in round 2 of Alliance 4. In the Dallas event, we ended with a ranking of 20 out of 43, with 5 wins and 7 losses. Unfortunately, we did not get chosen during alliance selection. Despite the undesirable outcomes this season, we still prevailed, and we ended the season with more knowledge than what we started with, and we also built relationships with new teams and mentors.',
-    icon: 'fluent-mdl2:volume-3',
+    icon: 'solar:music-note-2-linear',
     },
   {
     year: 2023,
@@ -73,45 +73,49 @@ const seasons = [
   keywords="FRC, 6901 Knights, Seasons, History, Robotics"
   currentPage="seasons"
 >
-  <link slot="head" rel="stylesheet" href="/css/team.css">
+  <link slot="head" rel="stylesheet" href="/css/seasons.css?v=1">
 
-  <!-- PAGE HERO -->
-  <div class="page-hero" id="home">
-    <div class="page-hero-bg"></div>
-    <img class="page-hero-photo" src="/images/photo_gallery/2026teampic.avif" alt="">
-    <div class="page-hero-inner">
-      <div class="page-eyebrow">FRC Team 6901</div>
-      <h1 class="page-title">All<br><em>Seasons</em></h1>
-      <p class="page-desc">From our founding in 2018 to the present day, explore the complete history of KnightFall.</p>
+  <div class="seasons-page">
+    <!-- PAGE HERO -->
+    <div class="seasons-hero" id="home">
+      <img class="seasons-hero-photo" src="/images/photo_gallery/2026teampic.avif" alt="">
+      <div class="seasons-hero-inner">
+        <div class="seasons-eyebrow">FRC Team 6901</div>
+        <h1 class="seasons-title">All<br><em>Seasons</em></h1>
+        <p class="seasons-desc">From our founding in 2018 to the present day, explore the complete history of KnightFall.</p>
+      </div>
     </div>
+
+    <!-- SEASONS -->
+    <section class="seasons-archive" id="seasons" aria-labelledby="seasons-heading">
+      <div class="seasons-timeline-wrap">
+        <p class="seasons-index" id="seasons-heading">Competition archive / 2018—present</p>
+
+        <div class="seasons-timeline">
+        {seasons.map((season) => (
+          <article class="season-entry">
+            <div class="season-year">{season.year}</div>
+            <div class="season-marker" aria-hidden="true"></div>
+            <div class="season-body">
+              <div class="season-game">{season.name}</div>
+              <div class="season-title-row">
+                <span class="iconify season-icon" data-icon={season.icon} aria-hidden="true"></span>
+                <h2 class="season-title">{season.title}</h2>
+              </div>
+              <p class="season-description">{season.description}</p>
+            </div>
+          </article>
+        ))}
+        </div>
+
+        <div class="seasons-return reveal">
+          <a href="/team#seasons" class="btn btn-ghost">
+            <i class="fa-solid fa-arrow-left"></i> Back to Team Info
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <!-- SEASONS -->
-  <section id="seasons">
-    <div class="timeline-wrap">
-
-      <div class="timeline">
-        {seasons.map((season) => (
-          <div class="t-item">
-            <div class="t-dot"></div>
-            <div class="t-year">{season.year}</div>
-            <div class="t-body">
-              <div class="t-season">{season.name}</div>
-              <span class="iconify t-icon" data-icon={season.icon}></span>
-              <div class="t-name">{season.title}</div>
-              <p class="t-desc">{season.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div style="text-align:center; margin-top:3rem;" class="reveal">
-        <a href="/team#seasons" class="btn btn-ghost">
-          <i class="fa-solid fa-arrow-left"></i> Back to Team Info
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <script is:inline slot="scripts" src="/js/team.js"></script>
+  <script is:inline slot="scripts" src="/js/seasons.js?v=1"></script>
 </BaseLayout>

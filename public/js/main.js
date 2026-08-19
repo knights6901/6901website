@@ -1,125 +1,100 @@
-/* =============================================
-   KNIGHTS ROBOTICS 6901 — SHARED JS
-   ============================================= */
+/* KnightFall shared interaction layer. */
 
-/* ── CURSOR ────────────────────────────────── */
+/* Sticky header state without a continuous scroll listener. */
 (function () {
-  const dot  = document.createElement('div');
-  const ring = document.createElement('div');
-  dot.className  = 'cursor-dot';
-  ring.className = 'cursor-ring';
-  document.body.appendChild(dot);
-  document.body.appendChild(ring);
+  const header = document.querySelector('.site-header');
+  if (!header) return;
 
-  // Use transform instead of left/top — avoids layout reflow and lets the
-  // ring's CSS transition run on the compositor thread (smooth even when the
-  // main thread is busy, e.g. canvas animation on the home page).
-  document.addEventListener('mousemove', e => {
-    const t = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-    dot.style.transform  = t;
-    ring.style.transform = t;
+  const sentinel = document.createElement('span');
+  sentinel.setAttribute('aria-hidden', 'true');
+  sentinel.style.cssText = 'position:absolute;top:40px;width:1px;height:1px;pointer-events:none';
+  document.body.prepend(sentinel);
+
+  const observer = new IntersectionObserver(([entry]) => {
+    header.classList.toggle('scrolled', !entry.isIntersecting);
   });
-
-  document.querySelectorAll('a, button, .g-item, .sp-card, .stat, .pkg').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-  });
-
-  // hide on mobile
-  if ('ontouchstart' in window) {
-    dot.style.display = ring.style.display = 'none';
-  }
+  observer.observe(sentinel);
 })();
 
-/* ── STICKY HEADER ─────────────────────────── */
+/* Mobile navigation with keyboard and focus handling. */
 (function () {
-  const hdr = document.querySelector('.site-header');
-  if (!hdr) return;
-  const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 40);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
-
-/* ── HAMBURGER / MOBILE MENU ───────────────── */
-(function () {
-  const btn  = document.querySelector('.hamburger');
+  const button = document.querySelector('.hamburger');
   const menu = document.querySelector('.mobile-menu');
-  if (!btn || !menu) return;
+  if (!button || !menu) return;
 
-  btn.addEventListener('click', () => {
-    btn.classList.toggle('open');
-    menu.classList.toggle('open');
-    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
-  });
+  function setOpen(open) {
+    button.classList.toggle('open', open);
+    menu.classList.toggle('open', open);
+    button.setAttribute('aria-expanded', String(open));
+    button.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    menu.setAttribute('aria-hidden', String(!open));
+    menu.inert = !open;
+    document.body.classList.toggle('menu-open', open);
+    if (open) menu.querySelector('a')?.focus();
+  }
 
-  menu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      btn.classList.remove('open');
-      menu.classList.remove('open');
-      document.body.style.overflow = '';
-    });
+  button.addEventListener('click', () => setOpen(!menu.classList.contains('open')));
+  menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (event) => {
+    if (!menu.classList.contains('open')) return;
+
+    if (event.key === 'Escape') {
+      setOpen(false);
+      button.focus();
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
+    const links = Array.from(menu.querySelectorAll('a'));
+    const first = links[0];
+    const last = links[links.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
   });
 })();
 
-/* ── SCROLL REVEAL ─────────────────────────── */
+/* One-time content reveals; content remains visible when JavaScript is absent. */
 (function () {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const selectors = [
     '.reveal', '.reveal-left', '.reveal-right', '.reveal-scale',
     '.t-item', '.o-card', '.sp-card', '.pkg', '.stat'
   ];
-  document.querySelectorAll(selectors.join(',')).forEach(el => io.observe(el));
-})();
+  const elements = document.querySelectorAll(selectors.join(','));
 
-/* ── PAGE TRANSITION ───────────────────────── */
-(function () {
-  const overlay = document.createElement('div');
-  overlay.className = 'page-transition';
-  document.body.appendChild(overlay);
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    elements.forEach((element) => element.classList.add('visible'));
+    return;
+  }
 
-  // leaving animation on internal nav clicks
-  document.querySelectorAll('a[href]').forEach(a => {
-    const href = a.getAttribute('href');
-    if (
-      !href ||
-      href.startsWith('#') ||
-      href.startsWith('http') ||
-      href.startsWith('mailto') ||
-      a.target === '_blank'
-    ) return;
-
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      overlay.classList.add('entering');
-      setTimeout(() => {
-        window.location.href = href;
-      }, 480);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
     });
-  });
+  }, { threshold: 0.1 });
 
-  // entering animation on load
-  overlay.classList.add('leaving');
-  overlay.addEventListener('animationend', () => {
-    overlay.classList.remove('leaving');
-  }, { once: true });
+  elements.forEach((element) => observer.observe(element));
 })();
 
-/* ── ACTIVE NAV LINK ───────────────────────── */
+/* Current-page navigation state. */
 (function () {
-  const path = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.header-nav a, .mobile-menu a').forEach(a => {
-    const ahref = a.getAttribute('href') || '';
-    const afile = ahref.split('/').pop().split('#')[0];
-    if (afile === path || (path === '' && afile === 'index.html')) {
-      a.classList.add('active');
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  const hash = window.location.hash;
+  document.querySelectorAll('.header-nav a, .mobile-menu a').forEach((link) => {
+    const destination = new URL(link.href, window.location.href);
+    const destinationPath = destination.pathname.replace(/\/$/, '') || '/';
+    const isCurrentPage = !destination.hash && destinationPath === path;
+    const isCurrentSection = Boolean(hash) && destinationPath === path && destination.hash === hash;
+    if (isCurrentPage || isCurrentSection) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', isCurrentSection ? 'location' : 'page');
     }
   });
 })();

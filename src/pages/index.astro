@@ -1,33 +1,157 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const sponsors = [
+  { name: 'Boeing', logo: '/images/partner_logos/boeing.png' },
+  { name: 'Leidos', logo: '/images/partner_logos/leidos.png' },
+  { name: 'Dallas College', logo: '/images/partner_logos/dallascollege.png' },
+  { name: "Raising Cane's", logo: '/images/partner_logos/raisingcanes.png' },
+];
 ---
+
 <BaseLayout
-  title="FRC 6901 — KnightFall"
-  description="Team 6901 strives to enrich students and nurture their creative thinking, problem-solving, and leadership skills while allowing for a STEM-based competitive robotics opportunity."
-  keywords="FRC, 6901 KnightFall, Robots, Robotics, STEM"
+  title="KnightFall FRC 6901 | Student-Built Robotics"
+  description="Meet KnightFall FRC Team 6901, explore our student-built competition robot, and learn how to join or support the team in Frisco, Texas."
+  keywords="FRC, 6901 KnightFall, robotics, STEM, Frisco Texas, student robotics"
   currentPage="home"
 >
-  <link slot="head" rel="stylesheet" href="/css/index.css">
+  <link slot="head" rel="stylesheet" href="/css/index.css?v=8">
+  <link slot="head" rel="preload" as="image" href="/images/photo_gallery/robotled.avif">
+  <script is:inline slot="head">
+    self.ModelViewerElement = self.ModelViewerElement || {};
+    self.ModelViewerElement.dracoDecoderLocation = '/draco/';
+  </script>
 
-  <div class="hero">
-    <div class="hero-noise"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-number">6901</div>
-    <div class="hero-inner">
-      <div class="hero-eyebrow">FRC Team 6901 &mdash; Frisco, TX</div>
-      <h1 class="hero-title">KnightFall</h1>
-      <p class="hero-sub">
-        Enriching students through competitive robotics — building creative thinkers,
-        problem-solvers, and future leaders through STEM.
-      </p>
-      <div class="hero-cta">
-        <a href="/team" class="btn btn-primary">
-          <i class="fa-solid fa-arrow-right"></i> Explore the Team
-        </a>
-        <a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" class="btn btn-ghost">
-          <i class="fab fa-instagram"></i> Instagram
-        </a>
+  <!--
+    THESIS: The robot is the homepage, not decoration around it. The page refuses a generic centered team hero.
+    OWN-WORLD: KnightFall black and purple, the existing condensed type, smoked pit materials, and real competition photography.
+    STORY: See the machine, understand the student process, find a place on the team, then support the next build.
+    FIRST VIEWPORT: Direct team message at left, Lancelot at dominant scale, recruitment action visible immediately.
+    FORM: A local scroll-controlled inspection stage followed by documentary recruitment and sponsor proof.
+  -->
+  <main>
+    <section class="robot-story" id="robot" aria-labelledby="home-title">
+      <div class="robot-stage" data-phase="intro">
+        <div class="robot-number" aria-hidden="true">6901</div>
+
+        <div class="hero-copy" id="hero-copy">
+          <p class="hero-eyebrow">FRC Team 6901 / Frisco, Texas</p>
+          <h1 id="home-title">KnightFall</h1>
+          <p class="hero-summary">Enriching students through competitive robotics by building creative thinkers, problem-solvers, and future leaders through STEM.</p>
+          <div class="hero-actions">
+            <a href="/team" class="btn btn-primary"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Explore the team</a>
+            <a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a>
+          </div>
+        </div>
+
+        <div class="robot-viewer-wrap">
+          <div class="robot-aura" aria-hidden="true"></div>
+          <model-viewer
+            id="lancelot-model"
+            src="/models/lancelot.glb?v=7"
+            poster="/images/photo_gallery/robotled.avif"
+            alt="A 3D model of Lancelot, KnightFall FRC Team 6901's competition robot"
+            camera-orbit="-20deg 72deg 105%"
+            camera-target="auto auto auto"
+            orientation="0deg -90deg 0deg"
+            field-of-view="30deg"
+            shadow-intensity="0"
+            exposure="0.82"
+            tone-mapping="neutral"
+            interaction-prompt="none"
+            loading="lazy"
+            reveal="auto"
+            camera-controls
+            disable-zoom
+          >
+            <div class="model-poster" slot="poster" aria-hidden="true"></div>
+          </model-viewer>
+          <noscript>
+            <img class="robot-static" src="/images/photo_gallery/robotled.avif" alt="Lancelot, KnightFall's competition robot">
+          </noscript>
+          <p class="model-status" id="model-status" aria-live="polite">Loading the 3D robot</p>
+        </div>
+
+        <aside class="robot-callouts" aria-hidden="true">
+          <article class="robot-callout is-active" data-robot-callout data-robot-group="Intake">
+            <p class="robot-callout-label"><span>01</span> CAD assembly / Intake</p>
+            <p>Paired rollers, pulleys, and belt runs form the assembly at the robot's entry.</p>
+          </article>
+          <article class="robot-callout" data-robot-callout data-robot-group="Indexer">
+            <p class="robot-callout-label"><span>02</span> CAD assembly / Indexer</p>
+            <p>A compact belt-and-shaft path sits between the intake and the upper roller bank.</p>
+          </article>
+          <article class="robot-callout" data-robot-callout data-robot-group="Shooter">
+            <p class="robot-callout-label"><span>03</span> CAD assembly / Shooter</p>
+            <p>The named shooter assembly contains the large roller bank and belt-driven shafts.</p>
+          </article>
+          <article class="robot-callout" data-robot-callout data-robot-group="Chassis">
+            <p class="robot-callout-label"><span>04</span> CAD assembly / Chassis</p>
+            <p>Four Thrifty Swerve modules sit inside the aluminum frame.</p>
+          </article>
+        </aside>
+
+        <div class="robot-progress" aria-hidden="true"><span id="robot-progress-bar"></span></div>
       </div>
-    </div>
-  </div>
+    </section>
+
+    <section class="join-section" id="join" aria-labelledby="join-title">
+      <div class="join-photo reveal-left">
+        <img src="/images/photo_gallery/2026teampic.avif" alt="KnightFall students and mentors together at a 2026 competition" loading="lazy">
+        <div class="join-photo-meta" aria-hidden="true"><span>01</span> Field notes / student systems</div>
+      </div>
+      <div class="join-copy reveal-right">
+        <p class="chapter-index" aria-hidden="true">01 / Join the build</p>
+        <p class="section-label">Built for students</p>
+        <h2 id="join-title">Find your place in the build.</h2>
+        <p>KnightFall is a high school FRC team where students learn CAD, programming, machining, strategy, and leadership by working on one robot together.</p>
+        <div class="discipline-list" aria-label="Student opportunities">
+          <span>Design and CAD</span>
+          <span>Fabrication</span>
+          <span>Programming</span>
+          <span>Drive and strategy</span>
+        </div>
+        <a href="/team#contact" class="btn btn-primary">Talk with the team <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </section>
+
+    <section class="track-record" aria-label="KnightFall track record">
+      <p class="track-label" aria-hidden="true">02 / Field record</p>
+      <p class="reveal"><strong>2018</strong><span>Team founded</span></p>
+      <p class="reveal delay-1"><strong>Worlds</strong><span>Championship qualifier</span></p>
+      <p class="reveal delay-2"><strong>Texas</strong><span>State championship competitor</span></p>
+    </section>
+
+    <section class="sponsor-section" id="sponsors" aria-labelledby="sponsor-title">
+      <div class="sponsor-intro reveal">
+        <p class="chapter-index" aria-hidden="true">03 / Build partners</p>
+        <p class="section-label">Current partners</p>
+        <h2 id="sponsor-title">Support the next build.</h2>
+        <p>Sponsors help students access parts, tools, travel, and the hands-on experience that makes this program possible.</p>
+        <a href="/team#packages" class="btn btn-ghost">View partnership packages</a>
+      </div>
+      <div class="sponsor-logos reveal" aria-label="KnightFall sponsors">
+        {sponsors.map((sponsor) => (
+          <div class="home-sponsor reveal">
+            <img src={sponsor.logo} alt={sponsor.name} loading="lazy">
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="closing-photo" aria-label="KnightFall in competition">
+      <img id="closing-image" src="/images/photo_gallery/2026semispirit.avif" alt="KnightFall students supporting the team at competition" loading="lazy">
+      <div class="closing-copy reveal">
+        <p class="closing-meta" aria-hidden="true">Team archive / 6901</p>
+        <h2>More than one robot.</h2>
+        <p>See the competitions, outreach, and people behind Team 6901.</p>
+        <a href="/pictures" class="btn btn-primary">View team photos</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    import '@google/model-viewer';
+  </script>
+  <script is:inline slot="scripts" src="/js/index.js?v=15"></script>
 </BaseLayout>

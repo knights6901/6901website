@@ -20,10 +20,22 @@ const { name, logo, description, url, delay } = Astro.props;
   .sp-card-link-wrapper {
     display: block;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: transform 180ms var(--ease-out);
   }
 
-  .sp-card-link-wrapper:hover {
-    transform: translateY(-4px);
+  @media (hover: hover) and (pointer: fine) {
+    .sp-card-link-wrapper:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .sp-card-link-wrapper:active {
+    transform: scale(0.985);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sp-card-link-wrapper {
+      transition: none;
+    }
   }
 </style>

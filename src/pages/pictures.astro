@@ -6,7 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   description="Photo gallery from FRC 6901 KnightFall — seasons, competitions, and memories."
   currentPage="pictures"
 >
-  <link slot="head" rel="stylesheet" href="/css/pictures.css">
+  <link slot="head" rel="stylesheet" href="/css/pictures.css?v=3">
 
   <!-- PAGE HERO -->
   <div class="page-hero">
@@ -19,30 +19,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </div>
 
   <!-- FILTER BAR -->
-  <div class="filter-bar">
-    <button class="filter-btn active" data-year="all"     onclick="filterGallery('all', this)">All Photos</button>
-    <button class="filter-btn"        data-year="2026"    onclick="filterGallery('2026', this)">2026 Season</button>
-    <button class="filter-btn"        data-year="2025"    onclick="filterGallery('2025', this)">2025 Season</button>
-    <button class="filter-btn"        data-year="2024"    onclick="filterGallery('2024', this)">2024 Season</button>
-    <button class="filter-btn"        data-year="2023"    onclick="filterGallery('2023', this)">2023 Season</button>
-    <button class="filter-btn"        data-year="history" onclick="filterGallery('history', this)">2018 – 2022</button>
-    
+  <div class="filter-bar" role="group" aria-label="Filter photos by season">
+    <button class="filter-btn active" data-year="all"     aria-pressed="true" aria-controls="gallery-grid">All Photos</button>
+    <button class="filter-btn"        data-year="2026"    aria-pressed="false" aria-controls="gallery-grid">2026 Season</button>
+    <button class="filter-btn"        data-year="2025"    aria-pressed="false" aria-controls="gallery-grid">2025 Season</button>
+    <button class="filter-btn"        data-year="2024"    aria-pressed="false" aria-controls="gallery-grid">2024 Season</button>
+    <button class="filter-btn"        data-year="2023"    aria-pressed="false" aria-controls="gallery-grid">2023 Season</button>
+    <button class="filter-btn"        data-year="history" aria-pressed="false" aria-controls="gallery-grid">2018 – 2022</button>
   </div>
 
   <!-- GALLERY (populated by JS) -->
   <div class="gallery-section">
     <div class="gallery-grid" id="gallery-grid"></div>
+    <p class="gallery-status" id="gallery-status" aria-live="polite"></p>
   </div>
 
   <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
-    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
-    <button class="lb-nav lb-prev" onclick="navLightbox(-1)" aria-label="Previous">&#8592;</button>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox" aria-hidden="true">
+    <button class="lb-close" type="button" aria-label="Close photo lightbox">&times;</button>
+    <button class="lb-nav lb-prev" type="button" aria-label="Previous photo">&#8592;</button>
     <img class="lb-img" id="lb-img" src="" alt="">
-    <button class="lb-nav lb-next" onclick="navLightbox(1)"  aria-label="Next">&#8594;</button>
-    <div class="lb-caption" id="lb-caption"></div>
+    <button class="lb-nav lb-next" type="button" aria-label="Next photo">&#8594;</button>
+    <div class="lb-caption" id="lb-caption" aria-live="polite"></div>
     <div class="lb-count"   id="lb-count"></div>
   </div>
 
-  <script is:inline slot="scripts" src="/js/pictures.js"></script>
+  <script is:inline slot="scripts" src="/js/pictures.js?v=3"></script>
 </BaseLayout>

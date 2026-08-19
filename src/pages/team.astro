@@ -126,7 +126,7 @@ const packages = [
   keywords="FRC, 6901 KnightFall, Robots, Robotics, STEM, Frisco TX"
   currentPage="team"
 >
-  <link slot="head" rel="stylesheet" href="/css/team.css">
+  <link slot="head" rel="stylesheet" href="/css/team.css?v=2">
 
   <!-- PAGE HERO -->
   <div class="page-hero" id="home">
@@ -268,11 +268,11 @@ const packages = [
       ))}
     </div>
 
-    <div id="outreach-modal" class="outreach-modal" hidden aria-hidden="true">
+    <div id="outreach-modal" class="outreach-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="outreach-modal-title" aria-describedby="outreach-modal-description" tabindex="-1">
       <div class="outreach-modal-backdrop" data-close></div>
       <div class="outreach-modal-panel">
         <button type="button" class="outreach-modal-close" data-close aria-label="Close">×</button>
-        <img id="outreach-modal-image" src="" alt="">
+        <img id="outreach-modal-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="">
         <div class="outreach-modal-copy">
           <h3 id="outreach-modal-title"></h3>
           <p id="outreach-modal-description"></p>
@@ -297,7 +297,7 @@ const packages = [
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(8, 5, 12, 0.82);
       z-index: 1000;
     }
 
@@ -309,9 +309,11 @@ const packages = [
       position: relative;
       width: min(940px, 100%);
       max-height: min(90vh, 100%);
-      background: #111;
-      border-radius: 1.25rem;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      background: rgba(20, 15, 25, 0.94);
+      border: 1px solid rgba(220, 196, 255, 0.15);
+      border-radius: 1rem;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(20px) saturate(130%);
       overflow: hidden;
       display: grid;
       gap: 1rem;
@@ -332,6 +334,11 @@ const packages = [
       cursor: pointer;
     }
 
+    .outreach-modal-close:focus-visible {
+      outline: 2px solid var(--purple-light);
+      outline-offset: 3px;
+    }
+
     .outreach-modal img {
       width: auto;
       max-width: 100%;
@@ -340,13 +347,13 @@ const packages = [
       object-fit: contain;
       max-height: 70vh;
       margin: 0 auto;
-      background: #000;
+      background: #050506;
     }
 
     .outreach-modal-copy {
       padding: 1.5rem;
       color: #f4f4f4;
-      background: #0f0f0f;
+      background: rgba(10, 8, 13, 0.72);
       line-height: 1.6;
     }
 
@@ -359,6 +366,10 @@ const packages = [
       margin: 0;
       color: #d1d1d1;
     }
+
+    @media (prefers-reduced-transparency: reduce) {
+      .outreach-modal-panel { background: #18121d; backdrop-filter: none; }
+    }
   </style>
 
   <script>
@@ -368,7 +379,9 @@ const packages = [
     const modalDescription = document.getElementById('outreach-modal-description') as HTMLElement | null;
 
     if (modal && modalImage && modalTitle && modalDescription) {
+      let previouslyFocused: HTMLElement | null = null;
       const openOutreachModal = (button: HTMLButtonElement) => {
+        previouslyFocused = button;
         modalImage.src = button.dataset.image || '';
         modalImage.alt = button.dataset.alt || button.dataset.title || 'Outreach image';
         modalTitle.textContent = button.dataset.title || '';
@@ -376,13 +389,15 @@ const packages = [
         modal.hidden = false;
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => modal.querySelector<HTMLButtonElement>('.outreach-modal-close')?.focus());
       };
 
       const closeOutreachModal = () => {
         modal.hidden = true;
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
-        modalImage.src = '';
+        modalImage.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+        previouslyFocused?.focus();
       };
 
       document.querySelectorAll<HTMLButtonElement>('.outreach-card-button').forEach((button) => {
@@ -396,6 +411,20 @@ const packages = [
       window.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && !modal.hidden) {
           closeOutreachModal();
+        }
+
+        if (event.key === 'Tab' && !modal.hidden) {
+          const focusable = Array.from(modal.querySelectorAll<HTMLElement>('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (!first || !last) return;
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
         }
       });
     }
@@ -488,5 +517,5 @@ const packages = [
 
   <ContactForm />
 
-  <script is:inline slot="scripts" src="/js/team.js"></script>
+  <script is:inline slot="scripts" src="/js/team.js?v=2"></script>
 </BaseLayout>

@@ -15,9 +15,6 @@ const {
 
 const isTeam = currentPage === 'team';
 const isPictures = currentPage === 'pictures';
-// On the team page, nav anchor links are relative (#about) so the page
-// transition JS (which skips href="#...") leaves them as smooth scrolls.
-// From other pages they become absolute cross-page links (/team#about).
 const teamBase = isTeam ? '' : '/team';
 ---
 <!DOCTYPE html>
@@ -28,10 +25,11 @@ const teamBase = isTeam ? '' : '/team';
   <title>{title}</title>
   {description && <meta name="description" content={description}>}
   <meta name="keywords" content={keywords}>
+  <script is:inline>document.documentElement.classList.add('js');</script>
   <link rel="icon" type="image/png" sizes="32x32" href="/images/6901_logos/favicon-google-search.png">
   <link rel="icon" type="image/png" href="/images/6901_logos/favicon-white.png" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" href="/images/6901_logos/apple-touch-iconSWORD.png">
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/main.css?v=3">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
   <slot name="head" />
@@ -43,7 +41,7 @@ const teamBase = isTeam ? '' : '/team';
       <img src="/images/6901_logos/SwordLogo.png" alt="KnightFall Logo">
       KnightFall
     </a>
-    <nav class="header-nav">
+    <nav class="header-nav" aria-label="Primary navigation">
       <a href={`${teamBase}#about`}>About</a>
       <a href={`${teamBase}#frc`}>FRC</a>
       <a href={`/seasons`}>Seasons</a>
@@ -52,25 +50,26 @@ const teamBase = isTeam ? '' : '/team';
       <a href="/pictures">Photos</a>
       <a href={`${teamBase}#contact`}>Contact Us</a>
     </nav>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
+    <button class="hamburger" id="hamburger" type="button" aria-label="Open navigation" aria-controls="mobile-menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </header>
 
-  <nav class="mobile-menu" id="mobile-menu">
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" aria-hidden="true" inert>
     <a href={`${teamBase}#about`}>About</a>
     <a href={`${teamBase}#frc`}>FRC</a>
-    <a href={`${teamBase}#seasons`}>Seasons</a>
+    <a href="/seasons">Seasons</a>
     <a href={`${teamBase}#outreach`}>Outreach</a>
     <a href={`${teamBase}#sponsors`}>Sponsors</a>
     <a href="/pictures">Photos</a>
+    <a href={`${teamBase}#contact`}>Contact Us</a>
   </nav>
 
   <slot />
 
   <footer class="site-footer">
-    <div class="footer-brand">Knight<span>Fall</span> &middot; FRC 6901</div>
-    <nav class="footer-nav">
+    <div class="footer-brand">Knight<span>Fall</span> / FRC 6901</div>
+    <nav class="footer-nav" aria-label="Footer navigation">
       <a href="/">Home</a>
       <a href="/team">Team Info</a>
       <a href="/pictures">Photos</a>
@@ -84,11 +83,11 @@ const teamBase = isTeam ? '' : '/team';
       </a>
     </div>
     <div class="footer-copy">
-      &copy; KnightFall FRC 6901 &mdash; Frisco, TX
+      &copy; KnightFall FRC 6901 / Frisco, TX
     </div>
   </footer>
 
-  <script is:inline src="/js/main.js"></script>
+  <script is:inline src="/js/main.js?v=3"></script>
   <slot name="scripts" />
 
 </body>

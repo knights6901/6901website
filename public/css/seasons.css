@@ -1,0 +1,269 @@
+/* KnightFall competition archive. */
+.seasons-page {
+  background: var(--black);
+}
+
+.seasons-hero {
+  min-height: clamp(35rem, 68vh, 49rem);
+  display: flex;
+  align-items: flex-end;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 7.5rem 4rem 4.5rem;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+  background: #0a0a0b;
+}
+
+.seasons-hero::before,
+.seasons-hero::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.seasons-hero::before {
+  z-index: -1;
+  inset: 2.25rem auto 0 4rem;
+  width: 1px;
+  background: rgba(198,164,239,0.24);
+}
+
+.seasons-hero::after {
+  z-index: -1;
+  inset: auto 4rem 4.5rem auto;
+  width: min(34vw, 31rem);
+  height: min(34vw, 31rem);
+  border: 1px solid rgba(198,164,239,0.17);
+  border-radius: 50%;
+}
+
+.seasons-hero-photo {
+  position: absolute;
+  z-index: -2;
+  inset: 0 0 0 auto;
+  width: min(58%, 60rem);
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.25;
+  filter: grayscale(1) contrast(1.08);
+}
+
+.seasons-hero-inner {
+  max-width: 42rem;
+}
+
+.seasons-eyebrow,
+.seasons-index,
+.season-game {
+  color: var(--purple-ink);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.21em;
+  text-transform: uppercase;
+}
+
+.seasons-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.seasons-eyebrow::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.seasons-title {
+  margin: 0 0 1.25rem;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 10vw, 7.5rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 0.88;
+}
+
+.seasons-title em { color: var(--purple-ink); font-style: normal; }
+
+.seasons-desc {
+  max-width: 32rem;
+  color: var(--gray-hi);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+.seasons-archive {
+  padding: clamp(5rem, 10vw, 8rem) 4rem;
+  background: #080808;
+}
+
+.seasons-timeline-wrap {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.seasons-index {
+  margin: 0 0 2rem 10.5rem;
+}
+
+.seasons-timeline {
+  position: relative;
+}
+
+.seasons-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 8.45rem;
+  width: 1px;
+  background: rgba(198,164,239,0.3);
+}
+
+.season-entry {
+  display: grid;
+  grid-template-columns: 7.25rem 2.4rem minmax(0, 1fr);
+  position: relative;
+  padding: 2.15rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.season-entry:last-child { border-bottom: 1px solid var(--border); }
+
+.season-year {
+  padding-top: 0.18rem;
+  color: var(--purple-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-align: right;
+}
+
+.season-marker {
+  width: 0.75rem;
+  height: 0.75rem;
+  justify-self: center;
+  margin-top: 0.45rem;
+  border: 2px solid var(--purple-steel);
+  border-radius: 50%;
+  background: var(--black);
+  box-shadow: 0 0 0 4px #080808;
+}
+
+.season-body {
+  min-width: 0;
+  padding: 0.15rem 1.5rem 0.25rem;
+  border-inline-start: 1px solid transparent;
+  transition: background-color 0.2s var(--ease-out), border-color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+
+.season-game {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  color: var(--purple-steel);
+}
+
+.season-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+
+.season-icon {
+  flex: 0 0 auto;
+  color: var(--purple-ink);
+  font-size: 1.45rem;
+}
+
+.season-title {
+  color: var(--white);
+  font-size: clamp(1.08rem, 2vw, 1.25rem);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.season-description {
+  max-width: 46rem;
+  color: var(--gray-hi);
+  font-size: 0.92rem;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.seasons-return {
+  display: flex;
+  justify-content: center;
+  margin-top: 3.5rem;
+}
+
+.js .seasons-page.season-motion .season-entry {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.38s var(--ease-out), transform 0.38s var(--ease-out);
+}
+
+.js .seasons-page.season-motion .season-entry.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .season-entry:hover .season-body {
+    border-color: var(--purple-steel);
+    background-color: rgba(93,49,148,0.08);
+    transform: translateX(0.35rem);
+  }
+  .season-entry:hover .season-marker { background: var(--purple); }
+}
+
+@media (max-width: 760px) {
+  .seasons-hero { min-height: 35rem; padding: 6.5rem 1.5rem 3.5rem; }
+  .seasons-hero::before { inset: 1.75rem auto 0 1.5rem; }
+  .seasons-hero::after { right: 1.5rem; bottom: 3.5rem; width: 52vw; height: 52vw; }
+  .seasons-hero-photo { width: 100%; opacity: 0.17; }
+  .seasons-archive { padding: 4.5rem 1.5rem; }
+  .seasons-index { margin-left: 6.75rem; }
+  .seasons-timeline::before { left: 5.45rem; }
+  .season-entry { grid-template-columns: 4.75rem 1.4rem minmax(0, 1fr); }
+  .season-body { padding-right: 0.25rem; }
+}
+
+@media (max-width: 520px) {
+  .seasons-title { font-size: clamp(4rem, 21vw, 5.5rem); }
+  .seasons-hero::after { display: none; }
+  .seasons-index { margin-left: 2.15rem; font-size: 0.56rem; }
+  .seasons-timeline::before { left: 0.35rem; }
+  .season-entry { grid-template-columns: 1.5rem minmax(0, 1fr); padding: 1.75rem 0; }
+  .season-year { grid-column: 2; padding: 0 0 0.65rem; text-align: left; }
+  .season-marker { grid-row: 1 / span 2; grid-column: 1; margin-top: 0.42rem; }
+  .season-body { grid-column: 2; padding: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .seasons-page.season-motion .season-entry,
+  .js .seasons-page.season-motion .season-entry.visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .season-body { transition: background-color 0.15s linear, border-color 0.15s linear; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .seasons-hero-photo { opacity: 0.12; }
+  .season-entry:hover .season-body { background-color: #111111; }
+}
+
+@media (prefers-contrast: more) {
+  .seasons-timeline::before { background: var(--purple-ink); }
+  .season-entry { border-color: rgba(255,255,255,0.36); }
+  .season-description { color: var(--white); }
+}

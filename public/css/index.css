@@ -1,7 +1,7 @@
 /* KnightFall homepage: the current identity, refined around the robot. */
 
 .robot-story {
-  height: 320vh;
+  height: 430vh;
   position: relative;
   background: radial-gradient(circle at 50% 48%, rgba(93, 49, 148, 0.2), transparent 40%), var(--black);
 }
@@ -34,6 +34,7 @@
 }
 
 .robot-number {
+  --final-glow: 0;
   position: absolute;
   inset: 50% auto auto 50%;
   transform: translate(-50%, -50%);
@@ -46,6 +47,13 @@
   line-height: 0.75;
   user-select: none;
   pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.robot-stage[data-final='true'] .robot-number {
+  filter:
+    drop-shadow(0 0 calc(1.2rem * var(--final-glow)) rgb(169 93 229 / calc(var(--final-glow) * 0.72)))
+    drop-shadow(0 0 calc(4rem * var(--final-glow)) rgb(93 49 148 / calc(var(--final-glow) * 0.48)));
 }
 
 .hero-copy {
@@ -585,7 +593,7 @@ model-viewer {
 }
 
 @media (max-width: 760px) {
-  .robot-story { height: 300vh; }
+  .robot-story { height: 390vh; }
 
   .robot-stage {
     display: block;

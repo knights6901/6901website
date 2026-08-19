@@ -89,10 +89,21 @@
     applyFocusLevels(levels, true);
   }
 
-  function scrubModelFocus(orbit) {
+  function scrubModelFocus(breakdownProgress) {
     if (!focusMaterials.length) return;
     const groups = ['Intake', 'Indexer', 'Shooter', 'Chassis'];
     const levels = { Chassis: 0, Intake: 0, Shooter: 0, Indexer: 0, Other: 0 };
+
+    if (breakdownProgress < 0.12) {
+      const rawMix = clamp(breakdownProgress / 0.12);
+      const mix = rawMix * rawMix * (3 - 2 * rawMix);
+      Object.keys(levels).forEach((group) => { levels[group] = 1 - mix; });
+      levels.Intake = 1;
+      applyFocusLevels(levels);
+      return;
+    }
+
+    const orbit = clamp((breakdownProgress - 0.12) / 0.88);
 
     if (orbit >= 0.86) {
       const rawMix = clamp((orbit - 0.86) / 0.1);
@@ -140,6 +151,7 @@
     viewer.style.transform = 'none';
     viewer.style.pointerEvents = 'auto';
     if (number) {
+      number.style.setProperty('--final-glow', '0');
       number.style.opacity = '0.75';
       number.style.transform = 'translate(-50%, -50%)';
     }
@@ -167,7 +179,12 @@
       } else {
         reducedStateApplied = false;
         const reveal = easeOut(clamp(progress / 0.24));
-        const orbit = clamp((progress - 0.16) / 0.84);
+        const sequence = clamp((progress - 0.16) / 0.84);
+        const breakdown = sequence < 0.5 ? 0 : (sequence - 0.5) / 0.5;
+        const focusOrbit = clamp((breakdown - 0.12) / 0.88);
+        const rawFinalGlow = sequence < 0.5 ? 0 : clamp((focusOrbit - 0.86) / 0.14);
+        const finalGlow = rawFinalGlow * rawFinalGlow * (3 - 2 * rawFinalGlow);
+        stage.dataset.final = finalGlow > 0 ? 'true' : 'false';
 
         hero.style.opacity = String(1 - reveal);
         hero.style.transform = `translate(-50%, calc(-50% - ${reveal * 10}vh)) scale(${1 - reveal * 0.05})`;
@@ -178,20 +195,26 @@
         viewer.style.pointerEvents = reveal > 0.55 ? 'auto' : 'none';
 
         if (number) {
-          number.style.opacity = String(0.92 - reveal * 0.42);
-          number.style.transform = `translate(-50%, -50%) scale(${1 + reveal * 0.08})`;
+          number.style.setProperty('--final-glow', String(finalGlow));
+          number.style.opacity = String(0.92 - reveal * 0.42 + finalGlow * 0.34);
+          number.style.transform = `translate(-50%, -50%) scale(${1 + reveal * 0.08 + finalGlow * 0.035})`;
         }
 
-        const orbitAngle = orbit * 360 - 20;
+        const orbitAngle = sequence * 720 - 20;
         if (!Number.isFinite(lastOrbit) || Math.abs(orbitAngle - lastOrbit) >= 0.2) {
           model.cameraOrbit = `${orbitAngle}deg 72deg 98%`;
           model.jumpCameraToGoal();
           lastOrbit = orbitAngle;
         }
-        showCallout(orbit >= 0.86
-          ? -1
-          : Math.min(callouts.length - 1, Math.floor((orbit / 0.86) * callouts.length)));
-        scrubModelFocus(orbit);
+        if (sequence < 0.5) {
+          showCallout(-1);
+          scrubModelFocus(0);
+        } else {
+          showCallout(breakdown < 0.12 || focusOrbit >= 0.86
+            ? -1
+            : Math.min(callouts.length - 1, Math.floor((focusOrbit / 0.86) * callouts.length)));
+          scrubModelFocus(breakdown);
+        }
         stage.dataset.phase = reveal > 0.5 ? 'robot' : 'hero';
       }
     }

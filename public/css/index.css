@@ -131,7 +131,11 @@ model-viewer,
   --progress-bar-height: 2px;
 }
 
-model-viewer { touch-action: pan-y; }
+model-viewer {
+  pointer-events: none;
+  touch-action: pan-y;
+  user-select: none;
+}
 
 .model-poster {
   width: 100%;

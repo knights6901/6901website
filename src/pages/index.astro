@@ -15,7 +15,7 @@ const sponsors = [
   keywords="FRC, 6901 KnightFall, robotics, STEM, Frisco Texas, student robotics"
   currentPage="home"
 >
-  <link slot="head" rel="stylesheet" href="/css/index.css?v=9">
+  <link slot="head" rel="stylesheet" href="/css/index.css?v=10">
   <link slot="head" rel="preload" as="image" href="/images/photo_gallery/robotled.avif">
   <script is:inline slot="head">
     self.ModelViewerElement = self.ModelViewerElement || {};
@@ -61,8 +61,7 @@ const sponsors = [
             interaction-prompt="none"
             loading="lazy"
             reveal="auto"
-            camera-controls
-            disable-zoom
+            tabindex="-1"
           >
             <div class="model-poster" slot="poster" aria-hidden="true"></div>
           </model-viewer>

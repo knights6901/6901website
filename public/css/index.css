@@ -116,7 +116,7 @@
   border-radius: 50%;
   background: radial-gradient(ellipse, rgba(111, 57, 164, 0.28), rgba(93, 49, 148, 0.06) 46%, transparent 72%);
   filter: blur(20px);
-  opacity: 0.72;
+  opacity: 0.9;
   pointer-events: none;
 }
 

@@ -20,7 +20,6 @@
   let frame = 0;
   let activeCallout = 0;
   let lastOrbit = Number.NaN;
-  let focusFrame = 0;
   let focusMaterials = [];
   let reducedStateApplied = false;
   const focusBaseline = new Map();
@@ -36,60 +35,85 @@
     focusMaterials.forEach((material) => {
       focusBaseline.set(material, {
         rgba: [...material.pbrMetallicRoughness.baseColorFactor],
+        emissive: [...material.emissiveFactor],
         mode: material.getAlphaMode(),
+        currentMode: material.getAlphaMode(),
+        group: material.name.match(/^focus\.([^.]+)\./)?.[1],
       });
     });
   }
 
   function restoreModelFocus() {
-    window.cancelAnimationFrame(focusFrame);
     focusMaterials.forEach((material) => {
       const saved = focusBaseline.get(material);
       if (!saved) return;
       material.setAlphaMode(saved.mode);
+      saved.currentMode = saved.mode;
       material.pbrMetallicRoughness.setBaseColorFactor(saved.rgba);
+      material.setEmissiveFactor(saved.emissive);
     });
   }
 
-  function setModelFocus(group, animate = true) {
+  function applyFocusLevels(levels, force = false) {
     if (!focusMaterials.length) return;
-
-    window.cancelAnimationFrame(focusFrame);
-    const starts = new Map(focusMaterials.map((material) => [
-      material,
-      material.pbrMetallicRoughness.baseColorFactor[3],
-    ]));
-
     focusMaterials.forEach((material) => {
-      const selected = !group || material.name.startsWith(`focus.${group}.`);
-      if (!selected) material.setAlphaMode('BLEND');
-    });
-
-    const paint = (progress) => focusMaterials.forEach((material) => {
       const saved = focusBaseline.get(material);
       if (!saved) return;
-      const selected = !group || material.name.startsWith(`focus.${group}.`);
-      const target = selected ? saved.rgba[3] : Math.min(saved.rgba[3], 0.3);
-      const alpha = starts.get(material) + (target - starts.get(material)) * easeOut(progress);
+      const ghostAlpha = Math.min(saved.rgba[3], 0.34);
+      const level = clamp(levels[saved.group] || 0);
+      const alpha = ghostAlpha + (saved.rgba[3] - ghostAlpha) * level;
+      const currentAlpha = material.pbrMetallicRoughness.baseColorFactor[3];
+      if (!force && Math.abs(currentAlpha - alpha) < 0.003) return;
+
+      const targetMode = alpha >= saved.rgba[3] - 0.003 ? saved.mode : 'BLEND';
+      if (saved.currentMode !== targetMode) {
+        material.setAlphaMode(targetMode);
+        saved.currentMode = targetMode;
+      }
       material.pbrMetallicRoughness.setBaseColorFactor([
         saved.rgba[0], saved.rgba[1], saved.rgba[2],
         alpha,
       ]);
-      if (progress === 1 && selected) material.setAlphaMode(saved.mode);
+      material.setEmissiveFactor([
+        Math.max(saved.emissive[0], 0.028) * (1 - level) + saved.emissive[0] * level,
+        Math.max(saved.emissive[1], 0.008) * (1 - level) + saved.emissive[1] * level,
+        Math.max(saved.emissive[2], 0.05) * (1 - level) + saved.emissive[2] * level,
+      ]);
     });
+  }
 
-    if (!animate) {
-      paint(1);
-      return;
+  function setModelFocus(group) {
+    const levels = { Chassis: 0, Intake: 0, Shooter: 0, Indexer: 0, Other: 0 };
+    if (group) levels[group] = 1;
+    else Object.keys(levels).forEach((key) => { levels[key] = 1; });
+    applyFocusLevels(levels, true);
+  }
+
+  function scrubModelFocus(orbit) {
+    if (!focusMaterials.length) return;
+    const groups = ['Intake', 'Indexer', 'Shooter', 'Chassis'];
+    const levels = { Chassis: 0, Intake: 0, Shooter: 0, Indexer: 0, Other: 0 };
+
+    if (orbit >= 0.86) {
+      const rawMix = clamp((orbit - 0.86) / 0.1);
+      const fullMix = rawMix * rawMix * (3 - 2 * rawMix);
+      groups.forEach((group) => { levels[group] = fullMix; });
+      levels.Chassis = 1;
+      levels.Other = fullMix;
+    } else {
+      const scaled = (orbit / 0.86) * groups.length;
+      const index = Math.min(groups.length - 1, Math.floor(scaled));
+      const local = scaled - index;
+      levels[groups[index]] = 1;
+
+      if (index < groups.length - 1) {
+        const rawMix = clamp((local - 0.68) / 0.32);
+        const mix = rawMix * rawMix * (3 - 2 * rawMix);
+        levels[groups[index]] = 1 - mix;
+        levels[groups[index + 1]] = mix;
+      }
     }
-
-    const startedAt = performance.now();
-    const tick = (now) => {
-      const progress = clamp((now - startedAt) / 190);
-      paint(progress);
-      if (progress < 1) focusFrame = window.requestAnimationFrame(tick);
-    };
-    focusFrame = window.requestAnimationFrame(tick);
+    applyFocusLevels(levels);
   }
 
   function showCallout(index) {
@@ -98,12 +122,10 @@
     activeCallout = index;
     if (index < 0) {
       stage.dataset.focus = 'full';
-      setModelFocus(null);
       return;
     }
     callouts[index]?.classList.add('is-active');
     stage.dataset.focus = 'part';
-    setModelFocus(callouts[index]?.dataset.robotGroup);
   }
 
   function showLoadedState() {
@@ -121,7 +143,7 @@
       number.style.opacity = '0.75';
       number.style.transform = 'translate(-50%, -50%)';
     }
-    model.cameraOrbit = '-20deg 72deg 105%';
+    model.cameraOrbit = '-20deg 72deg 98%';
     model.jumpCameraToGoal();
     if (!reducedStateApplied) {
       restoreModelFocus();
@@ -162,13 +184,14 @@
 
         const orbitAngle = orbit * 360 - 20;
         if (!Number.isFinite(lastOrbit) || Math.abs(orbitAngle - lastOrbit) >= 0.2) {
-          model.cameraOrbit = `${orbitAngle}deg 72deg 105%`;
+          model.cameraOrbit = `${orbitAngle}deg 72deg 98%`;
           model.jumpCameraToGoal();
           lastOrbit = orbitAngle;
         }
         showCallout(orbit >= 0.86
           ? -1
           : Math.min(callouts.length - 1, Math.floor((orbit / 0.86) * callouts.length)));
+        scrubModelFocus(orbit);
         stage.dataset.phase = reveal > 0.5 ? 'robot' : 'hero';
       }
     }
@@ -196,7 +219,7 @@
         restoreModelFocus();
         reducedStateApplied = true;
       }
-      else setModelFocus(callouts[activeCallout]?.dataset.robotGroup, false);
+      else setModelFocus(callouts[activeCallout]?.dataset.robotGroup);
       showLoadedState();
     };
 
@@ -222,7 +245,7 @@
     window.addEventListener('resize', schedule, { passive: true });
     reduceMotion.addEventListener('change', (event) => {
       reducedStateApplied = false;
-      if (!event.matches) setModelFocus(callouts[activeCallout]?.dataset.robotGroup, false);
+      if (!event.matches) setModelFocus(callouts[activeCallout]?.dataset.robotGroup);
       schedule();
     });
     schedule();

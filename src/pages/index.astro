@@ -15,7 +15,7 @@ const sponsors = [
   keywords="FRC, 6901 KnightFall, robotics, STEM, Frisco Texas, student robotics"
   currentPage="home"
 >
-  <link slot="head" rel="stylesheet" href="/css/index.css?v=47">
+  <link slot="head" rel="stylesheet" href="/css/index.css?v=55">
   <script is:inline slot="head">
     self.ModelViewerElement = self.ModelViewerElement || {};
     self.ModelViewerElement.dracoDecoderLocation = '/draco/';
@@ -62,7 +62,7 @@ const sponsors = [
         <div class="hero-copy" id="hero-copy">
           <p class="hero-eyebrow">FRC Team 6901 / Frisco, Texas</p>
           <p class="hero-brand">KnightFall</p>
-          <h1 id="home-title">Built by students. Ready for the field.</h1>
+          <h1 id="home-title">Built by students. <span class="electric-word">Ready</span> for the field.</h1>
           <p class="hero-summary">We’re KnightFall, FRC Team 6901 from Frisco. Students design, machine, wire, program, and drive one competition robot together.</p>
           <div class="hero-actions">
             <a href="/team" class="btn btn-primary">Meet KnightFall <span aria-hidden="true">↗</span></a>
@@ -94,7 +94,7 @@ const sponsors = [
             disable-pan
             tabindex="-1"
           ></model-viewer>
-          <p class="model-status" id="model-status" aria-live="polite">Loading the 3D robot</p>
+          <p class="model-status" id="model-status" aria-live="polite">Loading the 3D robot…</p>
         </div>
 
         <aside class="robot-callouts" aria-label="Lancelot robot inspection">
@@ -142,6 +142,10 @@ const sponsors = [
         <figure class="worktable-photo worktable-photo-detail">
           <img src="/images/photo_gallery/programming.avif" alt="KnightFall students working together on robot code" width="640" height="427" loading="lazy" decoding="async">
         </figure>
+        <figure class="worktable-photo worktable-photo-build">
+          <img src="/images/photo_gallery/2026pitcrew.avif" alt="KnightFall students working together beside tools and robot electronics" width="426" height="640" loading="lazy" decoding="async">
+          <figcaption>Build together</figcaption>
+        </figure>
         <div class="worktable-word worktable-word-cad" aria-hidden="true">CAD</div>
         <div class="worktable-word worktable-word-build" aria-hidden="true">BUILD</div>
         <ul class="discipline-list" id="student-paths" aria-label="Ways students contribute">
@@ -156,6 +160,9 @@ const sponsors = [
     <section class="proof-moment" aria-labelledby="proof-title">
       <div class="proof-image reveal-left">
         <img src="/images/photo_gallery/2026match.avif" alt="KnightFall competing at a 2026 robotics match" width="640" height="427" loading="lazy" decoding="async">
+        <div class="proof-panels" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
         <div class="proof-ghost-number" aria-hidden="true">2018</div>
       </div>
       <div class="proof-copy reveal-right">
@@ -177,6 +184,7 @@ const sponsors = [
         <a href="/team#packages" class="btn btn-ghost">View partnership packages <span aria-hidden="true">↗</span></a>
       </div>
       <div class="sponsor-ribbon reveal" aria-label="KnightFall sponsors">
+        <div class="sponsor-connector" aria-hidden="true"></div>
         <div class="ribbon-material ribbon-material-purple" aria-hidden="true"></div>
         <div class="ribbon-material ribbon-material-metal" aria-hidden="true"></div>
         <div class="ribbon-material ribbon-material-rubber" aria-hidden="true"></div>
@@ -189,7 +197,7 @@ const sponsors = [
       </div>
     </section>
 
-    <section class="closing-photo" aria-label="KnightFall in competition">
+    <section class="closing-photo reveal-scale" aria-label="KnightFall in competition">
       <img id="closing-image" src="/images/photo_gallery/2026semispirit.avif" alt="KnightFall students supporting the team at competition" width="426" height="640" loading="lazy" decoding="async">
       <div class="closing-number" aria-hidden="true">6901</div>
       <div class="closing-copy reveal">
@@ -204,5 +212,5 @@ const sponsors = [
   <script>
     import '@google/model-viewer';
   </script>
-  <script is:inline slot="scripts" src="/js/index.js?v=47"></script>
+  <script is:inline slot="scripts" src="/js/index.js?v=50"></script>
 </BaseLayout>

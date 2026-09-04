@@ -23,15 +23,26 @@ const teamBase = isTeam ? '' : '/team';
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta charset="UTF-8">
   <meta name="theme-color" content="#110d16">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="dark light">
   <title>{title}</title>
   {description && <meta name="description" content={description}>}
   <meta name="keywords" content={keywords}>
-  <script is:inline>document.documentElement.classList.add('js');</script>
+  <script is:inline>
+    (() => {
+      document.documentElement.classList.add('js');
+      try {
+        const saved = localStorage.getItem('knightfall-theme');
+        const theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.dataset.theme = theme;
+      } catch {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
+  </script>
   <link rel="icon" type="image/png" sizes="32x32" href="/images/6901_logos/favicon-google-search.png">
   <link rel="icon" type="image/png" href="/images/6901_logos/favicon-white.png" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" href="/images/6901_logos/apple-touch-iconSWORD.png">
-  <link rel="stylesheet" href="/css/main.css?v=7">
+  <link rel="stylesheet" href="/css/main.css?v=8">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
   <slot name="head" />
@@ -53,6 +64,10 @@ const teamBase = isTeam ? '' : '/team';
       <a href="/pictures">Photos</a>
       <a href={`${teamBase}#contact`}>Contact Us</a>
     </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Use light mode" title="Use light mode">
+      <i class="fa-solid fa-sun theme-icon-light" aria-hidden="true"></i>
+      <i class="fa-solid fa-moon theme-icon-dark" aria-hidden="true"></i>
+    </button>
     <button class="hamburger" id="hamburger" type="button" aria-label="Open navigation" aria-controls="mobile-menu" aria-expanded="false">
       <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
@@ -92,7 +107,7 @@ const teamBase = isTeam ? '' : '/team';
     </div>
   </footer>
 
-  <script is:inline src="/js/main.js?v=6"></script>
+  <script is:inline src="/js/main.js?v=7"></script>
   <slot name="scripts" />
 
 </body>

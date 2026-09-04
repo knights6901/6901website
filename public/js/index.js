@@ -72,6 +72,7 @@
     }
     loader.classList.add('is-ready');
     loader.setAttribute('aria-hidden', 'true');
+    document.body.classList.add('hero-live');
   }
 
   const loaderTimeout = window.setTimeout(() => dismissLoader(true), 6500);
@@ -292,7 +293,7 @@
     if (number) {
       number.style.setProperty('--final-glow', '0');
       number.style.opacity = '0.55';
-      number.style.transform = 'translateY(-50%)';
+      number.style.transform = 'translate(-50%, -50%)';
     }
     setCameraOrbit(115, true);
     if (!reducedStateApplied) {
@@ -339,7 +340,7 @@
         hero.style.opacity = String(1 - heroExit);
         hero.style.transform = mobileLayout.matches
           ? `translate3d(0, ${-heroExit * 4}vh, 0) scale(${1 - heroExit * 0.025})`
-          : `translate3d(0, calc(-47% - ${heroExit * 4}vh), 0) scale(${1 - heroExit * 0.025})`;
+          : `translate3d(0, ${-heroExit * 4}vh, 0) scale(${1 - heroExit * 0.025})`;
         hero.style.pointerEvents = heroExit > 0.72 ? 'none' : '';
 
         viewer.style.opacity = String(0.34 + modelCenter * 0.66);
@@ -350,7 +351,7 @@
         if (number) {
           number.style.setProperty('--final-glow', String(finalGlow));
           number.style.opacity = String(0.54 + finalGlow * 0.38);
-          number.style.transform = `translateY(-50%) scale(${1 + modelCenter * 0.035 + finalGlow * 0.02})`;
+          number.style.transform = `translate(-50%, -50%) scale(${1 + modelCenter * 0.035 + finalGlow * 0.02})`;
         }
 
         let orbitAngle;
@@ -399,6 +400,7 @@
         joinWorktable.style.setProperty('--section-depth', String(depth));
         joinWorktable.style.setProperty('--main-photo-y', `${(0.5 - depth) * 1.6}rem`);
         joinWorktable.style.setProperty('--detail-photo-y', `${(depth - 0.5) * 2.4}rem`);
+        joinWorktable.style.setProperty('--build-photo-y', `${(0.5 - depth) * 3.2}rem`);
         joinWorktable.style.setProperty('--cad-x', `${(depth - 0.5) * 1.5}rem`);
         joinWorktable.style.setProperty('--build-x', `${(0.5 - depth) * 2}rem`);
       }

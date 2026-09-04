@@ -429,5 +429,16 @@
   .gallery-grid { gap: 0.6rem; }
   .g-item:nth-child(10n + 2), .g-item:nth-child(10n + 5), .g-item:nth-child(10n + 7) { transform: none; }
 }
-@media (max-width: 480px) { .page-hero { margin: 0.5rem 0.5rem 0; } }
+@media (max-width: 480px) { .page-hero { margin: 0.5rem 0.5rem 0; } .page-title { font-size: clamp(3.3rem, 15.5vw, 4.5rem); } }
 @media (max-width: 620px) { .page-hero-photo { width: 100%; opacity: 0.22; -webkit-mask-image: linear-gradient(0deg, transparent 0%, black 58%); mask-image: linear-gradient(0deg, transparent 0%, black 58%); } }
+
+[data-theme='light'] .page-hero { border-color: rgb(58 39 65 / 15%); background: radial-gradient(circle at 80% 10%, rgb(122 72 151 / 30%), transparent 26rem), linear-gradient(120deg, #201923, #382340 68%, #1d171f); box-shadow: 0 1.5rem 4rem rgb(55 38 62 / 16%); }
+[data-theme='light'] .page-title { color: #f7f1e9; }
+[data-theme='light'] .page-title em { color: #d8b9ef; }
+[data-theme='light'] .page-desc { color: rgb(247 241 233 / 80%); }
+[data-theme='light'] .filter-bar { background: #eee9f0; }
+[data-theme='light'] .filter-btn { border-color: rgb(58 39 65 / 18%); background: rgb(255 255 255 / 44%); color: var(--gray-hi); }
+[data-theme='light'] .filter-btn.active { border-color: rgb(102 51 155 / 52%); background: linear-gradient(135deg, #7540aa, #55267f); color: #fff; box-shadow: 0 .5rem 1.4rem rgb(71 33 108 / 18%); }
+[data-theme='light'] .gallery-section { background: radial-gradient(circle at 90% 15%, rgb(102 51 155 / 9%), transparent 25rem), #f3eff5; }
+[data-theme='light'] .g-item { border-color: rgb(57 39 64 / 16%); background: #e3dce7; box-shadow: 0 .8rem 2rem rgb(55 38 62 / 10%); }
+[data-theme='light'] .g-label { color: #fffaf1; }

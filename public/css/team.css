@@ -63,3 +63,32 @@
 @media (max-width: 680px) { .team-hero-frame { border-radius: 0 0 30px 30px; inset: 0 0 27% 0; }.team-hero::after { border-radius: 20px; inset: .75rem; }.hero-side-link { display: none; }.team-rail { justify-content: flex-start; }.outreach-gallery { border-radius: 22px; }.outreach-card-button, .o-card { border-radius: 18px; } }
 .o-card > div:first-of-type { height: 2px; }
 .o-card > div:nth-of-type(2) { height: 100%; }
+
+[data-theme='light'] .team-hero::before { background: linear-gradient(90deg, rgb(19 15 22 / 88%) 0%, rgb(19 15 22 / 66%) 38%, rgb(19 15 22 / 14%) 82%), linear-gradient(180deg, transparent 68%, rgb(19 15 22 / 72%)); }
+[data-theme='light'] .team-hero-copy,
+[data-theme='light'] .team-hero-copy h1,
+[data-theme='light'] .team-hero-copy strong { color: #f7f1e9; }
+[data-theme='light'] .team-hero-copy > p:last-child { color: rgb(247 241 233 / 82%); }
+[data-theme='light'] .team-hero-copy .team-kicker,
+[data-theme='light'] .team-hero-copy h1 em { color: #d8b9ef; }
+[data-theme='light'] .hero-side-link,
+[data-theme='light'] .hero-fact span { color: rgb(247 241 233 / 76%); }
+[data-theme='light'] .team-rail { background: rgb(239 234 242 / 92%); }
+[data-theme='light'] .team-introduction { background: radial-gradient(circle at 80% 10%, rgb(102 51 155 / 10%), transparent 29%), #f3eff5; }
+[data-theme='light'] .introduction-image figcaption { background: rgb(247 244 248 / 92%); }
+[data-theme='light'] .frc-section { background: radial-gradient(circle at 14% 36%, rgb(102 51 155 / 12%), transparent 28%), #eae5ed; }
+[data-theme='light'] .seasons-section { background: #f4f1f5; }
+[data-theme='light'] .outreach-section { background: radial-gradient(circle at 85% 0, rgb(102 51 155 / 11%), transparent 32%), #e9e3ec; }
+[data-theme='light'] .outreach-gallery { background: rgb(64 43 72 / 10%); }
+[data-theme='light'] .o-card-title { color: #f7f1e9; }
+[data-theme='light'] .o-card-desc { color: rgb(247 241 233 / 78%); }
+[data-theme='light'] .outreach-modal-panel { border-color: rgb(102 51 155 / 23%); background: #f3eff5; box-shadow: 0 2rem 5rem rgb(54 38 61 / 22%); }
+[data-theme='light'] .outreach-modal-close { background: #f3eff5; }
+[data-theme='light'] .sponsors-section { background: radial-gradient(circle at 86% 6%, rgb(102 51 155 / 11%), transparent 32%), #f4f1f5; }
+[data-theme='light'] .sponsor-item > a { background: #e5dfe8; }
+[data-theme='light'] .sponsor-item img { filter: grayscale(1) brightness(.34); }
+[data-theme='light'] .packages-section { background: #eae5ed; }
+[data-theme='light'] .team-close { background: radial-gradient(circle at 50% 20%, rgb(102 51 155 / 16%), transparent 40%), linear-gradient(135deg, #eee8f1, #f7f4f8 68%); }
+[data-theme='light'] .contact-panel { background: #f4f1f5; }
+[data-theme='light'] .contact-field input,
+[data-theme='light'] .contact-field textarea { background: #fff; }

@@ -425,3 +425,26 @@
   .season-detail { grid-template-columns: 1.5rem minmax(0, 1fr); padding-right: 0.25rem; }
   .season-feature-photo { grid-column: 2; }
 }
+
+[data-theme='light'] .seasons-page {
+  --archive-line: rgb(52 36 59 / 14%);
+  --archive-rule: rgb(102 51 155 / 22%);
+  background: radial-gradient(circle at 76% 1%, rgb(102 51 155 / 13%), transparent 30rem), linear-gradient(145deg, #f6f3f7, #e9e3ec 70%, #f3eff5);
+}
+[data-theme='light'] .seasons-hero { border-color: rgb(57 39 64 / 14%); background: linear-gradient(110deg, rgb(24 19 28 / 96%) 0%, rgb(24 19 28 / 82%) 48%, rgb(70 40 84 / 38%) 100%); box-shadow: 0 1.5rem 4rem rgb(55 38 62 / 16%); }
+[data-theme='light'] .seasons-eyebrow { color: #d8b9ef; }
+[data-theme='light'] .seasons-title { color: #f7f1e9; }
+[data-theme='light'] .seasons-title em { color: #d8b9ef; }
+[data-theme='light'] .seasons-desc { color: rgb(247 241 233 / 80%); }
+[data-theme='light'] .seasons-archive { background: radial-gradient(circle at 18% 10%, rgb(102 51 155 / 10%), transparent 28rem), #f3eff5; }
+[data-theme='light'] .season-entry[open] { border-color: rgb(102 51 155 / 20%); background: linear-gradient(120deg, rgb(102 51 155 / 10%), rgb(255 255 255 / 64%)); box-shadow: 0 1.25rem 3.25rem rgb(55 38 62 / 10%); }
+[data-theme='light'] .season-summary { border-color: rgb(55 38 62 / 15%); background: rgb(255 255 255 / 35%); }
+[data-theme='light'] .season-year,
+[data-theme='light'] .season-game { color: var(--purple-ink); }
+[data-theme='light'] .season-marker { border-color: var(--purple); background: #f3eff5; box-shadow: 0 0 0 5px #f3eff5; }
+[data-theme='light'] .season-entry[open] .season-marker { background: var(--purple); box-shadow: 0 0 0 5px #e6ddea, 0 .35rem 1rem rgb(102 51 155 / 22%); }
+[data-theme='light'] .season-summary-title,
+[data-theme='light'] .season-detail-heading h2,
+[data-theme='light'] .season-achievement { color: var(--white); }
+[data-theme='light'] .season-achievement { border-color: rgb(102 51 155 / 18%); background: rgb(255 255 255 / 42%); }
+[data-theme='light'] .season-description { color: var(--gray-hi); }

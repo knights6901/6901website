@@ -1,5 +1,31 @@
 /* KnightFall shared interaction layer. */
 
+/* Site theme follows the system until the visitor chooses a preference. */
+(function () {
+  const root = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  const systemTheme = window.matchMedia('(prefers-color-scheme: light)');
+
+  function applyTheme(theme) {
+    root.dataset.theme = theme;
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    toggle?.setAttribute('aria-label', `Use ${nextTheme} mode`);
+    toggle?.setAttribute('title', `Use ${nextTheme} mode`);
+    themeColor?.setAttribute('content', theme === 'light' ? '#f3eff5' : '#110d16');
+  }
+
+  applyTheme(root.dataset.theme || (systemTheme.matches ? 'light' : 'dark'));
+  toggle?.addEventListener('click', () => {
+    const theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('knightfall-theme', theme);
+    applyTheme(theme);
+  });
+  systemTheme.addEventListener('change', (event) => {
+    if (!localStorage.getItem('knightfall-theme')) applyTheme(event.matches ? 'light' : 'dark');
+  });
+})();
+
 /* A quiet, one-time arrival gives each editorial page a shared stage. */
 (function () {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;

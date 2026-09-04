@@ -1,5 +1,11 @@
 /* KnightFall shared interaction layer. */
 
+/* A quiet, one-time arrival gives each editorial page a shared stage. */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  requestAnimationFrame(() => document.body.classList.add('page-enter'));
+})();
+
 /* Sticky header state without a continuous scroll listener. */
 (function () {
   const header = document.querySelector('.site-header');
@@ -30,11 +36,16 @@
     menu.setAttribute('aria-hidden', String(!open));
     menu.inert = !open;
     document.body.classList.toggle('menu-open', open);
-    if (open) menu.querySelector('a')?.focus();
+    if (open) {
+      menu.querySelector('a')?.focus();
+    }
   }
 
   button.addEventListener('click', () => setOpen(!menu.classList.contains('open')));
   menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+  window.matchMedia('(min-width: 1081px)').addEventListener('change', (event) => {
+    if (event.matches && menu.classList.contains('open')) setOpen(false);
+  });
   document.addEventListener('keydown', (event) => {
     if (!menu.classList.contains('open')) return;
 

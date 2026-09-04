@@ -1,30 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import OutreachCard from '../components/OutreachCard.astro';
-import PackageCard from '../components/PackageCard.astro';
 import ContactForm from '../components/ContactForm.astro';
 
 const outreachItems = [
-  {
-    title: 'University of Brasilia — LAMFO',
-    description: 'Virtually assisted a college in Brazil through instructional videos on robotic mechanisms and designs, plus an introductory programming lesson — sharing expertise with a global audience.',
-    image: '/images/outreach_gallery/LAMFO AND UNIVERSITY OF BRASILLA\'S SEMANA.avif',
-    imageAlt: 'University of Brasilia Collaboration',
-  },
-  {
-    title: 'FIRST Lego League Camp',
-    description: 'Hosted a camp for elementary and middle schoolers introducing the engineering design process, block coding, and foundational sensor usage — sparking early STEM interest.',
-    image: '/images/outreach_gallery/FIRST LEGO LEAGUE CAMP.webp',
-    imageAlt: 'FIRST LEGO League Camp',
-  },
-  {
-    title: 'AOPS Virtual Camp',
-    description: 'Assisted middle school students with robotics programming in a virtual simulator and engaged them in teamwork through assigned missions, expanding the team\'s educational reach online.',
-    image: '/images/outreach_gallery/AOPS VIRTUAL CAMP.avif',
-    imageAlt: 'AOPS Virtual Camp',
-  },
+  { title: 'University of Brasilia — LAMFO', description: 'Virtually assisted a college in Brazil through instructional videos on robotic mechanisms and designs, plus an introductory programming lesson — sharing expertise with a global audience.', image: '/images/outreach_gallery/LAMFO AND UNIVERSITY OF BRASILLA\'S SEMANA.avif', imageAlt: 'University of Brasilia Collaboration' },
+  { title: 'FIRST Lego League Camp', description: 'Hosted a camp for elementary and middle schoolers introducing the engineering design process, block coding, and foundational sensor usage — sparking early STEM interest.', image: '/images/outreach_gallery/FIRST LEGO LEAGUE CAMP.webp', imageAlt: 'FIRST LEGO League Camp' },
+  { title: 'AOPS Virtual Camp', description: 'Assisted middle school students with robotics programming in a virtual simulator and engaged them in teamwork through assigned missions, expanding the team\'s educational reach online.', image: '/images/outreach_gallery/AOPS VIRTUAL CAMP.avif', imageAlt: 'AOPS Virtual Camp' },
 ];
-
 const sponsors = [
   {
     name: 'Boeing',
@@ -69,467 +52,50 @@ const sponsors = [
     tier: 'Squire',
   },
 ];
-
-const groupedSponsors = sponsors.reduce((acc, sponsor) => {
-  if (!acc[sponsor.tier]) acc[sponsor.tier] = [];
-  acc[sponsor.tier].push(sponsor);
-  return acc;
-}, {} as Record<string, typeof sponsors>);
-
+const groupedSponsors = sponsors.reduce((acc, sponsor) => { if (!acc[sponsor.tier]) acc[sponsor.tier] = []; acc[sponsor.tier].push(sponsor); return acc; }, {} as Record<string, typeof sponsors>);
 const packages = [
-  {
-    tier: 'Emperor / Empress',
-    amount: '$10,000+',
-    benefits: [
-      'Large logo on website, t-shirt, robot &amp; competition banner',
-      'Up to twelve team t-shirts',
-      'Personalized impact video',
-      'Video recap after every competition',
-      'All King/Queen benefits included',
-    ],
-  },
-  {
-    tier: 'King / Queen',
-    amount: '$5,000 – $9,999',
-    benefits: [
-      'Medium logo on website, t-shirt, robot &amp; competition banner',
-      'Robot demo at your organization\'s events',
-      'All Prince/Princess benefits included',
-    ],
-  },
-  {
-    tier: 'Prince / Princess',
-    amount: '$2,500 – $4,999',
-    benefits: [
-      'Medium logo on t-shirt, website &amp; competition banner',
-      'Four team t-shirts',
-      'All Duke/Duchess benefits included',
-    ],
-  },
-  {
-    tier: 'Duke / Duchess',
-    amount: '$1,000 – $2,499',
-    benefits: [
-      'Medium logo on website; small on t-shirt &amp; banner',
-      'All Knight benefits included',
-    ],
-  },
-  {
-    tier: 'Knight',
-    amount: '$500 – $999',
-    benefits: [
-      'Small logo on t-shirt, website &amp; competition banner',
-      'Thank-you team picture',
-      'Social media post',
-      'All Squire benefits included',
-    ],
-  },
-  {
-    tier: 'Squire',
-    amount: '$100 – $499',
-    benefits: [
-      'Your name on our website',
-      'Thank-you team letter',
-    ],
-  },
+  { tier: 'Emperor / Empress', amount: '$10,000+', benefits: ['Large logo on website, t-shirt, robot &amp; competition banner', 'Up to twelve team t-shirts', 'Personalized impact video', 'Video recap after every competition', 'All King/Queen benefits included'] },
+  { tier: 'King / Queen', amount: '$5,000 – $9,999', benefits: ['Medium logo on website, t-shirt, robot &amp; competition banner', 'Robot demo at your organization\'s events', 'All Prince/Princess benefits included'] },
+  { tier: 'Prince / Princess', amount: '$2,500 – $4,999', benefits: ['Medium logo on t-shirt, website &amp; competition banner', 'Four team t-shirts', 'All Duke/Duchess benefits included'] },
+  { tier: 'Duke / Duchess', amount: '$1,000 – $2,499', benefits: ['Medium logo on website; small on t-shirt &amp; banner', 'All Knight benefits included'] },
+  { tier: 'Knight', amount: '$500 – $999', benefits: ['Small logo on t-shirt, website &amp; competition banner', 'Thank-you team picture', 'Social media post', 'All Squire benefits included'] },
+  { tier: 'Squire', amount: '$100 – $499', benefits: ['Your name on our website', 'Thank-you team letter'] },
 ];
 ---
-<BaseLayout
-  title="Team Info — FRC 6901 KnightFall"
-  description="Learn about FRC 6901 KnightFall — our history, seasons, outreach, and sponsorship opportunities."
-  keywords="FRC, 6901 KnightFall, Robots, Robotics, STEM, Frisco TX"
-  currentPage="team"
->
-  <link slot="head" rel="stylesheet" href="/css/team.css?v=2">
 
-  <!-- PAGE HERO -->
-  <div class="page-hero" id="home">
-    <div class="page-hero-bg"></div>
-    <img class="page-hero-photo" src="/images/photo_gallery/2026teampic.avif" alt="">
-    <div class="page-hero-inner">
-      <div class="page-eyebrow">FRC Team 6901</div>
-      <h1 class="page-title">The<br><em>Team</em></h1>
-      <p class="page-desc">KnightFall is a non-profit <strong>FIRST Robotics Competition</strong> team in Frisco, TX — founded in 2018 to inspire the next generation of STEM leaders.</p>    
-      </div>
-  </div>
-
-  <!-- ABOUT -->
-  <section id="about" class="alt">
-    <div class="two-col">
-      <div>
-        <div class="section-label reveal">About Us</div>
-        <h2 class="section-heading reveal delay-1">Built for<br><em>Students</em></h2>
-        <p class="body-text reveal delay-2">
-          Welcome to <strong>KnightFall!</strong> We’re a team of high school students who turn big ideas into a real, functioning robot.
-          <span class="spacer"></span>
-          Students develop technical skills including <strong>CAD, programming, and machining</strong>, alongside teamwork, problem-solving, and leadership through subteams and community events.
-          <span class="spacer"></span>
-          Founded in 2018, we have competed across Texas and qualified for the <strong>FRC World Championship</strong> during the Deep Space season.
-        </p>
-        <blockquote class="pull-quote reveal delay-3">
-          "More than robots — we build engineers, communicators, and collaborators."
-        </blockquote>
-      </div>
-      <div class="photo-frame reveal-right">
-        <img src="/images/photo_gallery/2026teampic.avif" alt="KnightFall Team 2026">
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT FRC -->
-  <section id="frc" class="default">
-    <div class="two-col">
-      <div class="photo-frame reveal-left">
-        <a href="https://www.firstinspires.org/programs/frc/" target="_blank" rel="noopener noreferrer">
-          <img src="/images/partner_logos/FRCLogo.svg" alt="FRC Competition">
-        </a>
-      </div>
-      <div>
-        <div class="section-label reveal">About FRC</div>
-        <h2 class="section-heading reveal delay-1">The<br><em>Competition</em></h2>
-        <p class="body-text reveal delay-2" style="font-size:18px; font-weight:400; color:#bbb; font-style:italic; margin-bottom:1.5rem; line-height:1.55;">
-          "The World's Leading Youth-Serving Nonprofit Advancing STEM Education"
-        </p>
-        <p class="body-text reveal delay-2">
-          Combining the excitement of sport with the rigors of science and technology, FIRST Robotics Competition is the ultimate Sport for the Mind. High-school participants call it "the hardest fun you'll ever have."
-          <span class="spacer"></span>
-          Under strict rules and limited time, teams design, fund, and build industrial-size robots to play a difficult field game each season. Volunteer professional mentors also guide each team towards their season's goals.
-          <span class="spacer"></span>
-          <strong><a href="https://www.firstinspires.org/" target="_blank" rel="noopener">More at firstinspires.org &rarr;</a></strong>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEASONS -->
-  <section id="seasons" class="alt">
-    <div class="timeline-wrap">
-      <div class="section-label reveal">Our History</div>
-      <h2 class="section-heading reveal delay-1">Recent<br><em>Seasons</em></h2>
-
+<!-- A warm, photo-led team story that moves from the pit to people, seasons, outreach, partners, and contact. -->
+<BaseLayout title="Team Info — FRC 6901 KnightFall" description="Learn about FRC 6901 KnightFall — our history, seasons, outreach, and sponsorship opportunities." keywords="FRC, 6901 KnightFall, Robots, Robotics, STEM, Frisco TX" currentPage="team">
+  <link slot="head" rel="stylesheet" href="/css/team.css?v=4">
+  <main class="team-page">
+    <section class="team-hero" id="home" aria-labelledby="team-title">
+      <div class="team-hero-frame" aria-hidden="true"><img src="/images/photo_gallery/2026teampic.avif" alt="" fetchpriority="high"></div>
+      <div class="team-hero-copy"><p class="team-kicker">FRC Team 6901</p><h1 id="team-title">The<br><em>Team</em></h1><p>We’re KnightFall, a <strong>FIRST Robotics Competition</strong> team from Frisco, Texas. Since 2018, students have designed, built, programmed, and competed with our own robots.</p></div>
+      <a class="hero-side-link" href="#about">FRC Team 6901</a><div class="hero-fact" aria-hidden="true"><span>Powered by</span><img src="/images/partner_logos/FRCLogo.svg" alt=""></div>
+    </section>
+    <nav class="team-rail" aria-label="Team page sections"><a href="#about">About Us</a><a href="#frc">The Competition</a><a href="#seasons">Recent Seasons</a><a href="#outreach">Outreach</a><a href="#sponsors">Current Sponsors</a><a href="#packages">Partnership Packages</a><a href="#contact">Contact Us</a></nav>
+    <section id="about" class="team-section team-introduction" aria-labelledby="about-title">
+      <div class="team-section-heading reveal"><p class="team-kicker">About Us</p><h2 id="about-title">We learn<br><em>by building.</em></h2></div>
+      <div class="introduction-copy reveal delay-1"><p>We’re a high school team from Frisco, Texas. Each season, we take a new game and turn it into a working competition robot.</p><p>Students handle the whole process: <strong>CAD, machining, wiring, programming, strategy, and driving.</strong> We build together, test what works, and fix what does not.</p><p>KnightFall started in 2018 and qualified for the <strong>FRC World Championship</strong> during the Deep Space season.</p></div>
+      <figure class="introduction-image reveal-right"><img src="/images/photo_gallery/2026teampic.avif" alt="KnightFall Team 2026"></figure>
+    </section>
+    <section id="frc" class="team-section frc-section" aria-labelledby="frc-title">
+      <div class="frc-copy reveal"><p class="team-kicker">About FRC</p><h2 id="frc-title">The<br><em>Competition</em></h2><p class="frc-quote">"The World's Leading Youth-Serving Nonprofit Advancing STEM Education"</p><p>Combining the excitement of sport with the rigors of science and technology, FIRST Robotics Competition is the ultimate Sport for the Mind. High-school participants call it "the hardest fun you'll ever have."</p><p>Under strict rules and limited time, teams design, fund, and build industrial-size robots to play a difficult field game each season. Volunteer professional mentors also guide each team towards their season's goals.</p><p><strong><a href="https://www.firstinspires.org/" target="_blank" rel="noopener">More at firstinspires.org →</a></strong></p></div>
+    </section>
+    <section id="seasons" class="team-section seasons-section" aria-labelledby="seasons-title">
+      <div class="season-intro reveal"><p class="team-kicker">Our History</p><h2 id="seasons-title">Recent<br><em>Seasons</em></h2></div>
       <div class="timeline seasons-preview">
-
-        <div class="t-item">
-          <div class="t-dot"></div>
-          <div class="t-year">2026</div>
-          <div class="t-body">
-            <div class="t-season">Rebuilt</div>
-            <span class="iconify t-icon" data-icon="qlementine-icons:wall-16"></span>
-            <div class="t-name">Reaching New Heights</div>
-            <p class="t-desc">This season was a major leap forward for our team, starting with the Fort Worth District Event, where we ranked 21st, and finished with a strong quarterfinals game. From there, we went on to win 2nd place at the Manor District Competition, and won the Gracious Professionalism and District Finalist Award. This earned us a exciting spot at the Texas State Championship held in Houston, where we finished at rank 23 out of 45. Although we did not make playoffs, we improved and learned so much this season. </p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-dot"></div>
-          <div class="t-year">2025</div>
-          <div class="t-body">
-            <div class="t-season">Reefscape</div>
-            <span class="iconify t-icon" data-icon="fluent-emoji-high-contrast:coral"></span>
-            <div class="t-name">Game Changer</div>
-            <p class="t-desc">This year, the KnightFall team participated in two events: FIT Belton and FIT Fort Worth. In Belton, we ranked 15 out of 41, winning 6 games, losing 5 games, and getting a tie for 1 game, however we did not get picked during alliance selections. In Fort Worth, we performed much better. We were 10th out of 35 people, getting 7 wins and 5 losses. During the qualification matches, we beat the record for the most amount of points scored, with a score of 189. We were also the alliance captain for alliance 8. Additionally, we were the recipient of the Rising All-Star Award. Our performance at the FIT Fort Worth District event was unparalleled, but unfortunately, we were unable to move onto the next level. Despite this, we learned more than we ever had, and we were ready to make next year the best one yet.</p>
-          </div>
-        </div>
-
-        <div class="t-item">
-          <div class="t-dot"></div>
-          <div class="t-year">2024</div>
-          <div class="t-body">
-            <div class="t-season">Crescendo</div>
-            <span class="iconify t-icon" data-icon="fluent-mdl2:volume-3"></span>
-            <div class="t-name">Resilience in Competition</div>
-            <p class="t-desc">This year, we competed in two events: FIRST In Texas Plano Event, and FIRST In Texas Dallas Event. With only freshmen and sophomores, this season proved to be challenging for us because of our lack of knowledge. In the Plano event, we placed 20 out of 29, winning 4 games and losing 8 games. Despite this, we fortunately got chosen in round 2 of Alliance 4. In the Dallas event, we ended with a ranking of 20 out of 43, with 5 wins and 7 losses. Unfortunately, we did not get chosen during alliance selection. Despite the undesirable outcomes this season, we still prevailed, and we ended the season with more knowledge than what we started with, and we also built relationships with new teams and mentors.</p>
-          </div>
-        </div>
-
+        <article class="t-item"><div class="t-year">2026</div><div class="t-body"><div class="t-season">Rebuilt</div><div class="t-name">Reaching New Heights</div><p class="t-desc">This season was a major leap forward for our team, starting with the Fort Worth District Event, where we ranked 21st, and finished with a strong quarterfinals game. From there, we went on to win 2nd place at the Manor District Competition, and won the Gracious Professionalism and District Finalist Award. This earned us a exciting spot at the Texas State Championship held in Houston, where we finished at rank 23 out of 45. Although we did not make playoffs, we improved and learned so much this season.</p></div></article>
+        <article class="t-item"><div class="t-year">2025</div><div class="t-body"><div class="t-season">Reefscape</div><div class="t-name">Game Changer</div><p class="t-desc">This year, the KnightFall team participated in two events: FIT Belton and FIT Fort Worth. In Belton, we ranked 15 out of 41, winning 6 games, losing 5 games, and getting a tie for 1 game, however we did not get picked during alliance selections. In Fort Worth, we performed much better. We were 10th out of 35 people, getting 7 wins and 5 losses. During the qualification matches, we beat the record for the most amount of points scored, with a score of 189. We were also the alliance captain for alliance 8. Additionally, we were the recipient of the Rising All-Star Award. Our performance at the FIT Fort Worth District event was unparalleled, but unfortunately, we were unable to move onto the next level. Despite this, we learned more than we ever had, and we were ready to make next year the best one yet.</p></div></article>
+        <article class="t-item"><div class="t-year">2024</div><div class="t-body"><div class="t-season">Crescendo</div><div class="t-name">Resilience in Competition</div><p class="t-desc">This year, we competed in two events: FIRST In Texas Plano Event, and FIRST In Texas Dallas Event. With only freshmen and sophomores, this season proved to be challenging for us because of our lack of knowledge. In the Plano event, we placed 20 out of 29, winning 4 games and losing 8 games. Despite this, we fortunately got chosen in round 2 of Alliance 4. In the Dallas event, we ended with a ranking of 20 out of 43, with 5 wins and 7 losses. Unfortunately, we did not get chosen during alliance selection. Despite the undesirable outcomes this season, we still prevailed, and we ended the season with more knowledge than what we started with, and we also built relationships with new teams and mentors.</p></div></article>
       </div>
-
-      <div style="text-align:center; margin-top:3rem;" class="reveal">
-        <a href="/seasons" class="btn btn-primary">
-          <i class="fa-solid fa-history"></i> View All Seasons
-        </a>
-        <a href="/pictures" class="btn btn-ghost">
-          <i class="fa-regular fa-images"></i> View Photo Gallery
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- OUTREACH -->
-  <section id="outreach" class="default">
-    <div class="section-label reveal" style="justify-content:center;">Community</div>
-    <h2 class="section-heading reveal delay-1" style="text-align:center; max-width:600px; margin:0 auto 1.5rem;">Outreach</h2>
-    <p class="outreach-intro reveal delay-2">
-      Team 6901 is dedicated to providing STEM educational opportunities for students of all ages — from elementary to college level — with a focus on practical robotics.
-    </p>
-    <div class="outreach-grid">
-      {outreachItems.map((item, i) => (
-        <button
-          class={`outreach-card-button reveal${i > 0 ? ` delay-${i}` : ''}`}
-          type="button"
-          data-title={item.title}
-          data-description={item.description}
-          data-image={item.image}
-          data-alt={item.imageAlt}
-        >
-          <OutreachCard
-            title={item.title}
-            description={item.description}
-            image={item.image}
-            imageAlt={item.imageAlt}
-          />
-        </button>
-      ))}
-    </div>
-
-    <div id="outreach-modal" class="outreach-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="outreach-modal-title" aria-describedby="outreach-modal-description" tabindex="-1">
-      <div class="outreach-modal-backdrop" data-close></div>
-      <div class="outreach-modal-panel">
-        <button type="button" class="outreach-modal-close" data-close aria-label="Close">×</button>
-        <img id="outreach-modal-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="">
-        <div class="outreach-modal-copy">
-          <h3 id="outreach-modal-title"></h3>
-          <p id="outreach-modal-description"></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    .outreach-card-button {
-      all: unset;
-      display: block;
-      width: 100%;
-      cursor: pointer;
-      text-align: left;
-    }
-
-    .outreach-modal {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      background: rgba(8, 5, 12, 0.82);
-      z-index: 1000;
-    }
-
-    .outreach-modal[hidden] {
-      display: none;
-    }
-
-    .outreach-modal-panel {
-      position: relative;
-      width: min(940px, 100%);
-      max-height: min(90vh, 100%);
-      background: rgba(20, 15, 25, 0.94);
-      border: 1px solid rgba(220, 196, 255, 0.15);
-      border-radius: 1rem;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(20px) saturate(130%);
-      overflow: hidden;
-      display: grid;
-      gap: 1rem;
-    }
-
-    .outreach-modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      border: none;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      font-size: 1.5rem;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    .outreach-modal-close:focus-visible {
-      outline: 2px solid var(--purple-light);
-      outline-offset: 3px;
-    }
-
-    .outreach-modal img {
-      width: auto;
-      max-width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-      max-height: 70vh;
-      margin: 0 auto;
-      background: #050506;
-    }
-
-    .outreach-modal-copy {
-      padding: 1.5rem;
-      color: #f4f4f4;
-      background: rgba(10, 8, 13, 0.72);
-      line-height: 1.6;
-    }
-
-    .outreach-modal-copy h3 {
-      margin: 0 0 0.75rem;
-      font-size: clamp(1.4rem, 2vw, 2rem);
-    }
-
-    .outreach-modal-copy p {
-      margin: 0;
-      color: #d1d1d1;
-    }
-
-    @media (prefers-reduced-transparency: reduce) {
-      .outreach-modal-panel { background: #18121d; backdrop-filter: none; }
-    }
-  </style>
-
-  <script>
-    const modal = document.getElementById('outreach-modal') as HTMLDivElement | null;
-    const modalImage = document.getElementById('outreach-modal-image') as HTMLImageElement | null;
-    const modalTitle = document.getElementById('outreach-modal-title') as HTMLElement | null;
-    const modalDescription = document.getElementById('outreach-modal-description') as HTMLElement | null;
-
-    if (modal && modalImage && modalTitle && modalDescription) {
-      let previouslyFocused: HTMLElement | null = null;
-      const openOutreachModal = (button: HTMLButtonElement) => {
-        previouslyFocused = button;
-        modalImage.src = button.dataset.image || '';
-        modalImage.alt = button.dataset.alt || button.dataset.title || 'Outreach image';
-        modalTitle.textContent = button.dataset.title || '';
-        modalDescription.textContent = button.dataset.description || '';
-        modal.hidden = false;
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        requestAnimationFrame(() => modal.querySelector<HTMLButtonElement>('.outreach-modal-close')?.focus());
-      };
-
-      const closeOutreachModal = () => {
-        modal.hidden = true;
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        modalImage.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
-        previouslyFocused?.focus();
-      };
-
-      document.querySelectorAll<HTMLButtonElement>('.outreach-card-button').forEach((button) => {
-        button.addEventListener('click', () => openOutreachModal(button));
-      });
-
-      modal.querySelectorAll<HTMLElement>('[data-close]').forEach((button) => {
-        button.addEventListener('click', closeOutreachModal);
-      });
-
-      window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && !modal.hidden) {
-          closeOutreachModal();
-        }
-
-        if (event.key === 'Tab' && !modal.hidden) {
-          const focusable = Array.from(modal.querySelectorAll<HTMLElement>('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'));
-          const first = focusable[0];
-          const last = focusable[focusable.length - 1];
-          if (!first || !last) return;
-          if (event.shiftKey && document.activeElement === first) {
-            event.preventDefault();
-            last.focus();
-          } else if (!event.shiftKey && document.activeElement === last) {
-            event.preventDefault();
-            first.focus();
-          }
-        }
-      });
-    }
-  </script>
-
-  <!-- CURRENT SPONSORS -->
-  <section id="sponsors" class="alt">
-    <div class="section-label reveal" style="justify-content:center;">Partners</div>
-    <h2 class="section-heading reveal delay-1" style="text-align:center; max-width:600px; margin:0 auto 1.5rem;">Current<br><em>Sponsors</em></h2>
-    <p class="section-intro reveal delay-2" style="text-align:center;">
-      We're grateful to the organizations that have provided financial contributions and equipment to make our team's work possible.
-    </p>
-    {
-      Object.entries(groupedSponsors).map(([tier, tierSponsors], tierIndex) => (
-        <div class="tier-section">
-          <h3 class={`tier-heading reveal ${tierIndex > 0 ? 'tier-heading-margin' : ''}`} style="text-align: center; margin: 2rem 0 1rem;">{tier}</h3>
-          <ul class="sponsors-list">
-            {tierSponsors.map((s, i) => (
-              <li class={`sponsor-item reveal ${i > 0 ? `delay-${Math.min(i, 3)}` : ''}`}>
-                <div class="sponsor-content">
-                  <a href={s.url} target="_blank" rel="noopener" class="sponsor-logo-link">
-                    <img src={s.logo} alt={s.name} class="sponsor-logo">
-                  </a>
-                  <div class="sponsor-details">
-                    <a href={s.url} target="_blank" rel="noopener" class="sponsor-name">
-                      {s.name}
-                    </a>
-                    <p class="sponsor-description">{s.description}</p>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))
-    }
-  </section>
-
-  <!-- SPONSORSHIP PACKAGES -->
-  <section id="packages" class="default">
-    <div class="section-label reveal" style="justify-content:center;">Sponsorship</div>
-    <h2 class="section-heading reveal delay-1" style="text-align:center; max-width:700px; margin:0 auto 1.5rem;">Partnership<br><em>Packages</em></h2>
-    <p class="section-intro reveal delay-2" style="text-align:center; margin-bottom:3.5rem;">
-      By supporting our nonprofit team, your company makes a positive impact on STEM education in the Frisco, TX community — inspiring the next generation of engineers and innovators.
-    </p>
-
-    <div class="pkg-grid">
-      {packages.map((pkg, i) => (
-        <PackageCard
-          tier={pkg.tier}
-          amount={pkg.amount}
-          benefits={pkg.benefits}
-          delay={[1, 2, undefined, 1, 2, undefined][i] ? `delay-${[1, 2, undefined, 1, 2, undefined][i]}` as any : undefined}
-        />
-      ))}
-    </div>
-
-    <div class="roi-grid reveal">
-      <div class="roi-block">
-        <h3>Social Return on Investment</h3>
-        <p>Your support increases our budget and enables better facilities and more team members. Frisco students gain access to engineering, business, and programming pathways through FIRST Robotics — expanding STEM education and encouraging future careers in innovation. Sponsorship also enables us to host FRC tournaments and STEM camps, amplifying both your company's and FIRST's reach in the community.</p>
-      </div>
-      <div class="roi-block">
-        <h3>Benefits of Sponsoring</h3>
-        <ul>
-          <li>Promote practical STEM applications in Frisco, TX</li>
-          <li>Tax-deductible donation — 501(c)(3) organization</li>
-          <li>Mentoring opportunities for your professionals</li>
-          <li>Intern and employee recruiting pipeline</li>
-          <li>Website and competition webcast visibility</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section alt" id="join">
-    <div class="section-label reveal" style="justify-content:center;">Get Involved</div>
-    <h2 class="section-heading reveal delay-1">Ready to<br><em>Build?</em></h2>
-    <p class="cta-sub reveal delay-2">Whether you're a student, mentor, or potential sponsor — there's a place for you at KnightFall.</p>
-    <div class="cta-row reveal delay-3">
-      <a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" class="btn btn-primary">
-        <i class="fab fa-instagram"></i> Follow on Instagram
-      </a>
-      <a href="/pictures" class="btn btn-ghost">
-        <i class="fa-regular fa-images"></i> View Photos
-      </a>
-    </div>
-  </section>
-
-  <ContactForm />
-
-  <script is:inline slot="scripts" src="/js/team.js?v=2"></script>
+      <div class="season-actions reveal"><a href="/seasons" class="btn btn-primary"><i class="fa-solid fa-history" aria-hidden="true"></i> View All Seasons</a><a href="/pictures" class="btn btn-ghost"><i class="fa-regular fa-images" aria-hidden="true"></i> View Photo Gallery</a></div>
+    </section>
+    <section id="outreach" class="team-section outreach-section" aria-labelledby="outreach-title"><div class="outreach-intro reveal"><p class="team-kicker">Community</p><h2 id="outreach-title">Outreach</h2><p>Team 6901 is dedicated to providing STEM educational opportunities for students of all ages — from elementary to college level — with a focus on practical robotics.</p></div><div class="outreach-gallery" aria-label="Outreach programs">{outreachItems.map((item, i) => (<button class={`outreach-card-button outreach-card-${i + 1} reveal`} type="button" data-title={item.title} data-description={item.description} data-image={item.image} data-alt={item.imageAlt}><OutreachCard title={item.title} description={item.description} image={item.image} imageAlt={item.imageAlt} /></button>))}</div></section>
+    <div id="outreach-modal" class="outreach-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="outreach-modal-title" aria-describedby="outreach-modal-description"><button type="button" class="outreach-modal-backdrop" data-close aria-label="Close outreach details"></button><div class="outreach-modal-panel"><button type="button" class="outreach-modal-close" data-close aria-label="Close outreach details">×</button><img id="outreach-modal-image" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt=""><div class="outreach-modal-copy"><h3 id="outreach-modal-title"></h3><p id="outreach-modal-description"></p></div></div></div>
+    <section id="sponsors" class="team-section sponsors-section" aria-labelledby="sponsors-title"><div class="sponsors-intro reveal"><p class="team-kicker">Partners</p><h2 id="sponsors-title">Current<br><em>Sponsors</em></h2><p>We're grateful to the organizations that have provided financial contributions and equipment to make our team's work possible.</p></div><div class="sponsor-lanes">{Object.entries(groupedSponsors).map(([tier, tierSponsors]) => (<section class="sponsor-tier" aria-labelledby={`tier-${tier.replaceAll(' ', '-').replaceAll('/', '-')}`}><h3 id={`tier-${tier.replaceAll(' ', '-').replaceAll('/', '-')}`}>{tier}</h3><ul>{tierSponsors.map((sponsor) => (<li class="sponsor-item reveal"><a href={sponsor.url} target="_blank" rel="noopener"><img src={sponsor.logo} alt={sponsor.name}></a><div><a href={sponsor.url} target="_blank" rel="noopener">{sponsor.name}</a><p>{sponsor.description}</p></div></li>))}</ul></section>))}</div></section>
+    <section id="packages" class="team-section packages-section" aria-labelledby="packages-title"><div class="packages-intro reveal"><p class="team-kicker">Sponsorship</p><h2 id="packages-title">Partnership<br><em>Packages</em></h2><p>By supporting our nonprofit team, your company makes a positive impact on STEM education in the Frisco, TX community — inspiring the next generation of engineers and innovators.</p></div><ol class="package-ladder">{packages.map((pkg) => (<li class="package-rung reveal"><div><h3>{pkg.tier}</h3><p>{pkg.amount}</p></div><ul>{pkg.benefits.map((benefit) => <li set:html={benefit} />)}</ul></li>))}</ol><div class="roi-grid reveal"><div><h3>Social Return on Investment</h3><p>Your support increases our budget and enables better facilities and more team members. Frisco students gain access to engineering, business, and programming pathways through FIRST Robotics — expanding STEM education and encouraging future careers in innovation. Sponsorship also enables us to host FRC tournaments and STEM camps, amplifying both your company's and FIRST's reach in the community.</p></div><div><h3>Benefits of Sponsoring</h3><ul><li>Promote practical STEM applications in Frisco, TX</li><li>Tax-deductible donation — 501(c)(3) organization</li><li>Mentoring opportunities for your professionals</li><li>Intern and employee recruiting pipeline</li><li>Website and competition webcast visibility</li></ul></div></div></section>
+    <section class="team-close" id="join" aria-labelledby="join-title"><p class="team-kicker reveal">Get Involved</p><h2 id="join-title" class="reveal">Ready to<br><em>Build?</em></h2><p class="reveal">Whether you're a student, mentor, or potential sponsor — there's a place for you at KnightFall.</p><div class="cta-row reveal"><a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-instagram" aria-hidden="true"></i> Follow on Instagram</a><a href="/pictures" class="btn btn-ghost"><i class="fa-regular fa-images" aria-hidden="true"></i> View Photos</a></div></section>
+    <ContactForm />
+  </main>
+  <script is:inline slot="scripts" src="/js/team.js?v=3"></script>
 </BaseLayout>

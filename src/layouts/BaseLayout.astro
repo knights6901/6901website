@@ -22,6 +22,8 @@ const teamBase = isTeam ? '' : '/team';
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
+  <meta name="theme-color" content="#110d16">
+  <meta name="color-scheme" content="dark">
   <title>{title}</title>
   {description && <meta name="description" content={description}>}
   <meta name="keywords" content={keywords}>
@@ -29,12 +31,13 @@ const teamBase = isTeam ? '' : '/team';
   <link rel="icon" type="image/png" sizes="32x32" href="/images/6901_logos/favicon-google-search.png">
   <link rel="icon" type="image/png" href="/images/6901_logos/favicon-white.png" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" href="/images/6901_logos/apple-touch-iconSWORD.png">
-  <link rel="stylesheet" href="/css/main.css?v=3">
+  <link rel="stylesheet" href="/css/main.css?v=6">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
   <slot name="head" />
 </head>
-<body>
+<body class={`page-${currentPage}`}>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class={`site-header${isPictures ? ' scrolled' : ''}`} id="hdr">
     <a href="/" class="header-logo">
@@ -51,7 +54,7 @@ const teamBase = isTeam ? '' : '/team';
       <a href={`${teamBase}#contact`}>Contact Us</a>
     </nav>
     <button class="hamburger" id="hamburger" type="button" aria-label="Open navigation" aria-controls="mobile-menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
   </header>
 
@@ -65,7 +68,9 @@ const teamBase = isTeam ? '' : '/team';
     <a href={`${teamBase}#contact`}>Contact Us</a>
   </nav>
 
-  <slot />
+  <div id="main-content" tabindex="-1">
+    <slot />
+  </div>
 
   <footer class="site-footer">
     <div class="footer-brand">Knight<span>Fall</span> / FRC 6901</div>
@@ -87,7 +92,7 @@ const teamBase = isTeam ? '' : '/team';
     </div>
   </footer>
 
-  <script is:inline src="/js/main.js?v=3"></script>
+  <script is:inline src="/js/main.js?v=6"></script>
   <slot name="scripts" />
 
 </body>

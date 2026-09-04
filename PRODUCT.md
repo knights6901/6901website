@@ -46,7 +46,7 @@ Visitors often arrive before or during competition events, while evaluating an e
 - Outreach photography in `public/images/outreach_gallery/`.
 - Season records from 2018 through 2026 in `src/pages/seasons.astro`.
 - Current sponsor, outreach, package, and team copy in `src/pages/team.astro`.
-- Web-optimized Lancelot model at `public/models/lancelot.glb` (3.76 MB), reduced from the untouched 35.61 MB source.
+- Web-optimized Lancelot model at `public/models/lancelot.glb` (2.27 MB), reduced from the untouched 35.61 MB source.
 
 ## Product Principles
 

@@ -7,6 +7,9 @@ const seasons = [
     name: 'Rebuilt',
     title: 'Reaching New Heights',
     description: 'This season was a major leap forward for our team, starting with the Fort Worth District Event, where we ranked 21st, and finished with a strong quarterfinals game. From there, we went on to win 2nd place at the Manor District Competition, and won the Gracious Professionalism and District Finalist Award. This earned us a exciting spot at the Texas State Championship held in Houston, where we finished at rank 23 out of 45. Although we did not make playoffs, we improved and learned so much this season.',
+    achievement: '2026 FIT District Manor Event finalist and Gracious Professionalism Award recipient.',
+    featureImage: '/images/photo_gallery/IMG_2295.avif',
+    featureImageAlt: '2026 Pit Crew front view',
     icon: 'qlementine-icons:wall-16',
   },
   {
@@ -68,12 +71,12 @@ const seasons = [
 ];
 ---
 <BaseLayout
-  title="All Seasons — FRC 6901 Knights Robotics"
+  title="All Seasons | FRC 6901 Knights Robotics"
   description="Explore all FRC seasons of Team 6901 KnightFall from 2018 to present."
   keywords="FRC, 6901 Knights, Seasons, History, Robotics"
   currentPage="seasons"
 >
-  <link slot="head" rel="stylesheet" href="/css/seasons.css?v=1">
+  <link slot="head" rel="stylesheet" href="/css/seasons.css?v=3">
 
   <div class="seasons-page">
     <!-- PAGE HERO -->
@@ -89,22 +92,30 @@ const seasons = [
     <!-- SEASONS -->
     <section class="seasons-archive" id="seasons" aria-labelledby="seasons-heading">
       <div class="seasons-timeline-wrap">
-        <p class="seasons-index" id="seasons-heading">Competition archive / 2018—present</p>
+        <h2 class="seasons-index" id="seasons-heading">Competition archive / 2018 to present</h2>
 
         <div class="seasons-timeline">
         {seasons.map((season) => (
-          <article class="season-entry">
-            <div class="season-year">{season.year}</div>
-            <div class="season-marker" aria-hidden="true"></div>
-            <div class="season-body">
-              <div class="season-game">{season.name}</div>
-              <div class="season-title-row">
+          <details class:list={['season-entry', { 'season-current': season.year === 2026 }]} open={season.year === 2026}>
+            <summary class="season-summary">
+              <span class="season-year">{season.year}</span>
+              <span class="season-marker" aria-hidden="true"></span>
+              <span class="season-summary-main">
+                <span class="season-game">{season.name}</span>
+                <span class="season-summary-title">{season.title}</span>
+              </span>
+              <span class="season-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="season-detail">
+              <div class="season-detail-heading">
                 <span class="iconify season-icon" data-icon={season.icon} aria-hidden="true"></span>
-                <h2 class="season-title">{season.title}</h2>
+                <h2>{season.title}</h2>
               </div>
+              {season.achievement && <p class="season-achievement">{season.achievement}</p>}
               <p class="season-description">{season.description}</p>
+              {season.featureImage && <img class="season-feature-photo" src={season.featureImage} alt={season.featureImageAlt} loading="lazy" decoding="async">}
             </div>
-          </article>
+          </details>
         ))}
         </div>
 
@@ -117,5 +128,5 @@ const seasons = [
     </section>
   </div>
 
-  <script is:inline slot="scripts" src="/js/seasons.js?v=1"></script>
+  <script is:inline slot="scripts" src="/js/seasons.js?v=2"></script>
 </BaseLayout>

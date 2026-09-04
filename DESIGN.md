@@ -1,86 +1,85 @@
 ---
 name: KnightFall FRC 6901
-description: KnightFall's established purple-and-black robotics identity, refined with precise motion and polished interaction.
+description: A fun, modern student robotics identity built around cinematic product presentation and human energy.
 ---
 
 # Design System: KnightFall FRC 6901
 
-## Overview
+## Creative North Star
 
-**Creative North Star: "KnightFall, in motion"**
+**Playful engineering in motion**
 
-The current KnightFall site is the foundation: dark purple-and-black surfaces, condensed display type, team photography, direct section labels, and an energetic competition feel. The refinement adds Apple-like physical motion, better responsive behavior, restrained translucent materials, and more disciplined spacing without sanding away the team's original personality.
+KnightFall should feel like a talented student team showing what it built, not a military dashboard or a corporate technology template. The experience combines Apple-like product cinema with the warmth of a modern creative studio. The robot earns the most dramatic stage. Students, competition, outreach, and sponsors carry the rest of the story through real photography, expressive type, and tactile motion.
 
-The interface avoids generic neon technology styling. Purple behaves as the team's owned signal color, not as a glow applied to every object. Motion is orchestrated around the robot and the story of building it; all secondary interactions remain restrained and fast.
+Reference images live in `design-references/`. `homepage-direction.png` and `sections-direction.png` define the current visual language. Page-specific references may inform layout, but the current references control tone.
 
-**Key Characteristics:**
+## Brand Personality
 
-- Robot-first composition with real KnightFall imagery
-- Deep charcoal surfaces with one consistent knight-purple accent
-- Strong condensed display typography paired with a calm, highly legible body face
-- Smoked glass and precise technical detailing used selectively
-- Scroll-driven storytelling with static and reduced-motion fallbacks
+- Curious, energetic, capable, and welcoming
+- Professional enough for sponsors, human enough for students
+- Experimental in composition, familiar in navigation
+- Confident without becoming severe
 
-## Colors
+## Color
 
-The palette is black and purple with cool neutral whites and graphite layers.
+- **Deep Charcoal** `#0a0a0d`: primary canvas
+- **Aubergine Black** `#121019`: lifted dark surface
+- **Knight Purple** `#5d3194`: primary action and selected state
+- **Purple Ink** `#c6a4ef`: focus, highlights, and small moments of energy
+- **Warm White** `#f4f0e8`: primary type
+- **Machined Silver** `#cbc7ce`: secondary type and metal cues
 
-### Primary
-
-- **Knight Purple** (`#5d3194`): Brand fills, selected states, and primary calls to action.
-- **Purple Ink** (`#c6a4ef`): High-contrast accent text, focus rings, and the robot progress line.
-
-### Neutral
-
-- **Pit Black** (`#080808`): Primary background, slightly lifted from pure black.
-- **Graphite Bay** (`#0d0d0d`, `#111111`): Secondary surfaces and section separation.
-- **Machined Silver** (`#888888`, `#cccccc`): Secondary copy and quiet UI.
-- **Signal White** (`#f0f0f0`): Primary typography and controls.
-
-### Named Rules
-
-**The Purple Signal Rule.** Purple identifies importance and interaction. It never becomes ambient decoration across every surface.
-
-**The No Red Rule.** Red is outside the KnightFall identity and must not appear in decorative UI, imagery treatments, or status accents.
+Purple is a signal color. It identifies interaction, selection, and team identity. It does not wash every section. Red does not appear in the interface. Real photographs keep their natural color.
 
 ## Typography
 
-`Bebas Neue` remains the display face from the original site. `DM Sans` remains the body and interface face. This pairing is part of KnightFall's existing visual character and should not be replaced without a full brand decision.
+`Bebas Neue` remains the display face. `DM Sans` remains the body and interface face. Display type may be oversized, shifted, or layered with photography. Body text stays calm, sentence case, and comfortably readable.
 
-Display typography is left aligned by default and uses short, decisive lines. Body copy remains sentence case with comfortable leading and a practical reading width. Technical labels are rare and only appear when they add real meaning.
+Headlines are expressive but short. Labels describe real content. Avoid invented telemetry, fake metrics, decorative jargon, and tiny interface copy.
 
 ## Layout
 
-Desktop layouts use an asymmetric editorial grid: large robot imagery owns one side or the full field while content locks to a stable reading column. Section compositions should vary between pinned media, full-width photography, compact evidence bands, and focused conversion blocks.
+Use an asymmetric editorial grid with generous breathing room. Large rounded image crops, floating layers, occasional overlap, and varied section composition create rhythm. Avoid repeated equal card grids. A visitor should understand each page immediately even when the composition is unusual.
 
-Mobile layouts collapse to one column with the robot remaining first. Navigation, calls to action, and essential facts stay available without depending on hover or WebGL. The opening viewport must make the team, robot, and main action clear without requiring scroll.
+The homepage order is fixed:
 
-## Elevation & Depth
+1. Lancelot robot experience
+2. Student recruitment
+3. Sponsors and partnership
 
-Depth comes from tonal layering, image lighting, restrained translucency, and the physical presence of the robot. Shadows are soft and local. Outer neon glows and constant bloom are prohibited. Smoked-glass surfaces may appear over photography only when they preserve legibility without blur support.
+Team, Seasons, and Photos each use a distinct composition within the same system.
 
-**The Robot Owns the Light Rule.** The strongest lighting and depth treatment belongs to the robot experience. Supporting sections stay quieter so the focal object keeps its authority.
+## Shape and Material
 
-## Shapes
+- Soft radii between 16px and 40px for photography and major surfaces
+- Small radii for compact controls
+- Thin borders with low contrast
+- Charcoal and aubergine layers instead of hard metal slabs
+- Fine grain and soft specular highlights used sparingly
+- Translucency only where it creates meaningful depth
 
-The form language is engineered and taut. Buttons use a 6px radius; major photo overlays use a 24px radius. Most sections remain border-led and square so the site does not become a field of rounded cards.
+Do not use excessive pills, clipped military panels, dense CAD grids, neon fog, or glass effects on every element.
 
 ## Motion
 
-The signature effect is a scroll-driven product reveal: the original centered KnightFall hero lifts away while Lancelot rises from depth, then completes one 360-degree camera orbit. The outlined 6901, aura, robot, vignette, and foreground copy occupy separate visual layers. The scroll handler is frame-coalesced, updates the model directly, and pauses outside the story viewport. Interface transitions use strong ease-out curves and remain under 300ms; longer timings are reserved for explanatory marketing reveals. Reduced-motion mode removes scroll-linked movement and presents the hero and robot as static content.
+The signature sequence is Lancelot: one complete 360 degree orbit, verified subsystem focus moments, then the full robot returning at the end. The outlined 6901 brightens as the final assembly returns. Desktop uses scroll control. Mobile uses a shorter sequence and permits touch rotation.
 
-## Do's and Don'ts
+Supporting motion uses smooth, interruptible ease-out timing, soft depth shifts, image reveals, accordion expansion, and restrained pointer-responsive light. The GLB remains the only heavy real-time 3D scene. Other depth effects use CSS transforms and compositing.
 
-### Do:
+Reduced-motion mode shows a stable robot and removes scroll-linked movement. Reduced-transparency mode replaces blurred layers with opaque surfaces.
 
-- **Do** let real robot, pit, drive-team, and outreach photography carry the story.
-- **Do** use purple as the one consistent accent across the entire site.
-- **Do** make motion respond to scroll, focus, hover, and press with clear purpose.
-- **Do** preserve fast, readable fallbacks for mobile, reduced motion, and no-WebGL clients.
+## Content and Evidence
 
-### Don't:
+- Preserve all existing routes, content, images, logos, sponsors, form behavior, and gallery records.
+- Add facts only when supported by official FIRST or The Blue Alliance sources.
+- Treat KnightFall as the public brand.
+- Do not invent robot specifications, mechanism functions, achievements, testimonials, or sponsor metrics.
 
-- **Don't** use red anywhere in the visual system.
-- **Don't** use generic purple neon clouds, excessive glow, or repetitive card grids.
-- **Don't** hide essential content inside a 3D canvas.
-- **Don't** invent robot specifications, sponsor metrics, testimonials, or competition results.
+## Performance
+
+- Keep model updates tied to animation frames and pause them offscreen.
+- Use one WebGL scene only.
+- Lazy-load below-fold media and reserve space for images.
+- Prefer transforms and opacity for motion.
+- Adapt model render quality to device capability.
+- Keep the page useful before the GLB loads and when WebGL fails.

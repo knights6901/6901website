@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import modelViewerUrl from '@google/model-viewer/dist/model-viewer-module.min.js?url';
 
 const sponsors = [
   { name: 'Boeing', logo: '/images/partner_logos/boeing.png' },
@@ -201,6 +200,8 @@ const sponsors = [
     </section>
   </main>
 
-  <script is:inline type="module" src={modelViewerUrl}></script>
+  <script>
+    import '@google/model-viewer';
+  </script>
   <script is:inline slot="scripts" src="/js/index.js?v=46"></script>
 </BaseLayout>

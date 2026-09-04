@@ -2,10 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const sponsors = [
-  { name: 'Boeing', logo: '/images/partner_logos/boeing.png' },
-  { name: 'Leidos', logo: '/images/partner_logos/leidos.png' },
-  { name: 'Dallas College', logo: '/images/partner_logos/dallascollege.png' },
-  { name: "Raising Cane's", logo: '/images/partner_logos/raisingcanes.png' },
+  { name: 'Boeing', logo: '/images/partner_logos/boeing.png', width: 470, height: 107 },
+  { name: 'Leidos', logo: '/images/partner_logos/leidos.png', width: 2525, height: 689 },
+  { name: 'Dallas College', logo: '/images/partner_logos/dallascollege.png', width: 640, height: 207 },
+  { name: "Raising Cane's", logo: '/images/partner_logos/raisingcanes.png', width: 769, height: 325 },
 ];
 ---
 
@@ -15,7 +15,7 @@ const sponsors = [
   keywords="FRC, 6901 KnightFall, robotics, STEM, Frisco Texas, student robotics"
   currentPage="home"
 >
-  <link slot="head" rel="stylesheet" href="/css/index.css?v=45">
+  <link slot="head" rel="stylesheet" href="/css/index.css?v=47">
   <script is:inline slot="head">
     self.ModelViewerElement = self.ModelViewerElement || {};
     self.ModelViewerElement.dracoDecoderLocation = '/draco/';
@@ -68,6 +68,7 @@ const sponsors = [
             <a href="/team" class="btn btn-primary">Meet KnightFall <span aria-hidden="true">↗</span></a>
             <a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" class="btn btn-ghost">Instagram <span aria-hidden="true">↗</span></a>
           </div>
+          <a class="skip-robot" href="#join">Skip the robot story</a>
         </div>
 
         <div class="robot-viewer-wrap">
@@ -135,26 +136,26 @@ const sponsors = [
         <div class="worktable-shadow" aria-hidden="true"></div>
         <div class="worktable-surface" aria-hidden="true"></div>
         <figure class="worktable-photo worktable-photo-main">
-          <img src="/images/photo_gallery/2026teampic.avif" alt="KnightFall students and mentors together at a 2026 competition" loading="lazy" decoding="async">
-          <figcaption>Student systems <span>Frisco, Texas</span></figcaption>
+          <img src="/images/photo_gallery/robot2.webp" alt="A KnightFall student programming Team 6901's robot beside its exposed wiring and aluminum frame" width="1584" height="2112" loading="lazy" decoding="async">
+          <figcaption>Code meets hardware <span>Student built</span></figcaption>
         </figure>
         <figure class="worktable-photo worktable-photo-detail">
-          <img src="/images/photo_gallery/programming.avif" alt="A KnightFall student working on programming" loading="lazy" decoding="async">
+          <img src="/images/photo_gallery/programming.avif" alt="KnightFall students working together on robot code" width="640" height="427" loading="lazy" decoding="async">
         </figure>
         <div class="worktable-word worktable-word-cad" aria-hidden="true">CAD</div>
         <div class="worktable-word worktable-word-build" aria-hidden="true">BUILD</div>
-        <div class="discipline-list">
-          <span>Design and CAD</span>
-          <span>Fabrication</span>
-          <span>Programming</span>
-          <span>Drive and strategy</span>
-        </div>
+        <ul class="discipline-list" id="student-paths" aria-label="Ways students contribute">
+          <li>Design and CAD</li>
+          <li>Fabrication</li>
+          <li>Programming</li>
+          <li>Drive and strategy</li>
+        </ul>
       </div>
     </section>
 
     <section class="proof-moment" aria-labelledby="proof-title">
       <div class="proof-image reveal-left">
-        <img src="/images/photo_gallery/2026match.avif" alt="KnightFall competing at a 2026 robotics match" loading="lazy" decoding="async">
+        <img src="/images/photo_gallery/2026match.avif" alt="KnightFall competing at a 2026 robotics match" width="640" height="427" loading="lazy" decoding="async">
         <div class="proof-ghost-number" aria-hidden="true">2018</div>
       </div>
       <div class="proof-copy reveal-right">
@@ -182,14 +183,14 @@ const sponsors = [
         {sponsors.map((sponsor, index) => (
           <article class="home-sponsor" style={`--sponsor-index: ${index}`}>
             <span class="sponsor-number" aria-hidden="true">0{index + 1}</span>
-            <div class="sponsor-plate"><img src={sponsor.logo} alt={sponsor.name} loading="lazy" decoding="async"></div>
+            <div class="sponsor-plate"><img src={sponsor.logo} alt={sponsor.name} width={sponsor.width} height={sponsor.height} loading="lazy" decoding="async"></div>
           </article>
         ))}
       </div>
     </section>
 
     <section class="closing-photo" aria-label="KnightFall in competition">
-      <img id="closing-image" src="/images/photo_gallery/2026semispirit.avif" alt="KnightFall students supporting the team at competition" loading="lazy" decoding="async">
+      <img id="closing-image" src="/images/photo_gallery/2026semispirit.avif" alt="KnightFall students supporting the team at competition" width="426" height="640" loading="lazy" decoding="async">
       <div class="closing-number" aria-hidden="true">6901</div>
       <div class="closing-copy reveal">
         <p class="closing-meta">Team archive / 6901</p>
@@ -203,5 +204,5 @@ const sponsors = [
   <script>
     import '@google/model-viewer';
   </script>
-  <script is:inline slot="scripts" src="/js/index.js?v=46"></script>
+  <script is:inline slot="scripts" src="/js/index.js?v=47"></script>
 </BaseLayout>

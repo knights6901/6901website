@@ -342,9 +342,9 @@
           : `translate3d(0, calc(-47% - ${heroExit * 4}vh), 0) scale(${1 - heroExit * 0.025})`;
         hero.style.pointerEvents = heroExit > 0.72 ? 'none' : '';
 
-        viewer.style.opacity = String(0.2 + modelCenter * 0.8);
+        viewer.style.opacity = String(0.34 + modelCenter * 0.66);
         viewer.style.transform = mobileLayout.matches
-          ? `translate3d(0, ${12 - modelCenter * 48}%, 0) scale(${0.86 + modelCenter * 0.16})`
+          ? `translate3d(0, ${12 - modelCenter * 30}%, 0) scale(${0.88 + modelCenter * 0.14})`
           : `translate3d(${-modelCenter * 8}%, ${(1 - modelCenter) * 7}vh, 0) scale(${0.86 + modelCenter * 0.16})`;
 
         if (number) {

@@ -33,14 +33,14 @@ Broad rectangular compositions, fine dividers, 12px photographic corners, 8px co
 
 ## Components
 
-- Header: slim, full-width, logo at left, conventional links and theme switch at right. Mobile menu supports focus containment and Escape.
+- Header: slim, full-width, logo at left, conventional links and a binary light/dark switch at right. Default to the device appearance until the visitor chooses a theme. Mobile menu supports focus containment and Escape. Link arrows use shared SVG strokes, not platform-dependent text glyphs.
 - Robot: scroll-only complete overview orbit, existing verified component focus, final full assembly and centered 6901 illumination. No camera drag, zoom, or keyboard controls. No substitute photo while loading. A short reveal of the actual sword logo dismisses independently of model download.
 - Motion: deliberate 500–700ms entrances, 180–240ms interaction feedback, reversible scroll progress. Pause offscreen and honor reduced motion. Never hide essential content until an animation succeeds.
 - Recruitment: real workshop images, clear roles, direct contact action.
 - Sponsors: equal neutral presentation. No sponsor receives a branded purple background that implies preference.
 - Refinement: preserve the cinematic portfolio layout (variance 7, motion 6, density 4). The stationary wordmark arrives with a brief fade. Let the typography-over-robot composition supply depth, without additional animated background objects. Sponsor logos reveal their original colors on an equal silver surface on hover and keyboard focus; touch devices get the full-color version by default. Student roles use native expandable descriptions, not decorative buttons.
 - Hero typography responds to viewport height as well as width, with title and introduction in separate grid rows. Invisible exhibit captions never intercept navigation. Reduced motion leaves the title and role descriptions static, and removes orbital tracking.
-- Keep the hero clean: the user rejected moving letters, the purple text shimmer, the triangle, and the machined loop as visual clutter. No replacement decorative loop or pause control. Preserve the oversized title over Lancelot, purple headline emphasis, and the scroll-driven robot story. The loader reveals the actual SwordLogo.png through a soft mask, with no approximate drawing or shape swap.
+- Keep the hero clean: the user rejected moving letters, the purple text shimmer, the triangle, and the machined loop as visual clutter. No replacement decorative loop or pause control. Preserve the oversized title over Lancelot, purple headline emphasis, and the scroll-driven robot story. The loader draws the actual SwordLogo.png stroke by stroke using a small SVG mask. Its final silhouette is the original logo, with no shape swap. The loader follows the active theme and is skipped for reduced motion.
 - Footer: oversized KnightFall signature, complete navigation, location, and Instagram.
 
 ## Do’s and Don’ts

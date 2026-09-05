@@ -1,11 +1,13 @@
 /* KnightFall shared interaction layer. */
 
-/* Site theme follows the system until the visitor chooses a preference. */
+/* Site appearance follows the system until the visitor chooses a preference. */
 (function () {
   const root = document.documentElement;
   const toggle = document.getElementById('theme-toggle');
   const themeColor = document.querySelector('meta[name="theme-color"]');
   const systemTheme = window.matchMedia('(prefers-color-scheme: light)');
+  let hasExplicitPreference = false;
+  try { hasExplicitPreference = ['light', 'dark'].includes(localStorage.getItem('knightfall-theme')); } catch { /* Follow the system until this visit's choice. */ }
 
   function applyTheme(theme) {
     root.dataset.theme = theme;
@@ -18,13 +20,12 @@
   applyTheme(root.dataset.theme || (systemTheme.matches ? 'light' : 'dark'));
   toggle?.addEventListener('click', () => {
     const theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+    hasExplicitPreference = true;
     try { localStorage.setItem('knightfall-theme', theme); } catch { /* Theme still works for this visit. */ }
     applyTheme(theme);
   });
-  systemTheme.addEventListener('change', (event) => {
-    try {
-      if (!localStorage.getItem('knightfall-theme')) applyTheme(event.matches ? 'light' : 'dark');
-    } catch { applyTheme(event.matches ? 'light' : 'dark'); }
+  systemTheme.addEventListener('change', () => {
+    if (!hasExplicitPreference) applyTheme(systemTheme.matches ? 'light' : 'dark');
   });
 })();
 

@@ -30,12 +30,13 @@ const teamBase = isTeam ? '' : '/team';
   <script is:inline>
     (() => {
       document.documentElement.classList.add('js');
+      const systemTheme = matchMedia('(prefers-color-scheme: light)');
       try {
         const saved = localStorage.getItem('knightfall-theme');
-        const theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        const theme = ['light', 'dark'].includes(saved) ? saved : (systemTheme.matches ? 'light' : 'dark');
         document.documentElement.dataset.theme = theme;
       } catch {
-        document.documentElement.dataset.theme = 'dark';
+        document.documentElement.dataset.theme = systemTheme.matches ? 'light' : 'dark';
       }
     })();
   </script>
@@ -44,7 +45,7 @@ const teamBase = isTeam ? '' : '/team';
   <link rel="apple-touch-icon" href="/images/6901_logos/apple-touch-iconSWORD.png">
   <link rel="preload" href="/fonts/barlow-condensed-700.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="/fonts/manrope-400.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="/css/main.css?v=60">
+  <link rel="stylesheet" href="/css/main.css?v=67">
   <slot name="head" />
 </head>
 <body class={`page-${currentPage}`}>
@@ -110,7 +111,7 @@ const teamBase = isTeam ? '' : '/team';
     </div>
   </footer>
 
-  <script is:inline src="/js/main.js?v=60"></script>
+  <script is:inline src="/js/main.js?v=67"></script>
   <slot name="scripts" />
 
 </body>

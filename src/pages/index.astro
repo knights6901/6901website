@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ArrowIcon from '../components/ArrowIcon.astro';
 
 const sponsors = [
   { name: 'Boeing', logo: '/images/partner_logos/boeing-color.png', width: 300, height: 110 },
@@ -15,7 +16,7 @@ const sponsors = [
   keywords="FRC, 6901 KnightFall, robotics, STEM, Frisco Texas, student robotics"
   currentPage="home"
 >
-  <link slot="head" rel="stylesheet" href="/css/index.css?v=66">
+  <link slot="head" rel="stylesheet" href="/css/index.css?v=67">
   <script is:inline slot="head">
     self.ModelViewerElement = self.ModelViewerElement || {};
     self.ModelViewerElement.dracoDecoderLocation = '/draco/';
@@ -24,7 +25,20 @@ const sponsors = [
   <div class="site-loader" id="site-loader" role="status" aria-live="polite" aria-label="Loading KnightFall">
     <div class="loader-signature">
       <div class="loader-mark" aria-hidden="true">
-        <img class="loader-mark-final" src="/images/6901_logos/SwordLogo.png" alt="" width="144" height="144">
+        <svg class="loader-mark-drawing" viewBox="0 0 500 500" aria-hidden="true">
+          <defs>
+            <mask id="loader-sword-strokes" maskUnits="userSpaceOnUse" x="0" y="0" width="500" height="500" style="mask-type: alpha">
+              <g fill="none" stroke="white" stroke-width="36" stroke-linecap="round" stroke-linejoin="round">
+                <path class="loader-ink" pathLength="1" d="M250 20 281 51 250 82 219 51 250 20Z" />
+                <path class="loader-ink loader-ink-stem" pathLength="1" d="M250 82V137M212 137H288" />
+                <path class="loader-ink loader-ink-guard" pathLength="1" d="M168 136 192 176H228M332 136 308 176H271" />
+                <path class="loader-ink loader-ink-blade" pathLength="1" d="M228 176 211 214 294 383 250 477 208 383 233 327" />
+                <path class="loader-ink loader-ink-ribbon" pathLength="1" d="M271 176 289 214 268 257" />
+              </g>
+            </mask>
+          </defs>
+          <image class="loader-sword" href="/images/6901_logos/SwordLogo.png" width="500" height="500" mask="url(#loader-sword-strokes)" />
+        </svg>
       </div>
       <div class="loader-type">
         <p class="loader-wordmark" aria-hidden="true"><span class="loader-knight">Knight</span><span class="loader-fall">Fall</span></p>
@@ -48,8 +62,8 @@ const sponsors = [
             <h1 id="home-title">Built by students.<br><span class="hero-accent">Ready for the field.</span></h1>
             <p class="hero-summary">A high school robotics team developing creative thinkers, problem-solvers, and future leaders through STEM.</p>
             <div class="hero-actions">
-              <a href="/team" class="btn btn-primary">Meet KnightFall <span aria-hidden="true">↗</span></a>
-              <a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" class="hero-social">Instagram <span aria-hidden="true">↗</span></a>
+              <a href="/team" class="btn btn-primary">Meet KnightFall <ArrowIcon /></a>
+              <a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" class="hero-social">Instagram <ArrowIcon /></a>
             </div>
           </div>
           <p class="hero-object-label"><span>Our robot, in detail</span><strong>Lancelot</strong></p>
@@ -115,7 +129,7 @@ const sponsors = [
       </div>
       <div class="join-copy reveal">
         <p>Some of us start with CAD. Others start with code, a tool, or a question. On KnightFall, we learn by working on the robot together.</p>
-        <a href="/team#contact" class="btn btn-ghost">Talk with the team <span aria-hidden="true">↗</span></a>
+        <a href="/team#contact" class="btn btn-ghost">Talk with the team <ArrowIcon /></a>
       </div>
       <div class="join-worktable" aria-label="Student opportunities">
         <figure class="worktable-photo worktable-photo-main reveal">
@@ -124,7 +138,7 @@ const sponsors = [
         </figure>
         <div class="worktable-note reveal">
           <p>You don’t have to<br>know it all.<br><em>Start here.</em></p>
-          <a href="/team#about">Get to know the team <span aria-hidden="true">↗</span></a>
+          <a href="/team#about">Get to know the team <ArrowIcon /></a>
         </div>
         <figure class="worktable-photo worktable-photo-detail reveal">
           <img src="/images/photo_gallery/programming.avif" alt="KnightFall students working together on robot code" width="640" height="427" loading="lazy" decoding="async">
@@ -150,7 +164,7 @@ const sponsors = [
       <div class="proof-copy">
         <p class="chapter-index">02 / ON THE FIELD</p>
         <h2 id="proof-title" class="reveal">Then it’s<br><em>match time.</em></h2>
-        <div class="proof-caption"><span>From the shop to the field.</span><a href="/seasons">Explore our seasons <span aria-hidden="true">↗</span></a></div>
+        <div class="proof-caption"><span>From the shop to the field.</span><a href="/seasons">Explore our seasons <ArrowIcon /></a></div>
       </div>
     </section>
     <section class="field-record" aria-labelledby="record-title">
@@ -171,7 +185,7 @@ const sponsors = [
       <div class="sponsor-copy reveal">
         <h3>Support the next build.</h3>
         <p>Our sponsors help pay for parts, tools, and travel to competitions. Their support keeps us building and gives more students a chance to take part.</p>
-        <a href="/team#packages" class="btn btn-ghost">View partnership packages <span aria-hidden="true">↗</span></a>
+        <a href="/team#packages" class="btn btn-ghost">View partnership packages <ArrowIcon /></a>
       </div>
       <div class="sponsor-ribbon" aria-label="KnightFall sponsors">
         {sponsors.map((sponsor) => (
@@ -188,7 +202,7 @@ const sponsors = [
         <p class="closing-meta">THE PEOPLE BEHIND 6901</p>
         <h2 id="closing-title" class="reveal">More than<br>one robot.</h2>
         <p>See the competitions, outreach, and people behind Team 6901.</p>
-        <a href="/pictures" class="btn btn-primary">View team photos <span aria-hidden="true">↗</span></a>
+        <a href="/pictures" class="btn btn-primary">View team photos <ArrowIcon /></a>
       </div>
     </section>
   </main>

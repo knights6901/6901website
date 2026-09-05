@@ -105,6 +105,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn-primary { background: var(--white); color: var(--black); border-color: var(--white); }
 .btn-ghost { background: transparent; color: var(--white); }
 .btn span[aria-hidden] { font-size: 1.15rem; transition: transform 220ms var(--ease-out); }
+.link-arrow { display: inline-flex; flex: 0 0 auto; width: 1.15em; height: 1.15em; vertical-align: -.18em; }
+.link-arrow svg { display: block; width: 100%; height: 100%; }
 .btn:hover span[aria-hidden] { transform: translate(2px, -2px); }
 .btn-primary:hover { background: var(--purple-light); border-color: var(--purple-light); }
 .btn-ghost:hover { background: var(--purple-pale); border-color: var(--purple-light); }

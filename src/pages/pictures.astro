@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ArrowIcon from '../components/ArrowIcon.astro';
 ---
 <BaseLayout
   title="Photos | FRC 6901 KnightFall"
@@ -38,9 +39,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox" aria-hidden="true">
     <button class="lb-close" type="button" aria-label="Close photo lightbox">&times;</button>
-    <button class="lb-nav lb-prev" type="button" aria-label="Previous photo">&#8592;</button>
+    <button class="lb-nav lb-prev" type="button" aria-label="Previous photo"><ArrowIcon direction="left" /></button>
     <img class="lb-img" id="lb-img" src="/images/photo_gallery/IMG_3660.avif" alt="">
-    <button class="lb-nav lb-next" type="button" aria-label="Next photo">&#8594;</button>
+    <button class="lb-nav lb-next" type="button" aria-label="Next photo"><ArrowIcon direction="right" /></button>
     <div class="lb-caption" id="lb-caption" aria-live="polite"></div>
     <div class="lb-count"   id="lb-count"></div>
   </div>

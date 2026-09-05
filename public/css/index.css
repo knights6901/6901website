@@ -1,15 +1,21 @@
 /* Cinematic engineering portfolio: one interactive exhibit, then the people and work. */
 
 /* Short, non-blocking sword signature. The site remains usable if the model fails. */
-.site-loader { display: none; position: fixed; inset: 0; z-index: 1000; place-items: center; background: #0b0b0e; color: #f2f0f5; transition: opacity 420ms ease, visibility 420ms; }
+.site-loader { display: none; position: fixed; inset: 0; z-index: 1000; place-items: center; background: var(--black); color: var(--white); transition: opacity 420ms ease, visibility 420ms; }
 .js .site-loader { display: grid; animation: loader-safety 0s 2.8s forwards; }
 .site-loader.is-ready { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-signature { display: flex; align-items: center; gap: 1rem; padding: 1rem; }
 .loader-mark { position: relative; width: clamp(4rem, 8vw, 6rem); aspect-ratio: 1; }
-.loader-mark-final { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mask-image: linear-gradient(to bottom, #000 45%, transparent 55%); mask-size: 100% 300%; mask-position: 0 100%; animation: loader-logo-reveal 1400ms cubic-bezier(.4, 0, .2, 1) forwards; }
+.loader-mark-drawing { display: block; width: 100%; height: 100%; }
+.loader-ink { stroke-dasharray: 1; stroke-dashoffset: 1; animation: loader-ink-draw 850ms cubic-bezier(.4, 0, .2, 1) both; }
+.loader-ink-stem { animation-delay: 120ms; }
+.loader-ink-guard { animation-delay: 260ms; }
+.loader-ink-blade { animation-delay: 460ms; }
+.loader-ink-ribbon { animation-delay: 520ms; }
+[data-theme='light'] .loader-sword { filter: invert(1); }
 .loader-wordmark { font-family: var(--font-body); font-size: clamp(1.75rem, 4vw, 3.5rem); font-weight: 700; letter-spacing: -.05em; }
-.loader-status { margin-top: .4rem; color: #a49baa; font-size: .67rem; letter-spacing: .05em; }
-@keyframes loader-logo-reveal { to { mask-position: 0 0; } }
+.loader-status { margin-top: .4rem; color: var(--gray); font-size: .67rem; letter-spacing: .05em; }
+@keyframes loader-ink-draw { to { stroke-dashoffset: 0; } }
 @keyframes loader-safety { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 
 /* Lancelot exhibit. */

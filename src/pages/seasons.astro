@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ArrowIcon from '../components/ArrowIcon.astro';
 
 const seasons = [
   {
@@ -117,7 +118,7 @@ const seasons = [
 
         <div class="seasons-return reveal">
           <a href="/team#seasons" class="btn btn-ghost">
-            <span aria-hidden="true">←</span> Back to Team Info
+            <ArrowIcon direction="left" /> Back to Team Info
           </a>
         </div>
       </div>

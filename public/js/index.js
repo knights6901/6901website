@@ -13,10 +13,8 @@
   const closing = document.querySelector('.closing-photo');
   const closingImage = document.getElementById('closing-image');
   const joinWorktable = document.querySelector('.join-worktable');
-  const sponsorRibbon = document.querySelector('.sponsor-ribbon');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const mobileLayout = window.matchMedia('(max-width: 760px)');
-  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const mobileLayout = window.matchMedia('(max-width: 760px), (max-width: 1080px) and (orientation: portrait)');
 
   if (!story || !stage || !hero || !viewer || !model || !progressBar) return;
 
@@ -38,9 +36,7 @@
   let storyVisible = true;
   let closingVisible = false;
   let joinVisible = false;
-  let sponsorVisible = false;
   let frame = 0;
-  let lightFrame = 0;
   let storyTop = 0;
   let storyTravel = 1;
   let activeCallout = -1;
@@ -75,12 +71,12 @@
     document.body.classList.add('hero-live');
   }
 
-  const loaderTimeout = window.setTimeout(() => dismissLoader(true), 6500);
+  const loaderTimeout = window.setTimeout(() => dismissLoader(true), 1900);
 
   function updateGeometry() {
     const pageTop = window.scrollY || document.documentElement.scrollTop;
     storyTop = story.getBoundingClientRect().top + pageTop;
-    storyTravel = Math.max(1, story.offsetHeight - window.innerHeight);
+    storyTravel = Math.max(1, story.offsetHeight - stage.offsetHeight);
   }
 
   function prepareFocusMaterials() {
@@ -210,6 +206,7 @@
   }
 
   function setCameraOrbit(orbit, immediate = false, response = 0.18) {
+    if (!model.loaded) return;
     targetOrbit = orbit;
     if (immediate || !Number.isFinite(renderedOrbit)) renderedOrbit = orbit;
 
@@ -222,7 +219,8 @@
     }
 
     if (!Number.isFinite(lastAppliedOrbit) || Math.abs(renderedOrbit - lastAppliedOrbit) >= 0.18 || immediate) {
-      model.cameraOrbit = `${renderedOrbit}deg 69deg 80%`;
+      const distance = window.innerWidth <= 1080 ? '105%' : '80%';
+      model.cameraOrbit = `${renderedOrbit}deg 69deg ${distance}`;
       model.jumpCameraToGoal();
       lastAppliedOrbit = renderedOrbit;
     }
@@ -286,13 +284,14 @@
     hero.style.opacity = '1';
     hero.style.transform = 'none';
     hero.style.pointerEvents = '';
+    hero.inert = false;
     viewer.style.opacity = '1';
     viewer.style.transform = 'none';
     stage.dataset.phase = 'hero';
     stage.dataset.final = 'false';
     if (number) {
       number.style.setProperty('--final-glow', '0');
-      number.style.opacity = '0.55';
+      number.style.opacity = '0';
       number.style.transform = 'translate(-50%, -50%)';
     }
     setCameraOrbit(115, true);
@@ -305,16 +304,16 @@
   function update() {
     frame = 0;
     needsSettle = false;
-    if (!storyVisible && !closingVisible && !joinVisible && !sponsorVisible) return;
+    if (document.hidden || (!storyVisible && !closingVisible && !joinVisible)) return;
+    // Read layout before model/style updates, once per visible photo composition.
+    const joinRect = joinVisible && joinWorktable ? joinWorktable.getBoundingClientRect() : null;
+    const closingRect = closingVisible && closing ? closing.getBoundingClientRect() : null;
 
     if (storyVisible) {
       const progress = clamp(((window.scrollY || document.documentElement.scrollTop) - storyTop) / storyTravel);
       progressBar.style.transform = `scaleX(${progress})`;
-      stage.style.setProperty('--story-progress', String(progress));
-      stage.style.setProperty('--rail-shine', `${-110 + progress * 230}%`);
-      stage.style.setProperty('--sweep-x', `${-24 + progress * 76}vw`);
 
-      if (reduceMotion.matches) {
+      if (reduceMotion.matches || story.classList.contains('model-unavailable')) {
         showReducedMotionState();
       } else {
         reducedStateApplied = false;
@@ -324,33 +323,20 @@
         const inspectionProgress = clamp((progress - storyBeats.overviewEnd) / (storyBeats.inspectionEnd - storyBeats.overviewEnd));
         const finalStart = storyBeats.overviewEnd + (storyBeats.inspectionEnd - storyBeats.overviewEnd) * storyBeats.chassisHoldEnd;
         const finalGlow = smooth((progress - finalStart) / (1 - finalStart));
-        stage.style.setProperty('--hero-progress', String(modelCenter));
-        stage.style.setProperty('--inspection-progress', String(inspectionProgress));
-        stage.style.setProperty('--spec-opacity', String(0.38 + modelCenter * 0.24));
-        stage.style.setProperty('--spec-x', `${modelCenter * -2}vw`);
-        stage.style.setProperty('--spec-y', `${modelCenter * -1.2}rem`);
-        stage.style.setProperty('--plate-opacity', String(0.42 + modelCenter * 0.32));
-        stage.style.setProperty('--plate-x', `${modelCenter * -3}vw`);
-        stage.style.setProperty('--plate-y', `${modelCenter * 1.2}rem`);
-        stage.style.setProperty('--rail-opacity', String(0.72 - inspectionProgress * 0.36));
-        stage.style.setProperty('--rail-x', `${modelCenter * 6}vw`);
-        stage.style.setProperty('--rail-y', `${modelCenter * -1.2}rem`);
-        stage.style.setProperty('--sweep-opacity', String(0.12 + modelCenter * 0.7));
 
         hero.style.opacity = String(1 - heroExit);
-        hero.style.transform = mobileLayout.matches
-          ? `translate3d(0, ${-heroExit * 4}vh, 0) scale(${1 - heroExit * 0.025})`
-          : `translate3d(0, ${-heroExit * 4}vh, 0) scale(${1 - heroExit * 0.025})`;
-        hero.style.pointerEvents = heroExit > 0.72 ? 'none' : '';
+        hero.style.transform = `translate3d(0, ${-heroExit * 3}vh, 0)`;
+        hero.style.pointerEvents = heroExit > 0.98 ? 'none' : '';
+        hero.inert = heroExit > 0.98;
 
-        viewer.style.opacity = String(0.34 + modelCenter * 0.66);
+        viewer.style.opacity = '1';
         viewer.style.transform = mobileLayout.matches
-          ? `translate3d(0, ${12 - modelCenter * 30}%, 0) scale(${0.88 + modelCenter * 0.14})`
-          : `translate3d(${-modelCenter * 8}%, ${(1 - modelCenter) * 7}vh, 0) scale(${0.86 + modelCenter * 0.16})`;
+          ? `translate3d(0, ${-modelCenter * 40}%, 0) scale(${1 + modelCenter * 0.05})`
+          : `translate3d(${-modelCenter * 21.4}%, ${-modelCenter * 13}%, 0)`;
 
         if (number) {
           number.style.setProperty('--final-glow', String(finalGlow));
-          number.style.opacity = String(0.54 + finalGlow * 0.38);
+          number.style.opacity = String(modelCenter * (0.48 + finalGlow * 0.4));
           number.style.transform = `translate(-50%, -50%) scale(${1 + modelCenter * 0.035 + finalGlow * 0.02})`;
         }
 
@@ -395,21 +381,10 @@
 
     if (!reduceMotion.matches) {
       if (joinVisible && joinWorktable) {
-        const rect = joinWorktable.getBoundingClientRect();
+        const rect = joinRect;
         const depth = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-        joinWorktable.style.setProperty('--section-depth', String(depth));
         joinWorktable.style.setProperty('--main-photo-y', `${(0.5 - depth) * 1.6}rem`);
-        joinWorktable.style.setProperty('--detail-photo-y', `${(depth - 0.5) * 2.4}rem`);
         joinWorktable.style.setProperty('--build-photo-y', `${(0.5 - depth) * 3.2}rem`);
-        joinWorktable.style.setProperty('--cad-x', `${(depth - 0.5) * 1.5}rem`);
-        joinWorktable.style.setProperty('--build-x', `${(0.5 - depth) * 2}rem`);
-      }
-      if (sponsorVisible && sponsorRibbon) {
-        const rect = sponsorRibbon.getBoundingClientRect();
-        const depth = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-        sponsorRibbon.style.setProperty('--section-depth', String(depth));
-        sponsorRibbon.style.setProperty('--ribbon-x', `${(0.5 - depth) * 2.4}rem`);
-        sponsorRibbon.style.setProperty('--ribbon-y', `${(depth - 0.5)}rem`);
       }
     }
 
@@ -417,7 +392,7 @@
       if (reduceMotion.matches) {
         closingImage.style.transform = 'none';
       } else {
-        const rect = closing.getBoundingClientRect();
+        const rect = closingRect;
         const progress = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
         closingImage.style.transform = `translate3d(0, ${(0.5 - progress) * 4}%, 0) scale(1.04)`;
       }
@@ -430,17 +405,20 @@
     if (!frame) frame = window.requestAnimationFrame(update);
   }
 
-  function updateLight(event) {
-    if (!finePointer.matches || !storyVisible || lightFrame) return;
-    lightFrame = window.requestAnimationFrame(() => {
-      const rect = stage.getBoundingClientRect();
-      const x = clamp((event.clientX - rect.left) / rect.width) * 100;
-      const y = clamp((event.clientY - rect.top) / rect.height) * 100;
-      stage.style.setProperty('--light-x', `${x}%`);
-      stage.style.setProperty('--light-y', `${y}%`);
-      lightFrame = 0;
-    });
+  function modelUnavailable() {
+    if (model.loaded) return;
+    dismissLoader(true);
+    story.classList.add('model-unavailable');
+    viewer.classList.add('has-error');
+    if (status) status.textContent = '3D is unavailable on this connection. Explore the team below, or reload to try again.';
+    updateGeometry();
+    schedule();
   }
+
+  // A blocked module never emits a model error. Do not leave a long empty exhibit.
+  window.setTimeout(() => {
+    if (!customElements.get('model-viewer')) modelUnavailable();
+  }, 12000);
 
   customElements.whenDefined('model-viewer').then(() => {
     const ModelViewer = customElements.get('model-viewer');
@@ -455,6 +433,9 @@
       renderedOrbit = Number.NaN;
       lastAppliedOrbit = Number.NaN;
       viewer.classList.add('is-loaded');
+      viewer.classList.remove('has-error');
+      story.classList.remove('model-unavailable');
+      updateGeometry();
       if (status) status.textContent = '3D robot ready';
       schedule();
     };
@@ -463,13 +444,15 @@
     model.addEventListener('error', () => {
       window.clearTimeout(loaderTimeout);
       dismissLoader();
-      viewer.classList.add('has-error');
-      if (status) status.textContent = '3D robot unavailable';
+      modelUnavailable();
     });
 
     if (model.loaded) finishModelLoad();
     model.removeAttribute('camera-controls');
     model.setAttribute('tabindex', '-1');
+  });
+
+  // The page must scroll and reveal content even when WebGL or the model module fails.
     updateGeometry();
 
     const observer = new IntersectionObserver((entries) => {
@@ -477,31 +460,31 @@
         if (entry.target === story) storyVisible = entry.isIntersecting;
         if (entry.target === closing) closingVisible = entry.isIntersecting;
         if (entry.target === joinWorktable) joinVisible = entry.isIntersecting;
-        if (entry.target === sponsorRibbon) sponsorVisible = entry.isIntersecting;
       });
-      if (storyVisible || closingVisible) schedule();
+      if (storyVisible || closingVisible || joinVisible) schedule();
     }, { rootMargin: '75% 0px' });
 
     observer.observe(story);
     if (closing) observer.observe(closing);
     if (joinWorktable) observer.observe(joinWorktable);
-    if (sponsorRibbon) observer.observe(sponsorRibbon);
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', () => {
+      lastAppliedOrbit = Number.NaN;
       updateGeometry();
       schedule();
     }, { passive: true });
-    stage.addEventListener('pointermove', updateLight, { passive: true });
+    document.addEventListener('visibilitychange', schedule);
     reduceMotion.addEventListener('change', () => {
       reducedStateApplied = false;
       updateGeometry();
       schedule();
     });
     mobileLayout.addEventListener('change', () => {
+      const ModelViewer = customElements.get('model-viewer');
       if (ModelViewer) ModelViewer.minimumRenderScale = mobileLayout.matches ? 0.34 : 0.5;
+      lastAppliedOrbit = Number.NaN;
       updateGeometry();
       schedule();
     });
     schedule();
-  });
 })();

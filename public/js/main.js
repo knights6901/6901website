@@ -12,17 +12,19 @@
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
     toggle?.setAttribute('aria-label', `Use ${nextTheme} mode`);
     toggle?.setAttribute('title', `Use ${nextTheme} mode`);
-    themeColor?.setAttribute('content', theme === 'light' ? '#f3eff5' : '#110d16');
+    themeColor?.setAttribute('content', theme === 'light' ? '#eeedf1' : '#0b0b0e');
   }
 
   applyTheme(root.dataset.theme || (systemTheme.matches ? 'light' : 'dark'));
   toggle?.addEventListener('click', () => {
     const theme = root.dataset.theme === 'light' ? 'dark' : 'light';
-    localStorage.setItem('knightfall-theme', theme);
+    try { localStorage.setItem('knightfall-theme', theme); } catch { /* Theme still works for this visit. */ }
     applyTheme(theme);
   });
   systemTheme.addEventListener('change', (event) => {
-    if (!localStorage.getItem('knightfall-theme')) applyTheme(event.matches ? 'light' : 'dark');
+    try {
+      if (!localStorage.getItem('knightfall-theme')) applyTheme(event.matches ? 'light' : 'dark');
+    } catch { applyTheme(event.matches ? 'light' : 'dark'); }
   });
 })();
 
@@ -82,9 +84,9 @@
     }
 
     if (event.key !== 'Tab') return;
-    const links = Array.from(menu.querySelectorAll('a'));
-    const first = links[0];
-    const last = links[links.length - 1];
+    const controls = [button, ...menu.querySelectorAll('a')];
+    const first = controls[0];
+    const last = controls[controls.length - 1];
     if (event.shiftKey && document.activeElement === first) {
       event.preventDefault();
       last?.focus();
@@ -117,6 +119,7 @@
     });
   }, { threshold: 0.1 });
 
+  document.documentElement.classList.add('motion-ready');
   elements.forEach((element) => observer.observe(element));
 })();
 

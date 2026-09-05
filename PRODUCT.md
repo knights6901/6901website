@@ -27,8 +27,8 @@ Visitors often arrive before or during competition events, while evaluating an e
 - Preserve the existing Astro project and its working routes.
 - Preserve factual team history, sponsor information, outreach descriptions, sponsorship packages, and contact workflow unless the user explicitly revises them.
 - The homepage should lead with the robot, then recruitment, then sponsorship.
-- The design must be dark mode and responsive.
-- The supplied Lancelot GLB is integrated as a scroll-driven 360-degree robot experience, with a real robot photograph as its loading and no-WebGL fallback.
+- The design must be responsive with dark and light themes.
+- The supplied Lancelot GLB is a scroll-only 360-degree robot experience. Loading and failure states must remain useful without substituting a photograph for the model.
 
 ## Brand Commitments
 
@@ -36,7 +36,7 @@ Visitors often arrive before or during competition events, while evaluating an e
 - Location: Frisco, Texas.
 - Established purple and black team identity. Red must not be used.
 - Existing KnightFall logos and real team photography are authoritative brand assets.
-- The existing site should remain visually recognizable. Motorsport and engineering-lab cues support the original design rather than replacing it.
+- The user authorized a substantial original redesign: cinematic robotics and an engineering art-portfolio feel. Preserve the team identity and real content, not the previous layout.
 
 ## Evidence on Hand
 

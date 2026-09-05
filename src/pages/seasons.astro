@@ -76,7 +76,7 @@ const seasons = [
   keywords="FRC, 6901 Knights, Seasons, History, Robotics"
   currentPage="seasons"
 >
-  <link slot="head" rel="stylesheet" href="/css/seasons.css?v=5">
+  <link slot="head" rel="stylesheet" href="/css/seasons.css?v=6">
 
   <div class="seasons-page">
     <!-- PAGE HERO -->
@@ -84,7 +84,7 @@ const seasons = [
       <img class="seasons-hero-photo" src="/images/photo_gallery/2026teampic.avif" alt="">
       <div class="seasons-hero-inner">
         <div class="seasons-eyebrow">FRC Team 6901</div>
-        <h1 class="seasons-title">All<br><em>Seasons</em></h1>
+        <h1 class="seasons-title">Built<br><em>Over Time.</em></h1>
         <p class="seasons-desc">From our founding in 2018 to the present day, explore the complete history of KnightFall.</p>
       </div>
     </div>
@@ -107,10 +107,6 @@ const seasons = [
               <span class="season-toggle" aria-hidden="true"></span>
             </summary>
             <div class="season-detail">
-              <div class="season-detail-heading">
-                <span class="iconify season-icon" data-icon={season.icon} aria-hidden="true"></span>
-                <h2>{season.title}</h2>
-              </div>
               {season.achievement && <p class="season-achievement">{season.achievement}</p>}
               <p class="season-description">{season.description}</p>
               {season.featureImage && <img class="season-feature-photo" src={season.featureImage} alt={season.featureImageAlt} loading="lazy" decoding="async">}
@@ -121,7 +117,7 @@ const seasons = [
 
         <div class="seasons-return reveal">
           <a href="/team#seasons" class="btn btn-ghost">
-            <i class="fa-solid fa-arrow-left"></i> Back to Team Info
+            <span aria-hidden="true">←</span> Back to Team Info
           </a>
         </div>
       </div>

@@ -12,15 +12,11 @@ const sponsors = [
 
 <BaseLayout
   title="KnightFall FRC 6901 | Student-Built Robotics"
-  description="Meet KnightFall FRC Team 6901, explore our student-built competition robot, and learn how to join or support the team in Frisco, Texas."
+  description="Meet KnightFall FRC Team 6901, a student-built robotics team, and learn how to join or support the team in Frisco, Texas."
   keywords="FRC, 6901 KnightFall, robotics, STEM, Frisco Texas, student robotics"
   currentPage="home"
 >
-  <link slot="head" rel="stylesheet" href="/css/index.css?v=67">
-  <script is:inline slot="head">
-    self.ModelViewerElement = self.ModelViewerElement || {};
-    self.ModelViewerElement.dracoDecoderLocation = '/draco/';
-  </script>
+  <link slot="head" rel="stylesheet" href="/css/index.css?v=68">
 
   <div class="site-loader" id="site-loader" role="status" aria-live="polite" aria-label="Loading KnightFall">
     <div class="loader-signature">
@@ -42,82 +38,26 @@ const sponsors = [
       </div>
       <div class="loader-type">
         <p class="loader-wordmark" aria-hidden="true"><span class="loader-knight">Knight</span><span class="loader-fall">Fall</span></p>
-        <p class="loader-status">Bringing Lancelot online</p>
+        <p class="loader-status">FRC Team 6901</p>
       </div>
     </div>
   </div>
 
-  <!-- Direction: a cinematic engineering portfolio. The robot is the exhibit,
-       oversized type sets the scale, real photographs make the story human. -->
+  <!-- Direction: a cinematic engineering portfolio. Oversized type sets the scale,
+       real photographs make the story human. -->
   <main>
-    <section class="robot-story" id="robot" aria-labelledby="home-title">
-      <div class="robot-stage" data-phase="hero" data-focus="full">
-        <div class="stage-measure" aria-hidden="true"><span>LANCELOT / STUDENT ENGINEERING</span><span>FRC 6901</span></div>
-        <div class="robot-number" aria-hidden="true">6901</div>
-
-        <div class="hero-copy" id="hero-copy">
-          <div class="hero-topline"><p>FRC 6901 · Frisco, Texas</p></div>
-          <p class="hero-brand">KnightFall</p>
-          <div class="hero-intro">
-            <h1 id="home-title">Built by students.<br><span class="hero-accent">Ready for the field.</span></h1>
-            <p class="hero-summary">A high school robotics team developing creative thinkers, problem-solvers, and future leaders through STEM.</p>
-            <div class="hero-actions">
-              <a href="/team" class="btn btn-primary">Meet KnightFall <ArrowIcon /></a>
-              <a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" class="hero-social">Instagram <ArrowIcon /></a>
-            </div>
+    <section class="home-hero" aria-labelledby="home-title">
+      <div class="hero-copy" id="hero-copy">
+        <div class="hero-topline"><p>FRC 6901 · Frisco, Texas</p></div>
+        <p class="hero-brand">KnightFall</p>
+        <div class="hero-intro">
+          <h1 id="home-title">Built by students.<br><span class="hero-accent">Ready for the field.</span></h1>
+          <p class="hero-summary">A high school robotics team developing creative thinkers, problem-solvers, and future leaders through STEM.</p>
+          <div class="hero-actions">
+            <a href="/team" class="btn btn-primary">Meet KnightFall <ArrowIcon /></a>
+            <a href="https://www.instagram.com/frc6901/" target="_blank" rel="noopener" class="hero-social">Instagram <ArrowIcon /></a>
           </div>
-          <p class="hero-object-label"><span>Our robot, in detail</span><strong>Lancelot</strong></p>
-          <a class="skip-robot" href="#join">Skip the robot story</a>
         </div>
-
-        <div class="robot-viewer-wrap">
-          <div class="robot-plinth" aria-hidden="true"></div>
-          <model-viewer
-            id="lancelot-model"
-            src="/models/lancelot-display-fast.glb?v=1"
-            alt="A 3D model of Lancelot, KnightFall FRC Team 6901's competition robot"
-            camera-orbit="115deg 69deg 80%"
-            camera-target="auto auto auto"
-            orientation="0deg -90deg 0deg"
-            field-of-view="30deg"
-            environment-image="neutral"
-            shadow-intensity="0.52"
-            shadow-softness="0.9"
-            exposure="1.1"
-            tone-mapping="neutral"
-            interaction-prompt="none"
-            loading="eager"
-            reveal="auto"
-            disable-zoom
-            disable-pan
-            tabindex="-1"
-          ></model-viewer>
-          <p class="model-status" id="model-status" aria-live="polite">Bringing Lancelot into view…</p>
-        </div>
-        <aside class="robot-callouts" aria-label="Lancelot robot inspection">
-          <article class="robot-callout is-active" data-robot-callout data-robot-group="Full">
-            <p class="robot-callout-label"><span>00</span> Meet Lancelot / 360 view</p>
-            <p>One robot, built together. A full look around Lancelot before we get into the assemblies.</p>
-          </article>
-          <article class="robot-callout" data-robot-callout data-robot-group="Intake">
-            <p class="robot-callout-label"><span>01</span> Intake</p>
-            <p>Paired rollers, pulleys, and belt runs form the assembly at the robot's entry.</p>
-          </article>
-          <article class="robot-callout" data-robot-callout data-robot-group="Indexer">
-            <p class="robot-callout-label"><span>02</span> Indexer</p>
-            <p>A compact belt-and-shaft path sits between the intake and the upper roller bank.</p>
-          </article>
-          <article class="robot-callout" data-robot-callout data-robot-group="Shooter">
-            <p class="robot-callout-label"><span>03</span> Shooter</p>
-            <p>A closer look at the large roller bank and belt-driven shafts in the shooter assembly.</p>
-          </article>
-          <article class="robot-callout" data-robot-callout data-robot-group="Chassis">
-            <p class="robot-callout-label"><span>04</span> Chassis</p>
-            <p>Four Thrifty Swerve modules sit inside the aluminum frame.</p>
-          </article>
-        </aside>
-        <div class="robot-finish" aria-hidden="true"><span>Every part. One team.</span><strong>Lancelot.</strong></div>
-        <div class="robot-progress" aria-hidden="true"><span id="robot-progress-bar"></span></div>
       </div>
     </section>
 
@@ -206,8 +146,5 @@ const sponsors = [
       </div>
     </section>
   </main>
-  <script>
-    import '@google/model-viewer';
-  </script>
-  <script is:inline slot="scripts" src="/js/index.js?v=66"></script>
+  <script is:inline slot="scripts" src="/js/index.js?v=67"></script>
 </BaseLayout>

@@ -22,14 +22,12 @@ const assert = require('node:assert/strict');
       documentWidth: document.documentElement.scrollWidth,
       brokenImages: [...document.images].filter(i => i.complete && !i.naturalWidth).map(i => i.currentSrc),
       heading: document.querySelector('h1')?.innerText,
-      modelLoaded: document.querySelector('model-viewer')?.loaded,
-      modelFocus: document.querySelector('.robot-stage')?.dataset.focus,
       theme: document.documentElement.dataset.theme,
     }))));
   }
   await page.goto(base, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
-  await page.waitForFunction(() => document.querySelector('model-viewer')?.loaded, null, { timeout: 25000 });
+  await page.waitForFunction(() => document.querySelector('.site-loader').classList.contains('is-ready'));
   await page.waitForTimeout(800);
   await inspect('home-desktop');
   await shot('home-desktop');
@@ -70,14 +68,6 @@ const assert = require('node:assert/strict');
   await popup.waitForLoadState('domcontentloaded');
   assert.ok(popup.url().startsWith('https://www.instagram.com/frc6901/'));
   await popup.close();
-  for (const [name, progress] of [['overview', .24], ['intake', .43], ['finish', 1]]) {
-    await page.evaluate(p => {
-      const story = document.querySelector('.robot-story');
-      scrollTo({ top: (story.offsetHeight - document.querySelector('.robot-stage').offsetHeight) * p, behavior: 'instant' });
-    }, progress);
-    await page.waitForTimeout(1100);
-    await shot(name);
-  }
   for (const [name, selector] of [['join', '#join'], ['field', '.proof-moment'], ['sponsors', '#sponsors'], ['closing', '.closing-photo']]) {
     await page.locator(selector).scrollIntoViewIfNeeded();
     await page.waitForTimeout(850);
@@ -160,14 +150,6 @@ const assert = require('node:assert/strict');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto(base, { waitUntil: 'networkidle' });
   await shot('reduced-mobile');
-  assert.equal(await page.evaluate(() => document.querySelector('.robot-story').offsetHeight <= 900), true);
-  const failurePage = await browser.newPage({ viewport: { width: 390, height: 844 } });
-  await failurePage.route('**/models/**', route => route.abort());
-  await failurePage.goto(base, { waitUntil: 'networkidle' });
-  await failurePage.waitForSelector('.model-unavailable', { timeout: 20000 });
-  assert.equal(await failurePage.evaluate(() => document.querySelector('.robot-story').offsetHeight <= 900), true, 'Failure state must collapse the scroll exhibit');
-  await failurePage.screenshot({ path: path.join(output, 'failed-model-mobile.png') });
-  await failurePage.close();
   assert.deepEqual(failures, [], 'No runtime errors across routes');
   console.log('errors', failures);
   console.log('screenshots', output);

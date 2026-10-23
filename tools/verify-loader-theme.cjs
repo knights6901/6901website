@@ -36,11 +36,10 @@ const assert = require('node:assert/strict');
     const page = await context.newPage();
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
-    await page.route('**/*.glb*', route => route.abort());
     await page.goto(base, { waitUntil: 'networkidle' });
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'light', 'Invalid saved values fall back to system');
     await page.waitForFunction(() => document.querySelector('.site-loader').classList.contains('is-ready'));
-    assert.equal(await page.locator('.site-loader').evaluate(e => getComputedStyle(e).pointerEvents), 'none', 'Loader cannot block the site on model failure');
+    assert.equal(await page.locator('.site-loader').evaluate(e => getComputedStyle(e).pointerEvents), 'none', 'Loader cannot block the site');
     await page.addStyleTag({ content: '.site-loader { display:grid!important; opacity:1!important; visibility:visible!important; animation:none!important; transition:none!important; } .loader-mark { width:144px!important; }' });
     const ink = page.locator('.loader-ink');
     const frame = async time => {

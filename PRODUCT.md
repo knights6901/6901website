@@ -8,7 +8,7 @@ web
 
 ## Users
 
-The site serves prospective student members, families, sponsors, mentors, competition visitors, and the wider FRC community. The homepage priority is the robot first, student recruitment second, and sponsorship third.
+The site serves prospective student members, families, sponsors, mentors, competition visitors, and the wider FRC community. The homepage priority is the team introduction first, student recruitment second, and sponsorship third.
 
 ## Product Purpose
 
@@ -26,9 +26,9 @@ Visitors often arrive before or during competition events, while evaluating an e
 
 - Preserve the existing Astro project and its working routes.
 - Preserve factual team history, sponsor information, outreach descriptions, sponsorship packages, and contact workflow unless the user explicitly revises them.
-- The homepage should lead with the robot, then recruitment, then sponsorship.
+- The homepage should lead with the team introduction, then recruitment, then sponsorship. The robot appears through real competition photography.
 - The design must be responsive with dark and light themes.
-- The supplied Lancelot GLB is a scroll-only 360-degree robot experience. Loading and failure states must remain useful without substituting a photograph for the model.
+- The site shows no 3D robot model. The Lancelot CAD was taken off the homepage on 2026-10-23 at the user's request; its files stay in the repo unused. Do not reintroduce it unless asked.
 
 ## Brand Commitments
 
@@ -44,9 +44,9 @@ Visitors often arrive before or during competition events, while evaluating an e
 - KnightFall logos in `public/images/6901_logos/`.
 - Current sponsor logos in `public/images/partner_logos/`.
 - Outreach photography in `public/images/outreach_gallery/`.
+- Web-optimized Lancelot model at `public/models/lancelot.glb` (2.27 MB), reduced from the untouched 35.61 MB source. Kept in the repo but not shown on the site.
 - Season records from 2018 through 2026 in `src/pages/seasons.astro`.
 - Current sponsor, outreach, package, and team copy in `src/pages/team.astro`.
-- Web-optimized Lancelot model at `public/models/lancelot.glb` (2.27 MB), reduced from the untouched 35.61 MB source.
 
 ## Product Principles
 
@@ -58,4 +58,4 @@ Visitors often arrive before or during competition events, while evaluating an e
 
 ## Accessibility & Inclusion
 
-The redesigned site should preserve semantic navigation, keyboard access, useful alternative text, high contrast, reduced-motion support, and a usable no-WebGL fallback for the robot experience.
+The redesigned site should preserve semantic navigation, keyboard access, useful alternative text, high contrast, and reduced-motion support.
